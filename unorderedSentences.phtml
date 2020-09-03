@@ -1,0 +1,36 @@
+<?php
+require('./Controllers/unorderedSentencesController.php');
+
+require ('connect.php');
+
+include('index.phtml');
+?>
+
+<h2>Examen</h2>
+
+<div class="rule">
+    <p>Remettez les phrases dans l'ordre</p>
+</div>
+
+<section class="wrapper">
+    <div class="exercise">
+        <form action="sendAnswer.php" class="exercise_question" method="post" />
+            <?php foreach ($unorderedSentences as $index => $sentences) : ?>
+                <div class="exercise_question">
+                    <?php foreach ($sentences as $word) : ?>
+                        <div class="word gameButton"><?= $word ?></div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="exercise_box">
+
+                    <label for="anwser">Votre réponse : </label>
+                    <input type="text" name="<?= $index ?>" id="answer">
+
+
+                </div>
+
+            <?php endforeach; ?>
+            <input type="submit" value="Valider">
+        </form>
+    </div>
+</section>
