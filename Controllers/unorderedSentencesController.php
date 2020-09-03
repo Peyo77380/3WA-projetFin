@@ -5,14 +5,20 @@ require ('connect.php');
 $sentences = ['Luca mangia la mela',
     'Il gatto sale le scale',
     'Gli studenti sono bravi',
-    'Maria ha molte amiche'
+    'Maria ha molte amiche',
+    'La bottiglia è sul tavolo',
+    'I bambini e gli studenti giocano insieme',
+    'L\'hotel si trova vicino al bar',
+    'Il computer è acceso ma la luce è spenta',
+    'La mia città è molto grande e ha molti monumenti famosi',
+    'Voglio chiamare Marta e parlare con lei ma non so se mi può rispondere',
+
 ];
 
 
 
 
 function sentenceCutter ($a){
-    $cutSentences = [];
     $sentence = explode(" ", $a);
 
     $cutSentences = $sentence;
@@ -20,8 +26,6 @@ function sentenceCutter ($a){
 }
 
 function sentenceRandomizer ($a) {
-
-    $unorderedSentences = [];
 
     shuffle($a);
     $unorderedSentences = $a;
@@ -52,14 +56,26 @@ function correctUnorderedSentences () {
         $userAnswers[] = $answer;
     }
 
+
     foreach ($userAnswers as $key=>$value) {
+
         if ($value == $correctAnswers[$key]) {
             $note ++;
-            echo "ok";
+            $rating = 'Correct';
         } else {
-            echo "pas bon";
+            $rating = 'Faux';
         }
-    }
 
-    echo $note . " / " . count($correctAnswers);
+        $individualCheck =
+            ['correctAnswer' => implode(" ", $correctAnswers[$key]),
+            'userAnswer' => implode(" ", $value),
+            'rating' => $rating
+            ];
+
+        $result['correction'][$key] = $individualCheck;
+
+    }
+    $result['note'] = $note . " / " . count($correctAnswers);
+    return $result;
+
 }
