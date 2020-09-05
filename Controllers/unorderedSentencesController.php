@@ -11,7 +11,7 @@ $sentences = ['Luca mangia la mela',
     'L\'hotel si trova vicino al bar',
     'Il computer è acceso ma la luce è spenta',
     'La mia città è molto grande e ha molti monumenti famosi',
-    'Voglio chiamare Marta e parlare con lei ma non so se mi può rispondere',
+    'Voglio chiamare Marta e parlare con lei ma non so se mi può rispondere'
 
 ];
 
