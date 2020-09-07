@@ -22,8 +22,10 @@ function updateOnClick () {
 
 	if (this.classList.contains('selected')) {
 		deleteOnClick(this);
+		deleteTrailingSpaces(this);
 	} else {
 		writeOnClick(this);
+		deleteTrailingSpaces(this);
 	}
 }
 
@@ -35,7 +37,11 @@ function writeOnClick (element) {
 	let relatedContainer = element.parentElement.parentElement;
 	let relatedInput = relatedContainer.querySelector('.answer');
 
-	relatedInput.value += text + " ";
+	if (relatedInput.value != "") {
+		relatedInput.value += " ";
+	}
+
+	relatedInput.value += text;
 
 	element.classList.add('selected');
 
@@ -46,7 +52,7 @@ function deleteOnClick (element) {
 	let relatedContainer = element.parentElement.parentElement;
 	let relatedInput = relatedContainer.querySelector('.answer');
 
-	console.log(relatedInput.value.replace(text, ""));
+	relatedInput.value = relatedInput.value.replace(text, "");
 
 	element.classList.remove('selected');
 
@@ -69,4 +75,19 @@ function hightlightUsedWord () {
 
 	}
 
+}
+
+function deleteTrailingSpaces (element) {
+
+	let relatedContainer = element.parentElement.parentElement;
+	let relatedInput = relatedContainer.querySelector('.answer');
+
+	let answer = relatedInput.value;
+	console.log(answer);
+	answer = answer.split('  ');
+	console.log(answer);
+	answer = answer.join(' ');
+	console.log(answer);
+
+	relatedInput.value = answer;
 }
