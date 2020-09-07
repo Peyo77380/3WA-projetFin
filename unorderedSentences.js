@@ -2,92 +2,110 @@
 
 function init () {
 
-	let buttons = document.querySelectorAll('.gameButton');
+	let exercise = new UnorderedSentencesExam();
 
-	for (let button of buttons) {
-		button.addEventListener('click', updateOnClick);
-	}
-
-	let answerFields = document.querySelectorAll('.answer');
-
-	for (let answerField of answerFields) {
-		answerField.addEventListener('keyup', hightlightUsedWord);
-	}
 }
 
 document.addEventListener('DOMContentLoaded', init);
 
+class UnorderedSentencesExam {
+	constructor () {
+		this.buttons = document.querySelectorAll('.gameButton');
 
-function updateOnClick () {
+		this.answerFields = document.querySelectorAll('.answer');
 
-	if (this.classList.contains('selected')) {
-		deleteOnClick(this);
-		deleteTrailingSpaces(this);
-	} else {
-		writeOnClick(this);
-		deleteTrailingSpaces(this);
-	}
-}
+		for (let button of this.buttons) {
+			button.addEventListener('click', this.updateOnClick.bind(this));
+		}
 
-
-// au clic : le mot est ajouté dans la réponse
-function writeOnClick (element) {
-
-	let text = element.innerHTML;
-	let relatedContainer = element.parentElement.parentElement;
-	let relatedInput = relatedContainer.querySelector('.answer');
-
-	if (relatedInput.value != "") {
-		relatedInput.value += " ";
+		for (let answerField of this.answerFields) {
+			answerField.addEventListener('keyup', this.updateOnKey.bind(this));
+		}
 	}
 
-	relatedInput.value += text;
 
-	element.classList.add('selected');
+	updateOnKey (el){
+		let text = el.target.innerHTML;
+		let relatedContainer = el.target.parentElement.parentElement;
+		let relatedInput = relatedContainer.querySelector('.answer');
 
-}
-function deleteOnClick (element) {
+		this.hightlightUsedWord(el);
+		this.deleteTrailingSpaces(el, relatedInput)
+	}
 
-	let text = element.innerHTML;
-	let relatedContainer = element.parentElement.parentElement;
-	let relatedInput = relatedContainer.querySelector('.answer');
-
-	relatedInput.value = relatedInput.value.replace(text, "");
-
-	element.classList.remove('selected');
-
-
-}
+	updateOnClick (el) {
+		console.log(el.target);
+		let text = el.target.innerHTML;
+		let relatedContainer = el.target.parentElement.parentElement;
+		let relatedInput = relatedContainer.querySelector('.answer');
 
 
-// à l'écriture d'un mot dans l'input, le bouton correspondant change de couleur
-function hightlightUsedWord () {
-
-	let answer = this.value;
-	let wordList = this.parentElement.querySelectorAll('.gameButton');
-
-	for (let word of wordList) {
-		if (answer.includes(word.innerHTML)) {
-			word.classList.add('selected');
+		if (el.target.classList.contains('selected')) {
+			this.deleteOnClick(el.target, relatedInput, text);
+			this.deleteTrailingSpaces(el.target, relatedInput);
 		} else {
-			word.classList.remove('selected');
+			this.writeOnClick(el.target, relatedInput, text);
+			this.deleteTrailingSpaces(el.target, relatedInput);
+
+		}
+	}
+
+
+	// au clic : le mot est ajouté dans la réponse
+	writeOnClick (element, relatedInput, text) {
+
+		if (relatedInput.value != "") {
+			relatedInput.value += " ";
+		}
+
+		relatedInput.value += text;
+
+		element.classList.add('selected');
+
+	}
+	deleteOnClick (element, relatedInput, text) {
+		let words = relatedInput.value.split(" ");
+		// relatedInput.value = relatedInput.value.replace(text, "");}
+
+		for (let i = 0; i < words.length; i++) {
+			if (words[i] === text) {
+				words.splice(i, 1)
+			}
+		}
+		console.log(words);
+
+		relatedInput.value = words.join(" ");
+		element.classList.remove('selected');
+
+
+	}
+
+
+	// à l'écriture d'un mot dans l'input, le bouton correspondant change de couleur
+	hightlightUsedWord (el) {
+
+		let answer = el.target.value;
+		let wordList = el.target.parentElement.querySelectorAll('.gameButton');
+		let words = answer.split(" ");
+
+		for (let word of wordList) {
+			if (words.includes(word.innerHTML)) {
+				word.classList.add('selected');
+			} else {
+				word.classList.remove('selected');
+			}
+
 		}
 
 	}
 
-}
+	deleteTrailingSpaces (element, relatedInput) {
 
-function deleteTrailingSpaces (element) {
+		let answer = relatedInput.value;
+		answer = answer.split('  ');
 
-	let relatedContainer = element.parentElement.parentElement;
-	let relatedInput = relatedContainer.querySelector('.answer');
+		answer = answer.join(' ');
 
-	let answer = relatedInput.value;
-	console.log(answer);
-	answer = answer.split('  ');
-	console.log(answer);
-	answer = answer.join(' ');
-	console.log(answer);
-
-	relatedInput.value = answer;
+		relatedInput.value = answer;
+	}
 }
