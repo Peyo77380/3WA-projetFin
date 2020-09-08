@@ -30,8 +30,8 @@ class UnorderedSentencesExam {
 		let text = el.target.innerHTML;
 		let relatedContainer = el.target.parentElement.parentElement;
 		let relatedInput = relatedContainer.querySelector('.answer');
-
-		this.hightlightUsedWord(el);
+		this.resetHighlights(el);
+		this.highlightUsedWord(el);
 		this.deleteTrailingSpaces(el, relatedInput)
 	}
 
@@ -77,8 +77,19 @@ class UnorderedSentencesExam {
 		element.classList.remove('selected');
 	}
 
+	resetHighlights(el) {
+		let buttonsList = el.target.parentElement.querySelectorAll('.gameButton');
+		for (let button of buttonsList ) {
+			if (button.classList.contains('selected')) {
+					console.log(button + 'bla');
+					button.classList.remove('selected');
+			}
+		}
+	}
+
 	// à l'écriture d'un mot dans l'input, le bouton correspondant change de couleur
-	hightlightUsedWord (el) {
+	highlightUsedWord (el) {
+
 
 		let answer = el.target.value;
 		let buttonsList = el.target.parentElement.querySelectorAll('.gameButton');
@@ -90,49 +101,59 @@ class UnorderedSentencesExam {
 			buttonsWords.push(button.innerHTML);
 		}
 
+		let dictionnary = this.checkForRepetition(buttonsWords);
+		let answerRepeat = this.checkForRepetition(answerWords);
 
-		let indexedButtonsWords = this.checkForRepetition(buttonsWords);
+		for (let i = 0; i < dictionnary.length; i++) {
+			for (let j = 0; j < answerRepeat.length; j++) {
+				if(dictionnary[i].name == answerRepeat[j].name) {
 
+					for (let k = 0; k < answerRepeat[j].index.length; k++) {
+						let classes = buttonsList[dictionnary[i].index[k]].classList;
+						if (!classes.contains('selected')) {
+							classes.add('selected');
 
+						}
+					}
+				}
+			}
+		}
 
-
-
-		console.log(indexedButtonsWords);
-
-		// 		word.classList.add('selected');
-		// 	} else {
-		// 		word.classList.remove('selected');
-		// 	}
-		// }
 	}
 
 	checkForRepetition (array) {
-		console.log(array);
-		let rec = [];
+		let possibilities = [];
 
-		let iteration = {
-					word : array[0],
-					index : [0],
-				}
-		rec.push(iteration);
+		possibilities.push(this.createNewWord ( array, 0 ));
 
-		// for (let i = 1; i < array.length; i ++) {
-		// 	for (let word of rec){
-		// 		if (array[i] === word.name) {
-		// 			word.index.push(i);
-		// 		} else {
-		// 			iteration = {
-		// 				word : array[i],
-		// 				index : [i],
-		// 			}
+		for (let i = 1; i < array.length; i++) {
 
-		// 			rec.push(iteration);
-		// 		}
-		// 	}
-		// }
+			let existingWord = possibilities.find(element => element.name == array[i])
 
-		// console.log(rec);
+			if (!existingWord) {
+				possibilities.push(this.createNewWord ( array, i ));
+			} else {
+
+				let existingWordIndex = possibilities.indexOf(existingWord);
+				possibilities[existingWordIndex].index.push(i);
+
+			}
+		}
+
+		return possibilities;
+
 	}
+
+
+	createNewWord (array, index) {
+		let word = {
+			name : array[index],
+			index : [index],
+		}
+
+		return word;
+	}
+
 
 	// evite les doubles espaces
 	deleteTrailingSpaces (element, relatedInput) {
