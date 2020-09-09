@@ -81,7 +81,6 @@ class UnorderedSentencesExam {
 		let buttonsList = el.target.parentElement.querySelectorAll('.gameButton');
 		for (let button of buttonsList ) {
 			if (button.classList.contains('selected')) {
-					console.log(button + 'bla');
 					button.classList.remove('selected');
 			}
 		}
