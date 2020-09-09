@@ -1,81 +1,107 @@
 <?php
 require ('connect.php');
-
-
-$sentences = ['Luca mangia la mela',
-    'Il gatto sale le scale',
-    'Gli studenti sono bravi',
-    'Maria ha molte amiche',
-    'La bottiglia è sul tavolo',
-    'I bambini e gli studenti giocano insieme',
-    'L\'hotel si trova vicino al bar',
-    'Il computer è acceso ma la luce è spenta',
-    'La mia città è molto grande e ha molti monumenti famosi',
-    'Voglio chiamare Marta e parlare con lei ma non so se mi può rispondere'
-
-];
+require ('./models/unorderedSentencesModel.php');
 
 
 
 
-function sentenceCutter ($a){
-    $sentence = explode(" ", $a);
+$exercise = new unorderedSentencesController();
 
-    $cutSentences = $sentence;
-    return $cutSentences;
-}
+$cutSentences = $exercise->sentenceCutter();
 
-function sentenceRandomizer ($a) {
+$unorderedSentences = $exercise->sentenceRandomizer();
 
-    shuffle($a);
-    $unorderedSentences = $a;
-
-    return $unorderedSentences;
-}
-$_SESSION['exercises']['unorderedSentences']['correct'] = [];
-
-foreach($sentences as $sentence) {
-    $_SESSION['exercises']['unorderedSentences']['correct'][] = sentenceCutter($sentence);
-}
+$_SESSION['exercises']['unorderedSentences']['correct'] = $cutSentences;
 
 
-foreach($_SESSION['exercises']['unorderedSentences']['correct'] as $sentence){
-    $unorderedSentences[] = sentenceRandomizer ($sentence);
-}
+
+class unorderedSentencesController
+{
+    public $sentences;
+    public $cutSentences;
+    public $unorderedSentences;
+
+    public function __construct () {
+        $sentences = new UnorderedSentencesModel();
+        $sentences->setQuery();
+        $sentences->setParams(5);
+        $pdoResult = $sentences->getSentences();
 
 
-function correctUnorderedSentences () {
-    $post = $_POST;
-    $correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
-    $userAnswers = [];
-    $note = 0;
+        $this->sentences = $pdoResult;
 
-    foreach ($post as $answer) {
 
-        $answer = explode(" ", $answer);
-        $userAnswers[] = $answer;
+
     }
 
+    public function sentenceCutter () {
+        foreach($this->sentences as $ex) {
+            $sentence = explode(" ", $ex['sentence']);
 
-    foreach ($userAnswers as $key=>$value) {
-
-        if ($value == $correctAnswers[$key]) {
-            $note ++;
-            $rating = 'Correct';
-        } else {
-            $rating = 'Faux';
+            $this->cutSentences[] = [
+                'exerciseId' => $ex['exerciseId'],
+                'sentence' => $sentence,
+            ];
         }
 
-        $individualCheck =
-            ['correctAnswer' => implode(" ", $correctAnswers[$key]),
-            'userAnswer' => implode(" ", $value),
-            'rating' => $rating
-            ];
+        return $this->cutSentences;
+    }
 
-        $result['correction'][$key] = $individualCheck;
+    public function sentenceRandomizer () {
+
+        foreach($this->cutSentences as $ex){
+            $shuffled = shuffle($ex['sentence']);
+
+            $this->unorderedSentences[] = [
+                'exerciseId' => $ex['exerciseId'],
+                'sentence' => ($ex['sentence']),
+            ];
+        }
+
+        return $this->unorderedSentences;
+    }
+
+    public function saveExercise ($a) {
 
     }
-    $result['note'] = $note . " / " . count($correctAnswers);
-    return $result;
 
+
+
+    public function correctUnorderedSentences () {
+        $post = $_POST;
+        $correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
+        $userAnswers = [];
+        $note = 0;
+
+        foreach ($post as $answer) {
+
+            $answer = explode(" ", $answer);
+            $userAnswers[] = $answer;
+        }
+
+
+        foreach ($userAnswers as $key=>$value) {
+
+            if ($value == $correctAnswers[$key]) {
+                $note ++;
+                $rating = 'Correct';
+            } else {
+                $rating = 'Faux';
+            }
+
+            $individualCheck =
+                ['correctAnswer' => implode(" ", $correctAnswers[$key]),
+                    'userAnswer' => implode(" ", $value),
+                    'rating' => $rating
+                ];
+
+            $result['correction'][$key] = $individualCheck;
+
+        }
+        $result['note'] = $note . " / " . count($correctAnswers);
+        return $result;
+
+    }
 }
+
+

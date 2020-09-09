@@ -17,9 +17,12 @@ include('index.phtml');
         <form action="sendAnswer.php" class="exercise_question" method="post" />
 
             <?php foreach ($unorderedSentences as $index => $sentences) : ?>
+
                 <fieldset>
+
                     <div class="exercise_question">
-                        <?php foreach ($sentences as $word) : ?>
+                        <?php foreach ($sentences['sentence'] as $word) : ?>
+
                             <div class="word gameButton"><?= $word ?></div>
                         <?php endforeach; ?>
                     </div>
@@ -29,6 +32,7 @@ include('index.phtml');
 
 
                 </fieldset>
+
             <?php endforeach; ?>
             <input type="submit" value="Valider">
 

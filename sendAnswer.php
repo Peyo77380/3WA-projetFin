@@ -1,10 +1,9 @@
 <?php
 require ('connect.php');
 
-require('./Controllers/unorderedSentencesController.php');
+require('./Controllers/unorderedSentencesCorrectorController.php');
 
-
-$result = correctUnorderedSentences();
+$corrector = new unorderedSentencesCorrectorController();
 
 ?>
 
@@ -19,7 +18,7 @@ $result = correctUnorderedSentences();
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($result['correction'] as $sentence ) : ?>
+        <?php foreach ($corrector->result['correction'] as $sentence ) : ?>
 
             <tr class="<?php if ( $sentence['rating'] == 'Faux' )
                                 {
@@ -35,5 +34,5 @@ $result = correctUnorderedSentences();
 </table>
 
 <div class="note">
-    Note : <?= $result['note'] ?>
+    Note : <?= $corrector->result['note'] ?>
 </div>
