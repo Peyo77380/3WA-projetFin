@@ -1,0 +1,87 @@
+html {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #5773EE;
+}
+
+header {
+    height: 10vh;
+}
+
+.wrapper{
+    width : 80%;
+    margin: auto;
+    color: white;
+    font-weight: bold;
+}
+
+h2{
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    padding: 2rem;
+    border-radius: 0 1rem 1rem 0;
+    background: rgba(0,0,0,0.2);
+
+}
+
+.rule {
+    height: 5vh;
+}
+
+
+
+/**********************************/
+/**** unorderedSentences style ****/
+/**********************************/
+
+
+form.exercise fieldset{
+    border: none;
+    margin: 2rem;
+    min-height: 60vh;
+
+    text-align: center;
+}
+
+form.exercise .exercise_answerElements {
+    margin: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+form.exercise .word {
+    min-width: 20%;
+    margin: 1rem;
+    padding: 2rem 1rem;
+    background-color: #FFB206;
+    border-radius: 1rem;
+}
+
+.selected {
+    background-color: green!important;
+}
+
+input[type="text"] {
+    background: none;
+    border: none;
+    border-bottom: solid 1px rgba(0,0,0,0.2);
+}
+
+input[type="text"]:active{
+    border-bottom: solid 1px rgba(0,0,0,0.4);
+    outline: none;
+}
+
+input[value="Valider"]{
+    min-width: 20%;
+    margin: 1rem;
+    padding: 2rem 1rem;
+    background-color: #FFB206;
+    border-radius: 1rem;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+

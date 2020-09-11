@@ -6,38 +6,41 @@ require ('connect.php');
 include('index.phtml');
 ?>
 
-<h2>Examen</h2>
-
-<div class="rule">
-    <p>Remettez les phrases dans l'ordre</p>
-</div>
-
-<section class="wrapper">
-    <div class="exercise">
-        <form action="sendAnswer.php" class="exercise_question" method="post" />
-
-            <?php foreach ($unorderedSentences as $index => $sentences) : ?>
-
-                <fieldset>
-
-                    <div class="exercise_question">
-                        <?php foreach ($sentences['sentence'] as $word) : ?>
-
-                            <div class="word gameButton"><?= $word ?></div>
-                        <?php endforeach; ?>
-                    </div>
-
-                    <label for="anwser">Votre réponse : </label>
-                    <input type="text" class="answer" name="<?= $index ?>" id="answer_<?= $index ?>">
 
 
-                </fieldset>
 
-            <?php endforeach; ?>
+<div class="wrapper">
+    <h2>Examen</h2>
+
+    <section class="rule">
+        <p>Remettez les phrases dans l'ordre</p>
+    </section>
+
+    <form action="sendAnswer.php" class="exercise" method="post" />
+
+        <?php foreach ($unorderedSentences as $index => $sentences) : ?>
+
+            <fieldset class="exercise_question">
+
+                <div class="exercise_answerElements">
+                    <?php foreach ($sentences['sentence'] as $word) : ?>
+
+                        <div class="word gameButton"><?= $word ?></div>
+                    <?php endforeach; ?>
+                </div>
+
+                <label for="anwser">Votre réponse : </label>
+                <input type="text" class="answer" name="<?= $index ?>" id="answer_<?= $index ?>">
+
+
+            </fieldset>
+
+        <?php endforeach; ?>
+        <fieldset>
             <input type="submit" value="Valider">
+        </fieldset>
 
-        </form>
-    </div>
-</section>
+    </form>
+</div>
 
 <script type="text/javascript" src="unorderedSentences.js"></script>
