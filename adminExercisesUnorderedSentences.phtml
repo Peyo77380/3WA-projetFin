@@ -1,11 +1,12 @@
 <?php
-require('./Controllers/unorderedSentencesController.php');
+require('./Controllers/adminExercisesUnorderedSentencesController.php');
 
 require ('connect.php');
 
 include('index.phtml');
 
 include('adminPanel.php');
+
 ?>
 
 <div class="wrapper">
@@ -14,6 +15,35 @@ include('adminPanel.php');
         <li>Ajouter des phrases</li>
         <li>Catalogue de phrases</li>
     </ul>
+
+    <section>
+        <table>
+            <thead>
+                <th>N°</th>
+                <th>Phrases</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                <?php foreach($admin->sentences as $sentence) : ?>
+                    <tr>
+                        <td><?= $sentence['exerciseId'] ?></td>
+                        <td><?= $sentence['sentence'] ?></td>
+                        <td>
+                            <i class="fa fa-pencil"></i>
+                            <i class="fa fa-times"></i>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <form action="./Controllers/unorderedSentencesCorrectorController.php" method="POST">
+            <label for="newSentence">Phrase à ajouter</label>
+            <input type="text" name="newSentence" id="newSentence">
+        </form>
+    </section>
 </div>
 
 

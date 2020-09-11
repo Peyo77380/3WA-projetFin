@@ -32,8 +32,10 @@ class Database
     {
 
         $query = $this->conn->prepare($sql);
+        if($params) {
+            $query->bindParam($params['variableName'], $params['variableValue'], $params['PDOparam']);
+        }
 
-        $query->bindParam($params['variableName'], $params['variableValue'], $params['PDOparam']);
 
         $query->execute();
 
