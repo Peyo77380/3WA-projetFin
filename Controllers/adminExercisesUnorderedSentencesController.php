@@ -1,5 +1,5 @@
 <?php
-require('./models/adminExercisesUnorderedSentencesModel.php');
+require('../models/adminExercisesUnorderedSentencesModel.php');
 
 $admin = new adminExercisesUnorderedSentencesController();
 

@@ -1,9 +1,9 @@
 <?php
-require('./Controllers/adminExercisesUnorderedSentencesController.php');
+require('../Controllers/adminExercisesUnorderedSentencesController.php');
 
-require ('connect.php');
+require('../connect.php');
 
-include('index.phtml');
+include('../index.phtml');
 
 include('adminPanel.php');
 
@@ -29,8 +29,16 @@ include('adminPanel.php');
                         <td><?= $sentence['exerciseId'] ?></td>
                         <td><?= $sentence['sentence'] ?></td>
                         <td>
-                            <i class="fa fa-pencil"></i>
-                            <i class="fa fa-times"></i>
+                            <form action="../Controllers/adminUpdateExercise.php" method="post">
+                                <button ><i class="fa fa-pencil"></i></button>
+                                <input type="hidden" name ="id" value="<?= $sentence['exerciseId'] ?>">
+                                <input type="hidden" name ="exerciseName" value="unorderedSentences">
+                            </form>
+                            <form action="adminExercisesUnorderedSentences_delete.php" method="post">
+                                <button ><i class="fa fa-times"></i></button>
+                                <input type="hidden" name ="id" value="<?= $sentence['exerciseId'] ?>">
+                                <input type="hidden" name ="exerciseName" value="unorderedSentences">
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -39,7 +47,7 @@ include('adminPanel.php');
     </section>
 
     <section id="#addSentences">
-        <form action="./Controllers/adminAddExercise.php" method="POST">
+        <form action="../Controllers/adminAddExercise.php" method="POST">
             <label for="newSentence">Phrase à ajouter</label>
             <input type="text" name="newSentence" id="newSentence">
             <input type="hidden" name="exerciseName" value="unorderedSentences">

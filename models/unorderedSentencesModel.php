@@ -1,5 +1,5 @@
 <?php
-require('./params/database.php');
+require('../params/database.php');
 
 class UnorderedSentencesModel
 {

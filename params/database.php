@@ -41,41 +41,26 @@ class Database
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getOne ($sql, $params)
+    {
+
+        $query = $this->conn->prepare($sql);
+
+
+
+        $query->execute([$params]);
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
         public function saveExercise ($exerciseName, $exerciseData) {
             var_dump($exerciseName);
             var_dump($exerciseData);
 
-            /*
-            $statement = "INSERT INTO :exerciseName (`exerciseId`, `sentence`) VALUES (NULL, :exerciseValue) ";
 
-            $exerciseParam = [
-                'variableName'=> ':exerciseName',
-                'variableValue' => $exerciseName,
-                'PDOparam' => PDO::PARAM_STR,
-            ];
-
-            $valueParam = [
-                'variableName'=> ':exerciseValue',
-                'variableValue' => $exerciseData,
-                'PDOparam' => PDO::PARAM_STR,
-            ];*/
 
             try {
-                /*
-                $query = $this->conn->prepare($statement);
 
-                $query->bindParam(
-                    ':exerciseName',
-                    $exerciseName,
-                    PDO::PARAM_STR);
-                $query->bindParam(
-                    ':exerciseValue',
-                    $exerciseData,
-                    PDO::PARAM_STR);
-
-
-                $query->execute();
-                */
                 $tableName = 'unorderedSentences';
 
                 $stmt = $this->conn->prepare("INSERT INTO $tableName (`exerciseId`, `sentence`) VALUES (NULL, :exerciseValue)");
