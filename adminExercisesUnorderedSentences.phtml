@@ -12,11 +12,11 @@ include('adminPanel.php');
 <div class="wrapper">
     <h2>Gestion phrases déstructurées</h2>
     <ul>
-        <li>Ajouter des phrases</li>
-        <li>Catalogue de phrases</li>
+        <li><a href="#addSentences">Ajouter des phrases</a></li>
+        <li><a href="#existingSentences">Catalogue de phrases</a></li>
     </ul>
 
-    <section>
+    <section id="#existingSentences">
         <table>
             <thead>
                 <th>N°</th>
@@ -38,10 +38,11 @@ include('adminPanel.php');
         </table>
     </section>
 
-    <section>
-        <form action="./Controllers/unorderedSentencesCorrectorController.php" method="POST">
+    <section id="#addSentences">
+        <form action="./Controllers/adminAddExercise.php" method="POST">
             <label for="newSentence">Phrase à ajouter</label>
             <input type="text" name="newSentence" id="newSentence">
+            <input type="hidden" name="exerciseName" value="unorderedSentences">
         </form>
     </section>
 </div>
