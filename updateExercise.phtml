@@ -6,7 +6,7 @@ include('index.phtml');
 
 include('adminPanel.php');
 
-require('./Controllers/updateExercise.php');
+require('./Controllers/adminUpdateExercise.php');
 ?>
 
 <h2>Modification d'exercise</h2>
@@ -17,7 +17,7 @@ require('./Controllers/updateExercise.php');
         <div>ID : <?= $display['id'] ?></div>
     </section>
 
-    <form action="./Controllers/updateExerciseSave.php" method="post">
+    <form action="Controllers/adminUpdateExerciseSave.php" method="post">
         <label for="exerciseContent">Exercise à modifier</label>
         <input type="text" id="exerciseContent" name="exerciseContent" value="<?= $display['content'] ?>">
         <input type="hidden" name="exerciseId" value="<?= $display['id'] ?>">
