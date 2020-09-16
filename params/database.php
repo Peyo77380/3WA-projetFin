@@ -42,4 +42,16 @@ class Database
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function update ($sql, $params)
+    {
+
+        $query = $this->conn->prepare($sql);
+
+
+
+        $query->execute($params);
+
+
+    }
+
 }

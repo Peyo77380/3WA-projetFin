@@ -1,0 +1,28 @@
+<?php
+
+require ('connect.php');
+
+include('index.phtml');
+
+include('adminPanel.php');
+
+require('./Controllers/updateExercise.php');
+?>
+
+<h2>Modification d'exercise</h2>
+
+<div class="wrapper">
+    <section>
+        <div>Type d'exercice: <?= $display['name'] ?></div>
+        <div>ID : <?= $display['id'] ?></div>
+    </section>
+
+    <form action="./Controllers/updateExerciseSave.php" method="post">
+        <label for="exerciseContent">Exercise à modifier</label>
+        <input type="text" id="exerciseContent" name="exerciseContent" value="<?= $display['content'] ?>">
+        <input type="hidden" name="exerciseId" value="<?= $display['id'] ?>">
+        <input type="hidden" name="exerciseName" value="<?= $display['dbTableName'] ?>">
+
+        <input type="submit" id="submitButton" value="Enregistrer">
+    </form>
+</div>

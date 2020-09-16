@@ -12,11 +12,11 @@ include('adminPanel.php');
 <div class="wrapper">
     <h2>Gestion phrases déstructurées</h2>
     <ul>
-        <li>Ajouter des phrases</li>
-        <li>Catalogue de phrases</li>
+        <li><a href="#addExercice">Ajouter des phrases</a></li>
+        <li><a href="#exercisesList">Catalogue de phrases</a></li>
     </ul>
 
-    <section>
+    <section id="exercisesList">
         <table>
             <thead>
                 <th>N°</th>
@@ -29,8 +29,18 @@ include('adminPanel.php');
                         <td><?= $sentence['exerciseId'] ?></td>
                         <td><?= $sentence['sentence'] ?></td>
                         <td>
-                            <i class="fa fa-pencil"></i>
-                            <i class="fa fa-times"></i>
+                            <form action="./updateExercise.phtml" method="post">
+                                <button><i class="fa fa-pencil"></i></button>
+                                <input type="hidden" name="exerciseName" value="unorderedSentences">
+                                <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
+                                <input type="hidden" name="exerciseContent" value="<?= $sentence['sentence'] ?>">
+                            </form>
+                            <form action="./controllers/deleteExercise.php" method="post">
+                                <button><i class="fa fa-times"></i></button>
+                                <input type="hidden" name="exerciseName" value="unorderedSentences">
+                                <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
+                            </form>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -38,10 +48,13 @@ include('adminPanel.php');
         </table>
     </section>
 
-    <section>
-        <form action="./Controllers/unorderedSentencesCorrectorController.php" method="POST">
+    <section id="addExercice">
+        <form action="./Controllers/addExercise.php" method="post">
             <label for="newSentence">Phrase à ajouter</label>
             <input type="text" name="newSentence" id="newSentence">
+            <input type="hidden" name="exerciseName" value="unorderedSentences">
+
+            <input type="submit" id="submitButton" value="Sauvegarder">
         </form>
     </section>
 </div>
