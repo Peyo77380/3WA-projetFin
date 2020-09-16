@@ -15,4 +15,4 @@ $param = [$exerciseId];
 $data = new Database();
 $data->update($sql, $param);
 
-header('Location: ../adminExercisesUnorderedSentences.phtml');
+// header('Location: ../adminExercisesUnorderedSentences.phtml');
