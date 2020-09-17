@@ -22,9 +22,10 @@ function setControls () {
     table.parentElement.insertBefore(div, table);
 
     document.querySelector('.saveButton').addEventListener('click', saveEveryChanges);
+    document.querySelector('.cancelButton').addEventListener('click', cancelLastAction);
 }
 function saveEveryChanges () {
-    console.log('saving');
+
     let deletionList = JSON.parse(localStorage.getItem('exerciseDelete'));
     let changeList = JSON.parse(localStorage.getItem('exerciseChanges'));
 
@@ -34,39 +35,85 @@ function saveEveryChanges () {
         for (let el of deletionList)
         {
 
-            /*
+            /* POST attendu :
             $exerciseId = $post['exerciseId'];
-$databaseTable = $post['exerciseName'];
+            $databaseTable = $post['exerciseName'];
              */
-            let params = {
-                'exerciseId': el.exerciseId,
-                'exerciseName': el.exerciseName,
-            };
+            let formData = new FormData;
+            formData.append('exerciseId', el.exerciseId);
+            formData.append('exerciseName', el.exerciseName);
+
+            let ajaxRequest = new XMLHttpRequest();
+/*
+            ajaxRequest.onreadystatechange = function() {
+                if (ajaxRequest.readyState != 4 && ajaxRequest.status == 200) {
+                    // en attente de réponse, mais fichier trouvé
+                    console.log("Validating..");
+                } else if (ajaxRequest.readyState == 4 && ajaxRequest.status == 200) {
+                    // prêt et fichier trouvé
+                    console.log(ajaxRequest.responseText);
+
+                } else {
+                    //erreur
+                    displayAjaxError();
+                    return;
+                }
+            }
+
+
+ */
+
+            ajaxRequest.open('POST', '../3WA-projetFin/Controllers/adminDeleteExercise.php');
+
+            ajaxRequest.send(formData);
+
+            localStorage.removeItem('exerciseDelete');
+
+
+
+        }
+
+
+
+    }
+
+    if (changeList)
+    {
+        for (let el of changeList)
+        {
+            /*
+            POST attendu :
+            $databaseTable = $post['exerciseName'];
+            $newValue = $post['exerciseContent'];
+            $exerciseId = $post['exerciseId'];
+            */
+
+            let formData = new FormData;
+
+            formData.append('exerciseName', el.exerciseName);
+            formData.append('exerciseContent', el.sentence);
+            formData.append('exerciseId', el.exerciseId);
 
             let ajaxRequest = new XMLHttpRequest();
 
-            ajaxRequest.open('POST', '../Controllers/adminDeleteExercise.php');
-            ajaxRequest.setRequestHeader('Content-type', 'application/json');
-            ajaxRequest.send(JSON.stringify(params));
 
-            ajaxRequest.onload = function () {
-                alert('ok');
-            }
-            console.log(params);
+            ajaxRequest.open('POST', '../3WA-projetFin/Controllers/adminUpdateExerciseSave.php');
+            ajaxRequest.send(formData);
+
+
         }
 
-        localStorage.removeItem('exerciseDelete');
-
-    }
-/*
-    if (changeList)
-    {
-
+        localStorage.removeItem('exerciseChanges');
     }
 
-*/
+
 
 }
+
+
+
+
+
 function eventListenerSetter () {
     let updaterForms = document.querySelectorAll('form[action = "./controllers/adminUpdateExercise.phtml"]');
 
@@ -74,7 +121,7 @@ function eventListenerSetter () {
 
 
     updaterForms.forEach(form => {
-        form.addEventListener('submit', updateSelectedField);
+        form.addEventListener('submit', setUpdateFormSelectedField);
     });
 
     let deleterForms = document.querySelectorAll('form[action = "./controllers/adminDeleteExercise.php"]');
@@ -87,7 +134,7 @@ function eventListenerSetter () {
     })
 }
 
-function updateSelectedField (e) {
+function setUpdateFormSelectedField (e) {
     e.preventDefault();
 
     let sentenceCell = this.parentElement.parentElement.querySelector('.exerciseSentence');
@@ -129,11 +176,12 @@ function updateSelectedField (e) {
     temporaryForm.appendChild(temporaryName);
     temporaryForm.appendChild(submitButton);
 
-    temporaryForm.addEventListener('submit', localStorageBuffer);
+    temporaryForm.addEventListener('submit', updateSelectedField);
 }
 
-function localStorageBuffer (e) {
+function updateSelectedField (e) {
     e.preventDefault();
+    console.log(this);
 
     let newValue = this.querySelector('input[name="exerciseContent"]').value;
     let id = this.querySelector('input[name="exerciseId"]').value;
@@ -142,12 +190,13 @@ function localStorageBuffer (e) {
     let changes = {
         'exerciseName': name,
         'exerciseId': id,
-        'sentence': newValue
+        'sentence': newValue,
     }
 
     if(!localStorage.getItem('exerciseChanges'))
     {
        localStorage.setItem('exerciseChanges', JSON.stringify([changes]));
+
     }
     else
     {
@@ -156,8 +205,11 @@ function localStorageBuffer (e) {
         existingChanges.push(changes);
 
         localStorage.setItem('exerciseChanges', JSON.stringify(existingChanges));
+
     }
 
+
+    updateActionHistory('changes');
 
     refreshFromLocalStorage();
 }
@@ -165,7 +217,6 @@ function localStorageBuffer (e) {
 
 function deleteSelectedField (e) {
     e.preventDefault();
-    console.log(this);
 
     let id = this.querySelector('input[name="exerciseId"]').value;
     let name = this.querySelector('input[name="exerciseName"]').value;
@@ -178,17 +229,19 @@ function deleteSelectedField (e) {
     if(!localStorage.getItem('exerciseDelete'))
     {
         localStorage.setItem('exerciseDelete', JSON.stringify([toDelete]));
+
     }
     else
     {
-        let existingDeletion = JSON.parse(localStorage.getItem('exerciseDelete'));
+        let existingDelete = JSON.parse(localStorage.getItem('exerciseDelete'));
 
-        existingDeletion.push(toDelete);
+        existingDelete.push(toDelete);
 
-        localStorage.setItem('exerciseDelete', JSON.stringify(existingDeletion));
+        localStorage.setItem('exerciseDelete', JSON.stringify(existingDelete));
+
     }
 
-
+    updateActionHistory('delete');
 
     refreshFromLocalStorage();
 }
@@ -201,7 +254,7 @@ function refreshFromLocalStorage () {
     let idCells = document.querySelectorAll('.exerciseId');
 
     for (let cell of idCells) {
-
+        cell.parentElement.style.display = "table-row";
         if(deletionList)
         {
             for ( let el of deletionList)
@@ -209,7 +262,7 @@ function refreshFromLocalStorage () {
                 if(cell.innerHTML == el.exerciseId)
                 {
                     cell.parentElement.style.display = "none";
-                };
+                }
             }
         }
 
@@ -226,6 +279,63 @@ function refreshFromLocalStorage () {
         }
 
     }
+
+
+}
+
+
+
+function updateActionHistory(actionType) {
+    if(!localStorage.getItem('actionHistory'))
+    {
+        localStorage.setItem('actionHistory', JSON.stringify([actionType]));
+
+
+    }
+    else
+    {
+        let existingHistory = JSON.parse(localStorage.getItem('actionHistory'));
+
+        existingHistory.push(actionType);
+
+        localStorage.setItem('actionHistory', JSON.stringify(existingHistory));
+
+    }
+}
+
+function cancelLastAction () {
+
+    let history = JSON.parse(localStorage.getItem('actionHistory'));
+
+    if(!history){
+        return;
+    }
+
+    let deleteList = JSON.parse(localStorage.getItem('exerciseDelete'));
+    let updateList = JSON.parse(localStorage.getItem('exerciseChanges'));
+    let lastAction = history[history.length-1];
+
+    if (lastAction == 'changes' && updateList) {
+        let lastCancel = updateList.pop();
+        history.pop();
+        localStorage.setItem('exerciseChanges', JSON.stringify(updateList));
+
+
+
+    }
+
+
+    if (lastAction == 'delete' && deleteList) {
+        deleteList.pop();
+        history.pop();
+        localStorage.setItem('exerciseDelete', JSON.stringify(deleteList));
+        refreshFromLocalStorage();
+
+    }
+    localStorage.setItem('actionHistory', JSON.stringify(history));
+
+
+
 
 
 }
