@@ -54,4 +54,15 @@ class Database
 
     }
 
+    public function saveToDb ($sql, $params)
+    {
+        $query = $this->conn->prepare($sql);
+
+        $query->execute($params);
+
+        $id = $this->conn->lastInsertId();
+
+        return $id;
+    }
+
 }
