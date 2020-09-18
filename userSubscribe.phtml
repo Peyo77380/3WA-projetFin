@@ -1,7 +1,10 @@
 <?php
  require('index.phtml');
 
- var_dump($_SESSION);
+require('./Controllers/userSubscriptionHelper.php');
+
+var_dump($_SESSION);
+
  ?>
 
 
@@ -17,14 +20,24 @@
     * country
     * birthdate -->
     <form action="./Controllers/userSubscriptionNextController.php" method="post">
-        <label for="lastname">Prénom</label>
-        <input type="text" name="lastname" placeholder="Votre prénom" id="lastname">
+        <label for="firstname">Prénom</label>
+        <input type="text" name="firstname" placeholder="Votre prénom" id="firstname">
 
         <label for="lastname">Nom</label>
         <input type="text" name="lastname" placeholder="Votre nom" id="lastname">
 
         <label for="country">Votre pays</label>
-        <input type="text" name="country" placeholder="-">
+        <select name="country" id="country">
+            <option value='-'>-</option>
+            <?php
+
+            for ($i=1; $i<=count($countries); $i++){
+                echo "<option value=" . $countries[$i]['countryCode'] . ">" . $countries[$i]['countryName'] . "</option>";
+            }
+
+            ?>
+        </select>
+
 
         <fieldset>
             <legend>Votre date de naissance</legend>
@@ -34,6 +47,7 @@
                 <?php
 
                 for ($i=1; $i<=31; $i++){
+
                     echo "<option value='$i'>$i</option>";
                 }
 

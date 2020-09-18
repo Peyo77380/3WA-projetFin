@@ -22,7 +22,6 @@ $save = $database->saveToDb($sql, $params);
 
 var_dump($save);
 $_SESSION['user'] = [
-
     'userName' => $post['username'],
     'userId' => $save,
     'userMail' => $post['email']
