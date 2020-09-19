@@ -1,6 +1,7 @@
 <?php
 require('../params/database.php');
 require('../connect.php');
+require ('../index.phtml');
 
 
 
@@ -28,10 +29,10 @@ $params = [
     //birthdate
     $birthdate,
     //userId
-    $_SESSION['userId']
+    $post['userId']
 ];
 
-$save = $database->saveToDb($sql, $params);
+$save = $database->update($sql, $params);
 
 var_dump($save);
 $_SESSION['user']['userFirstname'] = $post['firstname'];

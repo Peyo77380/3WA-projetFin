@@ -16,4 +16,18 @@ class userSubscriptionModel
 
         return $countries;
     }
+
+    public function getLanguages () {
+        $filehandle = fopen("./resources/sql-Lang-iso_639-2.csv", 'r');
+
+        while( ($row = fgetcsv($filehandle, 0, ";")) !== FALSE)
+        {
+            $languages[] = [
+                'languageName' => ucfirst($row[2]),
+                'languageCode' => $row[0],
+            ];
+        };
+
+        return $languages;
+    }
 }

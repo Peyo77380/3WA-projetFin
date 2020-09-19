@@ -82,6 +82,7 @@ var_dump($_SESSION);
                 ?>
             </select>
         </fieldset>
+        <input type="hidden" name="userId" value="<?= $_SESSION['user']['userId'] ?>">
 
         <input type="submit" value="Enregistrer">
     </form>
