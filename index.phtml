@@ -24,12 +24,20 @@ var_dump($_SESSION);
             <li>
                 <a href="unorderedSentences.phtml">Phrases déstructurées</a>
             </li>
+            <?php if(isset($_SESSION['connectedUser']) && ($_SESSION['connectedUser']['role'] == 'teacher' || $_SESSION['connectedUser']['role'] == 'admin')): ?>
             <li>
                 <a href="admin.phtml">Administration</a>
             </li>
+            <?php endif; ?>
         </ul>
 
-        <a href="userConnection.phtml">Connectez vous</a>
+        <?php if(!isset($_SESSION['connectedUser'])) : ?>
+            <a href="userConnection.phtml">Connectez vous</a>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION['connectedUser'])) : ?>
+            <a href="./Controllers/userLogOutController.php">Déconnexion</a>
+        <?php endif; ?>
     </header>
 
     <main>
