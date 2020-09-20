@@ -12,17 +12,20 @@ $params = [$post['username']];
 $user = $data->getSingleData($sql, $params);
 
 if ($user == FALSE){
-    echo "Aucun utilisateur n'est enregistré sous ce nom, réessayez.";
+    $_SESSION['error']  = "Aucun utilisateur n'est enregistré sous ce nom, réessayez.";
+    header('Location: ../userConnection.phtml');
     return;
 }
 if ($post['password'] !== $user['password']){
-    echo "Le nom d'utilisateur et le mot de passe fournis ne correspondent pas. Réessayez.";
+    $_SESSION['error']  =  "Le nom d'utilisateur et le mot de passe fournis ne correspondent pas. Réessayez.";
+    header('Location: ../userConnection.phtml');
     return;
 }
 
 if ($post['password'] == $user['password']){
-    echo 'Bienvenue ' . ucfirst($user['firstname']);
+
     $_SESSION['connectedUser'] = $user;
+    $_SESSION['error']  = NULL;
 }
 
 header('Location: ../index.phtml');
