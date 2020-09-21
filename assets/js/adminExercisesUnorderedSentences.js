@@ -44,24 +44,6 @@ function saveEveryChanges () {
             formData.append('exerciseName', el.exerciseName);
 
             let ajaxRequest = new XMLHttpRequest();
-/*
-            ajaxRequest.onreadystatechange = function() {
-                if (ajaxRequest.readyState != 4 && ajaxRequest.status == 200) {
-                    // en attente de réponse, mais fichier trouvé
-                    console.log("Validating..");
-                } else if (ajaxRequest.readyState == 4 && ajaxRequest.status == 200) {
-                    // prêt et fichier trouvé
-                    console.log(ajaxRequest.responseText);
-
-                } else {
-                    //erreur
-                    displayAjaxError();
-                    return;
-                }
-            }
-
-
- */
 
             ajaxRequest.open('POST', '../3WA-projetFin/Controllers/adminDeleteExercise.php');
 
@@ -161,6 +143,11 @@ function setUpdateFormSelectedField (e) {
     temporaryId.value = exerciseId;
     temporaryId.name = 'exerciseId';
 
+    let temporaryOriginalSentence = document.createElement('input');
+    temporaryOriginalSentence.type = "hidden";
+    temporaryOriginalSentence.value = sentenceText;
+    temporaryOriginalSentence.name = 'originalSentence';
+
     let temporaryName = document.createElement('input');
     temporaryName.type = "hidden";
     temporaryName.value = exerciseName;
@@ -174,6 +161,7 @@ function setUpdateFormSelectedField (e) {
     temporaryForm.appendChild(temporaryInput);
     temporaryForm.appendChild(temporaryId);
     temporaryForm.appendChild(temporaryName);
+    temporaryForm.appendChild(temporaryOriginalSentence);
     temporaryForm.appendChild(submitButton);
 
     temporaryForm.addEventListener('submit', updateSelectedField);
@@ -181,16 +169,17 @@ function setUpdateFormSelectedField (e) {
 
 function updateSelectedField (e) {
     e.preventDefault();
-    console.log(this);
 
     let newValue = this.querySelector('input[name="exerciseContent"]').value;
     let id = this.querySelector('input[name="exerciseId"]').value;
     let name = this.querySelector('input[name="exerciseName"]').value;
+    let originalSentence = this.querySelector('input[name="originalSentence"]').value;
 
     let changes = {
         'exerciseName': name,
         'exerciseId': id,
         'sentence': newValue,
+        'originalSentence' : originalSentence
     }
 
     if(!localStorage.getItem('exerciseChanges'))
@@ -320,7 +309,20 @@ function cancelLastAction () {
         history.pop();
         localStorage.setItem('exerciseChanges', JSON.stringify(updateList));
 
+        let restoreId = lastCancel.exerciseId;
+        let restoreSentence = lastCancel.originalSentence;
+        let restoreSentenceCell;
 
+        let idCells = document.querySelectorAll('.exerciseId');
+
+        for (let idCell of idCells) {
+            if (idCell.innerHTML == restoreId) {
+                restoreSentenceCell = idCell.parentElement.querySelector('.exerciseSentence');
+                break;
+            }
+        }
+
+        restoreSentenceCell.innerHTML = restoreSentence;
 
     }
 
