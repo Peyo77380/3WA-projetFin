@@ -27,6 +27,9 @@ if(isset($_SESSION)) {
             <li>
                 <a href="unorderedSentences.phtml">Phrases déstructurées</a>
             </li>
+            <li>
+                <a href="madLibs.phtml">Textes à trous</a>
+            </li>
             <?php if(isset($_SESSION['connectedUser']) && ($_SESSION['connectedUser']['role'] == 'teacher' || $_SESSION['connectedUser']['role'] == 'admin')): ?>
             <li>
                 <a href="admin.phtml">Administration</a>

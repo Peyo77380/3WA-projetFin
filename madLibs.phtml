@@ -1,0 +1,23 @@
+<?php
+
+require('index.phtml');
+require('./Controllers/madLibsController.php');
+
+?>
+
+
+<form class="exercise" action="madLibsResult.phtml" method="post">
+    <div class="words gameButton">
+        <?php foreach($madLibs->madLibsWords as $word) : ?>
+            <div class="word gameButton"><?= $word ?></div>
+        <?php endforeach; ?>
+    </div>
+
+    <?php foreach($madLibs->display as $block) : ?>
+        <?= $block ?>
+    <?php endforeach; ?>
+
+    <input type="submit" value="Valider">
+</form>
+
+
