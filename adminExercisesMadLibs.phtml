@@ -1,0 +1,71 @@
+<?php
+
+require('index.phtml');
+require('./Controllers/adminExercisesMadLibsController.php');
+
+include('adminPanel.php');
+
+?>
+
+
+
+<p class="wrapper">
+    <h2>Gestion des textes à trous</h2>
+    <ul>
+        <li><a href="#addExercice">Ajouter un texte</a></li>
+        <li><a href="#exercisesList">Catalogue de textes</a></li>
+    </ul>
+
+    <section id="exercisesList">
+        <table>
+            <thead>
+            <th>N°</th>
+            <th>Phrases</th>
+            <th>Actions</th>
+            </thead>
+            <tbody>
+            <?php foreach($admin->sentences as $sentence) : ?>
+                <tr>
+                    <td class="exerciseId"><?= $sentence['exerciseId'] ?></td>
+                    <td class="exerciseSentence"><?= $sentence['sentence'] ?></td>
+                    <td>
+                        <form action="./controllers/adminUpdateExercise.phtml" method="post">
+                            <button><i class="fa fa-pencil"></i></button>
+                            <input type="hidden" name="exerciseName" value="unorderedSentences">
+                            <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
+                            <input type="hidden" name="exerciseContent" value="<?= $sentence['sentence'] ?>">
+                        </form>
+                        <form action="./controllers/adminDeleteExercise.php" method="post">
+                            <button><i class="fa fa-times"></i></button>
+                            <input type="hidden" name="exerciseName" value="unorderedSentences">
+                            <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
+                        </form>
+
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="addExercice">
+        <form action="Controllers/adminAddExercise.php" method="post">
+            <p>Conseils d'utilisation : reseigner le texte complet dans le cadre ci-dessous.</p>
+            <p>Indiquer les mots qui seront des trous à compléter entre deux astérisques au débuts et à la fin.</p>
+            <p class="example">Example : Vengo **da** Milano. : da sera reconnu comme un futur trou dans le texte.</p>
+
+            <label for="newSentence">Nouveau texte</label>
+            <textarea name="newSentence" id="newSentence"></textarea>
+            <input type="hidden" name="exerciseName" value="madLibs">
+
+            <input type="submit" id="submitButton" value="Sauvegarder">
+        </form>
+    </section>
+</div>
+
+
+
+<?php
+
+include('footer.php');
+?>
