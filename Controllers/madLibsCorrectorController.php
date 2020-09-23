@@ -41,6 +41,7 @@ class madLibsCorrectorController
     }
 
     public function setNote () {
+        $this->note = 0;
         for ($i=0; $i<count($this->madLibsWords); $i++){
 
             if ($this->madLibsWords[$i] === $this->madLibsAnswers[$i]) {

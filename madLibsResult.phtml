@@ -8,8 +8,11 @@ require('./Controllers/madLibsCorrectorController.php');
 
 
 <section>
-    Votre note:
-    <?= $correction->{'note'} ?>
+
+    <?php if(isset($correction->{'note'})) : ?>
+        Votre note:
+        <?= $correction->{'note'} ?>
+    <?php endif; ?>
 </section>
 
 <section>
