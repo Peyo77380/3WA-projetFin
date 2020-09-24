@@ -1,0 +1,189 @@
+"use strict";
+
+document.addEventListener('DOMContentLoaded', init);
+
+function init () {
+    console.log('ok');
+    eventListenerSetter();
+    setControls();
+
+    refreshFromLocalStorage();
+}
+
+function eventListenerSetter() {
+    console.log('ok');
+    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let newTextArea = form.querySelector('textarea');
+    console.log(form);
+    console.log(newTextArea);
+
+    let submitButton = document.getElementById('submitButton');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formatForSaving();
+      sendToDB();
+    })
+
+    newTextArea.addEventListener('dblclick', setGap);
+}
+
+function setControls () {
+    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let newTextArea = form.querySelector('textarea');
+    let div = document.createElement('div');
+
+    div.innerHTML =
+        '<button class="setGap">Remplacer par un trou</button>';
+
+    newTextArea.parentElement.insertBefore(div, newTextArea);
+
+    document.querySelector('.setGap').addEventListener('click', (e) => {
+        e.preventDefault();
+        setGap();
+        refreshNewExercise();
+    });
+
+    let list = document.createElement('div');
+
+    list.innerHTML =
+        '<h4>Liste des mots</h4>' +
+        '<ul class="fillingWords"></ul>';
+
+    form.insertAdjacentElement('beforeend', list);
+
+}
+
+function setGap () {
+    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let newTextArea = form.querySelector('textarea');
+    console.log(newTextArea.selectionStart);
+    console.log(newTextArea.selectionEnd);
+
+    let text = newTextArea.value;
+
+    let indexBeginning = newTextArea.selectionStart;
+    let indexEnd = newTextArea.selectionEnd;
+    let gapWord = {
+        'word' : text.slice(indexBeginning, indexEnd),
+        'indexBeginning' : indexBeginning,
+        'indexEnd': indexEnd,
+    };
+
+    let replacementStars = "";
+
+    for (let i=0; i<gapWord.word.length; i++){
+        replacementStars += "*";
+    }
+
+    let newText = text.substr(0, indexBeginning) + replacementStars + text.substr(indexEnd, text.length);
+
+    newTextArea.value = newText;
+
+    if(localStorage.getItem('fillingWords')) {
+        let existingWords = JSON.parse(localStorage.getItem('fillingWords'));
+        existingWords.push(gapWord);
+        localStorage.setItem('fillingWords', JSON.stringify(existingWords));
+    } else {
+        localStorage.setItem('fillingWords', JSON.stringify([gapWord]));
+    }
+
+    refreshFromLocalStorage();
+}
+
+function refreshFromLocalStorage (){
+    if(localStorage.getItem('fillingWords')) {
+        let list = document.querySelector('.fillingWords');
+        list.innerHTML = "";
+        let existingWords = JSON.parse(localStorage.getItem('fillingWords'));
+
+        for (let i=0; i<existingWords.length; i++){
+
+            let newLine = document.createElement('li');
+            let content = existingWords[i].word;
+            console.log(content);
+            newLine.innerHTML = content;
+
+            newLine.setAttribute('gapIndex', i);
+
+            newLine.addEventListener('click', restoreWord);
+
+            list.appendChild(newLine);
+        }
+    } 
+    
+}
+
+function restoreWord () {
+    let index = this.getAttribute('gapindex');
+
+    console.log(index);
+
+    let existingWords = JSON.parse(localStorage.getItem('fillingWords'));
+    let wordToRestore = existingWords[index];
+
+    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let newTextArea = form.querySelector('textarea');
+
+    let finalText =
+        newTextArea.value.substr(0, wordToRestore.indexBeginning)
+        + wordToRestore.word
+        + newTextArea.value.substr(wordToRestore.indexEnd, newTextArea.value.length);
+
+    existingWords.splice(index, 1);
+
+    localStorage.setItem('fillingWords', JSON.stringify(existingWords));
+    newTextArea.value = finalText;
+
+    refreshFromLocalStorage();
+
+}
+
+function formatForSaving () {
+    console.log('format');
+    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let newTextArea = form.querySelector('textarea');
+
+    let remainingText = newTextArea.value;
+    let fillingWords = JSON.parse(localStorage.getItem('fillingWords'));
+
+    let formatedText = "";
+
+
+
+    for (let word of fillingWords){
+        formatedText = remainingText.replace(remainingText.substr(word.indexBeginning, word.indexEnd), "**"+word.word+"**");
+    }
+
+    let exercise = {
+        exerciseName : 'madLibs',
+        exerciseContent : formatedText,
+    }
+
+    localStorage.setItem('formatedExercise', JSON.stringify(exercise));
+
+    console.log(formatedText);
+}
+
+function sendToDB () {
+    console.log('send to db');
+
+/*
+    $databaseTable = $post['exerciseName'];
+    $sentence = $post['newSentence'];
+*/
+    let el = JSON.parse(localStorage.getItem('formatedExercise'));
+    console.log(el);
+    let formData = new FormData;
+
+    formData.append('exerciseName', el.exerciseName);
+    formData.append('newSentence', el.exerciseContent);
+
+
+    let ajaxRequest = new XMLHttpRequest();
+
+
+    ajaxRequest.open('POST', '../3WA-projetFin/Controllers/adminAddExercise.php');
+    ajaxRequest.send(formData);
+
+}

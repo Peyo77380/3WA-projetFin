@@ -1,6 +1,6 @@
 <?php
 
-require(__DIR__'/params/database.php');
+require('../params/database.php');
 
 $post = $_POST;
 
