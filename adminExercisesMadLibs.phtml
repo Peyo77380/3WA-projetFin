@@ -29,13 +29,13 @@ include('adminPanel.php');
                     <td class="exerciseId"><?= $sentence['exerciseId'] ?></td>
                     <td class="exerciseSentence"><?= $sentence['sentence'] ?></td>
                     <td>
-                        <form action="./controllers/adminUpdateExercise.phtml" method="post">
+                        <form action="./Controllers/adminUpdateExercise.php" method="post">
                             <button><i class="fa fa-pencil"></i></button>
                             <input type="hidden" name="exerciseName" value="madLibs">
                             <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
                             <input type="hidden" name="exerciseContent" value="<?= $sentence['sentence'] ?>">
                         </form>
-                        <form action="./controllers/adminDeleteExercise.php" method="post">
+                        <form action="./Controllers/adminDeleteExercise.php" method="post">
                             <button><i class="fa fa-times"></i></button>
                             <input type="hidden" name="exerciseName" value="madLibs">
                             <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
@@ -65,8 +65,9 @@ include('adminPanel.php');
 
 
 <script src="./assets/js/adminExercisesMadLibs.js" type="text/javascript"></script>
-<script src="./assets/js/adminExercisesMadLibsNewExercise.js" type="text/javascript"></script>
-
+<!--
+    <script src="./assets/js/adminExercisesMadLibsNewExercise.js" type="text/javascript"></script>
+-->
 <?php
 
 include('footer.php');

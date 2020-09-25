@@ -1,17 +1,10 @@
 "use strict";
 
-document.addEventListener('DOMContentLoaded', init);
 
-function init () {
-    console.log('ok');
-    //eventListenerSetter();
-    //setControls();
-    //refreshFromLocalStorage();
-}
 
 function setControls () {
     let table = document.querySelector('table');
-
+    console.log('blablablabalbalba');
     let div = document.createElement('div');
 
     div.innerHTML =
@@ -97,8 +90,8 @@ function saveEveryChanges () {
 
 
 function eventListenerSetter () {
-    let updaterForms = document.querySelectorAll('form[action = "./controllers/adminUpdateExercise.phtml"]');
-
+    let updaterForms = document.querySelectorAll('form[action = "./Controllers/adminUpdateExercise.php"]');
+    console.log(updaterForms);
     //rajouter bouton pr sauvegarder les changements
 
 
@@ -106,7 +99,7 @@ function eventListenerSetter () {
         form.addEventListener('submit', setUpdateFormSelectedField);
     });
 
-    let deleterForms = document.querySelectorAll('form[action = "./controllers/adminDeleteExercise.php"]');
+    let deleterForms = document.querySelectorAll('form[action = "./Controllers/adminDeleteExercise.php"]');
 
     //rajouter bouton pr sauvegarder les changements
 
@@ -118,6 +111,7 @@ function eventListenerSetter () {
 
 function setUpdateFormSelectedField (e) {
     e.preventDefault();
+    console.log('modif');
 
     let sentenceCell = this.parentElement.parentElement.querySelector('.exerciseSentence');
 
@@ -340,4 +334,14 @@ function cancelLastAction () {
 
 
 
+}
+
+
+document.addEventListener('DOMContentLoaded', init);
+
+function init () {
+    console.log('script général');
+    eventListenerSetter();
+    setControls();
+    refreshFromLocalStorage();
 }

@@ -1,6 +1,7 @@
 <?php
 
 $post = $_POST;
+var_dump($post);
 $exerciseTranslation = '';
 $exerciseContent = $post['exerciseContent'];
 $exerciseId = $post['exerciseId'];
@@ -12,6 +13,10 @@ if(!isset($post['exerciseName']))
 if($post['exerciseName'] == 'unorderedSentences')
 {
     $exerciseTranslation = 'Phrases déstructurées';
+}
+if($post['exerciseName'] == 'madLibs')
+{
+    $exerciseTranslation = 'Texte à trous';
 }
 
 
