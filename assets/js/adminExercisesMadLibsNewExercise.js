@@ -5,17 +5,15 @@ document.addEventListener('DOMContentLoaded', init);
 function init () {
     console.log('ok');
     eventListenerSetter();
-    setControls();
+    setNewExerciseControls();
 
     refreshFromLocalStorage();
 }
 
 function eventListenerSetter() {
-    console.log('ok');
+
     let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
     let newTextArea = form.querySelector('textarea');
-    console.log(form);
-    console.log(newTextArea);
 
     let submitButton = document.getElementById('submitButton');
 
@@ -23,12 +21,12 @@ function eventListenerSetter() {
       e.preventDefault();
       formatForSaving();
       sendToDB();
-    })
+    });
 
     newTextArea.addEventListener('dblclick', setGap);
 }
 
-function setControls () {
+function setNewExerciseControls () {
     let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
     let newTextArea = form.querySelector('textarea');
     let div = document.createElement('div');
@@ -94,6 +92,7 @@ function setGap () {
 function refreshFromLocalStorage (){
     if(localStorage.getItem('fillingWords')) {
         let list = document.querySelector('.fillingWords');
+        console.log(list);
         list.innerHTML = "";
         let existingWords = JSON.parse(localStorage.getItem('fillingWords'));
 
@@ -140,39 +139,78 @@ function restoreWord () {
 }
 
 function formatForSaving () {
-    console.log('format');
+    console.log(this);
     let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
     let newTextArea = form.querySelector('textarea');
 
     let remainingText = newTextArea.value;
+    let piecesOfText = [];
+    let formatedText = [];
+
+    console.log(JSON.parse(localStorage.getItem('fillingWords')));
+
+    if (JSON.parse(localStorage.getItem('fillingWords')) == null || JSON.parse(localStorage.getItem('fillingWords')) == undefined) {
+        alert('NEIN');
+        return;
+    }
+
+
     let fillingWords = JSON.parse(localStorage.getItem('fillingWords'));
 
-    let formatedText = "";
 
+    if(fillingWords.length > 1){
 
-
-    for (let word of fillingWords){
-        formatedText = remainingText.replace(remainingText.substr(word.indexBeginning, word.indexEnd), "**"+word.word+"**");
+        fillingWords.sort((a,b) => a.indexBeginning-b.indexBeginning);
     }
+    for (let word of fillingWords){
+
+
+        word.word = "**" + word.word + "**";
+
+    }
+    remainingText = remainingText.split("*");
+
+    for (let i =0; i<remainingText.length; i++){
+        if(remainingText[i] === "" && remainingText[i] === remainingText[i-1]){
+
+
+        } else {
+            piecesOfText.push(remainingText[i]);
+        }
+
+    }
+
+    let fillingWordsCounter = 0;
+    for (let i =0; i<piecesOfText.length; i++){
+        if(piecesOfText[i] === ""){
+            formatedText.push(fillingWords[fillingWordsCounter].word);
+            fillingWordsCounter ++;
+
+        } else {
+            formatedText.push(piecesOfText[i]);
+        }
+
+    }
+
+    console.log(formatedText);
 
     let exercise = {
         exerciseName : 'madLibs',
-        exerciseContent : formatedText,
+        exerciseContent : formatedText.join(''),
     }
 
     localStorage.setItem('formatedExercise', JSON.stringify(exercise));
 
-    console.log(formatedText);
+
 }
 
 function sendToDB () {
-    console.log('send to db');
 
-/*
-    $databaseTable = $post['exerciseName'];
-    $sentence = $post['newSentence'];
-*/
+
     let el = JSON.parse(localStorage.getItem('formatedExercise'));
+    if (el == null) {
+        return;
+    }
     console.log(el);
     let formData = new FormData;
 
@@ -184,6 +222,12 @@ function sendToDB () {
 
 
     ajaxRequest.open('POST', '../3WA-projetFin/Controllers/adminAddExercise.php');
-    ajaxRequest.send(formData);
+    let id = ajaxRequest.send(formData);
+
+    console.log(id);
+    localStorage.removeItem('fillingWords');
+    localStorage.removeItem('formatedExercise');
+
+    refreshFromLocalStorage();
 
 }
