@@ -1,7 +1,9 @@
 <?php
-require('../Controllers/unorderedSentencesController.php');
+require('./Controllers/unorderedSentencesController.php');
 
-include('../index.phtml');
+require ('connect.php');
+
+include('index.phtml');
 ?>
 
 
@@ -41,10 +43,10 @@ include('../index.phtml');
     </form>
 </div>
 
-<script type="text/javascript" src="../assets/js/unorderedSentences.js"></script>
+<script type="text/javascript" src="assets/js/unorderedSentences.js"></script>
 
 <?php
 
-include('footer.php');
+include ('footer.php');
 
 ?>

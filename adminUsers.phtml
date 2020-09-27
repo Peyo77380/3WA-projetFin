@@ -1,0 +1,66 @@
+<?php
+require('./Controllers/adminUsersController.php');
+
+include('index.phtml');
+
+include('adminPanel.php');
+?>
+
+<div class="wrapper">
+    <h2>Gestion des utilisateurs</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom d'utilisateur</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Langue maternelle</th>
+                <th>Langues parlées</th>
+                <th>Pays</th>
+                <th>Date de naissance</th>
+                <th>Date d'inscription</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($users as $student) : ?>
+                <tr>
+                    <th><?= $student['id'] ?></th>
+                    <th><?= $student['username'] ?></th>
+                    <th><?= $student['firstname'] ?></th>
+                    <th><?= $student['lastname'] ?></th>
+                    <th><?= $student['email'] ?></th>
+                    <th>
+                        <?php if(isset($student['motherlanguage']['languageName'])) : ?>
+                            <?= $student['motherlanguage']['languageName'] ?>
+                        <?php endif; ?>
+                        <?php if(!isset($student['motherlanguage']['languageName'])) : ?>
+                            <?= $student['motherlanguage'] ?>
+                        <?php endif; ?>
+
+                    </th>
+                    <th>
+                        <?php if(isset($student['knownlanguages'])) : ?>
+                            <?php foreach($student['knownlanguages'] as $knownlanguage) : ?>
+                                <?= $knownlanguage['languageName'] ?> - <?= $knownlanguage['languageLvl'] ?> <br>
+                            <?php endforeach; ?>
+                        <?php endif ?>
+                    </th>
+                    <th><?= $student['country'] ?></th>
+                    <th><?= $student['birthdate'] ?></th>
+                    <th><?= $student['subscribedate']?></th>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<?php
+
+include('footer.php');
+?>

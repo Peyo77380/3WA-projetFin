@@ -2,7 +2,7 @@
 
 require ('./params/database.php');
 
-class adminExercisesUnorderedSentencesModel
+class adminExercisesMadLibsModel
 {
     public $result;
     private $query;
@@ -23,7 +23,7 @@ class adminExercisesUnorderedSentencesModel
 
     public function setQuery()
     {
-        $this->query = "SELECT * FROM `unorderedSentences`";
+        $this->query = "SELECT * FROM `madLibs`";
 
         return $this->query;
     }

@@ -16,7 +16,8 @@ class Database
         try {
             $this->conn = new PDO("mysql:host=$servername;dbname=3WA-projetFin", $username, $password);
 
-//            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 
             // echo "Connected successfully";
 
@@ -41,38 +42,36 @@ class Database
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getOne ($sql, $params)
+    public function getSingleData ($sql, $params)
+    {
+        $query = $this->conn->prepare($sql);
+
+        $query->execute($params);
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update ($sql, $params)
     {
 
         $query = $this->conn->prepare($sql);
 
 
 
-        $query->execute([$params]);
+        $query->execute($params);
 
-        return $query->fetch(PDO::FETCH_ASSOC);
+
     }
 
-        public function saveExercise ($exerciseName, $exerciseData) {
-            var_dump($exerciseName);
-            var_dump($exerciseData);
+    public function saveToDb ($sql, $params)
+    {
+        $query = $this->conn->prepare($sql);
 
+        $query->execute($params);
 
+        $id = $this->conn->lastInsertId();
 
-            try {
-
-                $tableName = 'unorderedSentences';
-
-                $stmt = $this->conn->prepare("INSERT INTO $tableName (`exerciseId`, `sentence`) VALUES (NULL, :exerciseValue)");
-                $stmt->execute(['exerciseValue' => $exerciseData]);
-
-            } catch (PDOException $e)
-            {
-                echo "Error: " . $e->getMessage();
-            }
-
-
-        }
-
+        return $id;
+    }
 
 }

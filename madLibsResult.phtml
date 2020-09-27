@@ -1,0 +1,32 @@
+<?php
+
+require('index.phtml');
+require('./Controllers/madLibsCorrectorController.php');
+
+
+?>
+
+
+<section>
+
+    <?php if(isset($correction->{'note'})) : ?>
+        Votre note:
+        <?= $correction->{'note'} ?>
+    <?php endif; ?>
+</section>
+
+<section>
+    <?php for($i=0; $i<count($correction->{'madLibsExercise'}); $i++) : ?>
+        <?= $correction->{'madLibsExercise'}[$i] ?>
+        <?php
+        if(isset($correction->{'correctionList'}[$i]['answer'])){
+            if ($correction->{'correctionList'}[$i]['correction'] === TRUE) {
+                echo '<span class="correctAnswer"> ' . $correction->{'correctionList'}[$i]['correctWord'] . '</span>';
+            } else {
+                echo '<span class="wrongAnswer"> ' . $correction->{'correctionList'}[$i]['correctWord'] . '</span>';
+            }
+        }
+
+        ?>
+    <?php endfor; ?>
+</section>

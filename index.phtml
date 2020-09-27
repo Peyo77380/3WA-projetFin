@@ -1,5 +1,11 @@
 <?php
-require('connect.php');
+require ('config.php');
+require('./connect.php');
+/*
+if(isset($_SESSION)) {
+    var_dump($_SESSION);
+}
+*/
 ?>
 <!doctype html>
 <html lang="fr">
@@ -21,12 +27,27 @@ require('connect.php');
     <header>
         <ul>
             <li>
-                <a href="views/unorderedSentences.phtml">Phrases déstructurées</a>
+                <a href="unorderedSentences.phtml">Phrases déstructurées</a>
             </li>
             <li>
-                <a href="views/admin.phtml">Administration</a>
+                <a href="madLibs.phtml">Textes à trous</a>
             </li>
+            <?php if(isset($_SESSION['connectedUser']) && ($_SESSION['connectedUser']['role'] == 'teacher' || $_SESSION['connectedUser']['role'] == 'admin')): ?>
+            <li>
+                <a href="admin.phtml">Administration</a>
+            </li>
+            <?php endif; ?>
         </ul>
+
+        <?php if(!isset($_SESSION['connectedUser'])) : ?>
+            <a href="userConnection.phtml">Connectez vous</a>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION['connectedUser'])) : ?>
+            <a href="./Controllers/userLogOutController.php">Déconnexion</a>
+        <?php endif; ?>
     </header>
+
     <main>
+
 
