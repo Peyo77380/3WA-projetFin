@@ -1,7 +1,7 @@
 <?php
-require (__DIR__ . '/connect.php');
+require('./connect.php');
 
-require(__DIR . '/Controllers/unorderedSentencesCorrectorController.php');
+require('./Controllers/unorderedSentencesCorrectorController.php');
 
 $corrector = new unorderedSentencesCorrectorController();
 

@@ -29,19 +29,27 @@ h2{
 }
 
 
-
 /**********************************/
 /**** unorderedSentences style ****/
 /**********************************/
 
-
-form.exercise fieldset{
+fieldset {
     border: none;
-    margin: 2rem;
-    min-height: 60vh;
-
-    text-align: center;
 }
+
+form.exercise .exercise_question {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
+    margin: 2rem;
+    text-align: center;
+    transition: 1s;
+}
+
+.exercise_question-hidden {
+    display: none !important;
+    transition: 1s;
+}
+
 
 form.exercise .exercise_answerElements {
     margin: 1rem;
@@ -85,3 +93,41 @@ input[value="Valider"]{
     font-weight: bold;
 }
 
+/**********************************/
+/**** exxercises style ****/
+/**********************************/
+
+.gameControl {
+    min-width: 20%;
+    margin: 1rem;
+    padding: 2rem 1rem;
+    background-color: #FFB206;
+    border-radius: 1rem;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.progressBar {
+    width: 80vw;
+    height: 2rem;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.progressBar_sub {
+    background-color: green;
+    height: 100%;
+    flex-grow: 1;
+
+}
+
+.progressBar_sub:first-of-type {
+    border-radius: 1rem 0 0 1rem;
+}
+
+.progressBar_sub:last-of-type {
+    border-radius: 0 1rem 1rem 0;
+}
