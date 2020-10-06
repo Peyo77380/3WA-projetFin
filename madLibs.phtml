@@ -7,15 +7,21 @@ require('./Controllers/madLibsController.php');
 
 
 <form class="exercise" action="madLibsResult.phtml" method="post">
-    <div class="words gameButton">
-        <?php foreach($madLibs->madLibsWords as $word) : ?>
-            <div class="word gameButton"><?= $word ?></div>
-        <?php endforeach; ?>
-    </div>
+    <?php foreach ($madLibs as $exercise) : ?>
+        <?php var_dump($exercise); ?>
+        <fieldset class="exercise_question">
+            <div class="words gameButton">
+                <?php foreach ($exercise->madLibsWords as $word) : ?>
+                    <div class="word gameButton"><?= $word ?></div>
+                <?php endforeach; ?>
+            </div>
 
-    <?php foreach($madLibs->display as $block) : ?>
-        <?= $block ?>
+            <?php foreach ($exercise->display as $block) : ?>
+                <?= $block ?>
+            <?php endforeach; ?>
+        </fieldset>
     <?php endforeach; ?>
+
 
     <input type="submit" value="Valider">
 </form>
