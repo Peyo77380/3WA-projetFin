@@ -56,8 +56,8 @@ class ExerciseDisplay {
             progressBar.appendChild(subdivision);
 
         }
-
     }
+
 
     hideSubmit() {
         //rendre validation invisible
