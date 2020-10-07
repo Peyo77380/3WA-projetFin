@@ -1,6 +1,7 @@
 html {
     font-family: 'Montserrat', sans-serif;
-    background-color: #5773EE;
+    background: #fff3e6;
+
 }
 
 header {
@@ -105,6 +106,89 @@ h2 {
 
 .rule {
     height: 5vh;
+}
+
+
+/**********************************/
+/********** about style **********/
+/**********************************/
+
+.banner {
+    width: 100%;
+    background: black;
+    min-height: 30rem;
+    background-image: url('../images/pexels-pixabay-417344.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.splitscreen {
+    margin: auto;
+    width: 100%;
+}
+
+.imgContainer {
+    min-height: 100%;
+    align-content: center;
+
+}
+
+figure {
+    margin: auto;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    position: relative;
+
+}
+
+figure img {
+    width: 100%;
+    height: auto;
+}
+
+figure figcaption {
+    position: absolute;
+    bottom: 1rem;
+    padding: 0.5rem 0;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    font-size: 0.7rem;
+}
+
+figure figcaption a {
+    color: white;
+    text-decoration: none;
+
+}
+
+section {
+    margin: 1rem;
+    text-align: justify;
+}
+
+@media screen and (min-width: 400px) {
+    /* split screen */
+    .splitscreen {
+        display: flex;
+        width: 100%;
+
+    }
+
+    .splitscreenLeft, .splitscreenRight {
+        width: 50%;
+        justify-content: center;
+        vertical-align: bottom;
+        padding: 3rem;
+    }
+
+    .imgContainer {
+        background-color: burlywood;
+    }
 }
 
 
