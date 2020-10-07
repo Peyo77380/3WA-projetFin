@@ -5,7 +5,6 @@ require ('connect.php');
 
 include('index.phtml');
 
-include('adminPanel.php');
 
 ?>
 
@@ -19,22 +18,22 @@ include('adminPanel.php');
     <section id="exercisesList">
         <table>
             <thead>
-                <th>N°</th>
-                <th>Phrases</th>
-                <th>Actions</th>
+            <td>N°</td>
+            <td>Phrases</td>
+            <td>Actions</td>
             </thead>
             <tbody>
-                <?php foreach($admin->sentences as $sentence) : ?>
-                    <tr>
-                        <td class="exerciseId"><?= $sentence['exerciseId'] ?></td>
-                        <td class="exerciseSentence"><?= $sentence['sentence'] ?></td>
-                        <td>
-                            <form action="./Controllers/adminUpdateExercise.php" method="post">
-                                <button><i class="fa fa-pencil"></i></button>
-                                <input type="hidden" name="exerciseName" value="unorderedSentences">
-                                <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
-                                <input type="hidden" name="exerciseContent" value="<?= $sentence['sentence'] ?>">
-                            </form>
+            <?php foreach ($admin->sentences as $sentence) : ?>
+                <tr>
+                    <td class="exerciseId"><?= $sentence['exerciseId'] ?></td>
+                    <td class="exerciseSentence"><?= $sentence['sentence'] ?></td>
+                    <td>
+                        <form action="./Controllers/adminUpdateExercise.php" method="post">
+                            <button><i class="fa fa-pencil"></i></button>
+                            <input type="hidden" name="exerciseName" value="unorderedSentences">
+                            <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
+                            <input type="hidden" name="exerciseContent" value="<?= $sentence['sentence'] ?>">
+                        </form>
                             <form action="./Controllers/adminDeleteExercise.php" method="post">
                                 <button><i class="fa fa-times"></i></button>
                                 <input type="hidden" name="exerciseName" value="unorderedSentences">

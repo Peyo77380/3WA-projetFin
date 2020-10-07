@@ -24,31 +24,64 @@ if(isset($_SESSION)) {
 
 </head>
 <body>
-    <header>
+<header>
+    <nav>
         <ul>
             <li>
-                <a href="unorderedSentences.phtml">Phrases déstructurées</a>
+                <a href="about.phtml">Qui suis-je?</a>
             </li>
-            <li>
-                <a href="madLibs.phtml">Textes à trous</a>
+            <li class="nav-menu">
+                Entrainez-vous
+                <ul class="nav-subMenu">
+                    <li>
+                        <a href="unorderedSentences.phtml">Phrases déstructurées</a>
+                    </li>
+                    <li>
+                        <a href="madLibs.phtml">Textes à trous</a>
+                    </li>
+                </ul>
             </li>
-            <?php if(isset($_SESSION['connectedUser']) && ($_SESSION['connectedUser']['role'] == 'teacher' || $_SESSION['connectedUser']['role'] == 'admin')): ?>
-            <li>
-                <a href="admin.phtml">Administration</a>
-            </li>
+
+            <?php if (isset($_SESSION['connectedUser']) && ($_SESSION['connectedUser']['role'] == 'teacher' || $_SESSION['connectedUser']['role'] == 'admin')): ?>
+                <li class="nav-menu">
+                    Administration
+                    <ul class="nav-subMenu">
+                        <li><a href="adminUsers.phtml">Gestion des utilisateurs</a></li>
+                        <li class="nav-menuCategory">
+                            Gestion des exercices
+                            <ul class="nav-lastMenu">
+                                <li>
+                                    <a href="adminExercisesUnorderedSentences.phtml">Phrases déstructurées</a>
+                                </li>
+                                <li>
+                                    <a href="adminExercisesMadLibs.phtml">Textes à trous</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Gestion des rendez-vous</a></li>
+                    </ul>
+                </li>
+            <?php endif; ?>
+
+            <?php if (!isset($_SESSION['connectedUser'])) : ?>
+                <li>
+                    <a href="userConnection.phtml">Connectez vous</a>
+                </li>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['connectedUser'])) : ?>
+                <li>
+                    <a href="./userProfile.phtml">Profil</a>
+                </li>
+                <li>
+                    <a href="./Controllers/userLogOutController.php">Déconnexion</a>
+                </li>
             <?php endif; ?>
         </ul>
 
-        <?php if(!isset($_SESSION['connectedUser'])) : ?>
-            <a href="userConnection.phtml">Connectez vous</a>
-        <?php endif; ?>
+    </nav>
+</header>
 
-        <?php if(isset($_SESSION['connectedUser'])) : ?>
-            <a href="./userProfile.phtml">Profil</a>
-            <a href="./Controllers/userLogOutController.php">Déconnexion</a>
-        <?php endif; ?>
-    </header>
-
-    <main>
+<main>
 
 

@@ -3,38 +3,36 @@
 require('index.phtml');
 require('./Controllers/adminExercisesMadLibsController.php');
 
-include('adminPanel.php');
 
 ?>
 
 
-
 <p class="wrapper">
-    <h2>Gestion des textes à trous</h2>
-    <ul>
-        <li><a href="#addExercice">Ajouter un texte</a></li>
-        <li><a href="#exercisesList">Catalogue de textes</a></li>
-    </ul>
+<h2>Gestion des textes à trous</h2>
+<ul>
+    <li><a href="#addExercice">Ajouter un texte</a></li>
+    <li><a href="#exercisesList">Catalogue de textes</a></li>
+</ul>
 
-    <section id="exercisesList">
-        <table>
-            <thead>
-            <th>N°</th>
-            <th>Phrases</th>
-            <th>Actions</th>
-            </thead>
-            <tbody>
-            <?php foreach($admin->sentences as $sentence) : ?>
-                <tr>
-                    <td class="exerciseId"><?= $sentence['exerciseId'] ?></td>
-                    <td class="exerciseSentence"><?= $sentence['sentence'] ?></td>
-                    <td>
-                        <form action="./Controllers/adminUpdateExercise.php" method="post">
-                            <button><i class="fa fa-pencil"></i></button>
-                            <input type="hidden" name="exerciseName" value="madLibs">
-                            <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
-                            <input type="hidden" name="exerciseContent" value="<?= $sentence['sentence'] ?>">
-                        </form>
+<section id="exercisesList">
+    <table>
+        <thead>
+        <td>N°</td>
+        <td>Phrases</td>
+        <td>Actions</td>
+        </thead>
+        <tbody>
+        <?php foreach ($admin->sentences as $sentence) : ?>
+            <tr>
+                <td class="exerciseId"><?= $sentence['exerciseId'] ?></td>
+                <td class="exerciseSentence"><?= $sentence['sentence'] ?></td>
+                <td>
+                    <form action="./Controllers/adminUpdateExercise.php" method="post">
+                        <button><i class="fa fa-pencil"></i></button>
+                        <input type="hidden" name="exerciseName" value="madLibs">
+                        <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
+                        <input type="hidden" name="exerciseContent" value="<?= $sentence['sentence'] ?>">
+                    </form>
                         <form action="./Controllers/adminDeleteExercise.php" method="post">
                             <button><i class="fa fa-times"></i></button>
                             <input type="hidden" name="exerciseName" value="madLibs">
