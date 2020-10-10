@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     font-family: 'Montserrat', sans-serif;
     background: #fff3e6;
@@ -114,18 +118,25 @@ h2 {
 /**********************************/
 
 .banner {
-    width: 100%;
-    background: black;
-    min-height: 30rem;
+
+    min-height: 50rem;
     background-image: url('../images/pexels-pixabay-417344.jpg');
+    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+@media only screen and (max-device-width: 1366px) {
+    .banner {
+        background-attachment: scroll;
+    }
+}
 .splitscreen {
-    margin: auto;
+    margin: 2rem auto;
     width: 100%;
+
+    overflow: hidden;
 }
 
 .imgContainer {
@@ -153,7 +164,7 @@ figure img {
 figure figcaption {
     position: absolute;
     bottom: 1rem;
-    padding: 0.5rem 0;
+    padding: 0.5rem 0.5rem;
     color: white;
     background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
@@ -184,10 +195,44 @@ section {
         justify-content: center;
         vertical-align: bottom;
         padding: 3rem;
+        opacity: 0;
+        transition: 1s ease-out;
     }
 
-    .imgContainer {
-        background-color: burlywood;
+
+    .splitscreenLeft {
+
+        transform: translateX(-200px);
+
+    }
+
+    .splitscreenRight {
+        transform: translateX(200px);
+    }
+
+    .splitscreen.visible .splitscreenLeft, .splitscreen.visible .splitscreenRight {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .splitscreen:nth-child(odd) .imgContainer {
+        background: -moz-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ff3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(222, 184, 135, 0)), color-stop(50%, rgba(222, 184, 135, 0)), color-stop(50%, rgba(222, 184, 135, 1)), color-stop(100%, rgba(222, 184, 135, 1))); /* safari4+,chrome */
+        background: -webkit-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* safari5.1+,chrome10+ */
+        background: -o-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* opera 11.10+ */
+        background: -ms-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ie10+ */
+        background: linear-gradient(90deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* w3c */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DEB887', endColorstr='#DEB887', GradientType=1); /* ie6-9 */
+    }
+
+    .splitscreen:nth-child(even) .imgContainer {
+        background: -moz-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ff3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(222, 184, 135, 1)), color-stop(50%, rgba(222, 184, 135, 1)), color-stop(50%, rgba(222, 184, 135, 0)), color-stop(100%, rgba(222, 184, 135, 0))); /* safari4+,chrome */
+        background: -webkit-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* safari5.1+,chrome10+ */
+        background: -o-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* opera 11.10+ */
+        background: -ms-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ie10+ */
+        background: linear-gradient(270deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* w3c */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DEB887', endColorstr='#DEB887', GradientType=1); /* ie6-9 */
     }
 }
 
