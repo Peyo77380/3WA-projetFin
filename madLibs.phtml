@@ -15,12 +15,13 @@ require('./Controllers/madLibsController.php');
                     <div class="word gameButton"><?= $word ?></div>
                 <?php endforeach; ?>
             </div>
+            <div class="wording">
+                <?php foreach ($exercise['wording'] as $wording) : ?>
 
-            <?php foreach ($exercise['wording'] as $wording) : ?>
+                    <?= $wording ?>
 
-                <?= $wording ?>
-
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
         </fieldset>
 
 
@@ -29,5 +30,6 @@ require('./Controllers/madLibsController.php');
 </form>
 
 <script type="text/javascript" src="assets/js/madLibs.js"></script>
+
 
 
