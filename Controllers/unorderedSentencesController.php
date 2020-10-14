@@ -1,6 +1,6 @@
 <?php
 
-require ('../models/unorderedSentencesModel.php');
+require('./models/unorderedSentencesModel.php');
 
 
 
