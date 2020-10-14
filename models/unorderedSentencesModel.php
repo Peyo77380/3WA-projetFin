@@ -7,7 +7,8 @@ class UnorderedSentencesModel
     private $query;
     private $params;
 
-    public function getSentences () {
+    public function getSentences()
+    {
         //replace by a sql query to database
         $data = new Database();
 
@@ -17,13 +18,15 @@ class UnorderedSentencesModel
 
     }
 
-    public function setQuery () {
-        $this->query = "SELECT * FROM `unorderedSentences` ORDER BY RAND() LIMIT :nbOfSentences";
+    public function setQuery($exerciseType)
+    {
+        $this->query = "SELECT * FROM `" . $exerciseType . "` ORDER BY RAND() LIMIT :nbOfSentences";
 
         return $this->query;
     }
 
-    public function setParams ($nbOfSentences){
+    public function setParams($nbOfSentences)
+    {
         $this->params = ['variableName' => ':nbOfSentences', 'variableValue' => $nbOfSentences, 'PDOparam' => PDO::PARAM_INT];
 
         return $this->params;
