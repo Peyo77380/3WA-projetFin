@@ -27,12 +27,14 @@ class madLibsCorrectorController
     {
 
         $post = $_POST;
+        var_dump($post);
+        var_dump($_SESSION['exercises']);
         $this->madLibsText = $_SESSION['exercises']['text'];
         $this->madLibsWords = $_SESSION['exercises']['words'];
         $this->madLibsExercise = $_SESSION['exercises']['exercise'];
 
         $words = [];
-        foreach ($post as $word){
+        foreach ($post as $word) {
             $words[] = strtoupper($word);
         }
 

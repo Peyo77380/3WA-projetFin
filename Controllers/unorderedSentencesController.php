@@ -24,7 +24,7 @@ class unorderedSentencesController
     public function __construct () {
         $sentences = new UnorderedSentencesModel();
         $sentences->setParams(5);
-        $sentences->setQuery();
+        $sentences->setQuery('unorderedSentences');
         $pdoResult = $sentences->getSentences();
 
 

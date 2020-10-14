@@ -1,11 +1,12 @@
 <?php
-require('./params/database.php');
+require('./models/unorderedSentencesModel.php');
 
 
 $madLibs = new madLibsController();
 $madLibs->getExercise();
 $madLibs->setGapsAndWords();
-$madLibs->prepareForms();
+$exercises = $madLibs->prepareForms();
+
 
 class madLibsController
 {
@@ -22,49 +23,70 @@ class madLibsController
 
     public function getExercise()
     {
-        // remplacer par connection DBB
-        $this->madLibsText =
-            "Anna è una ragazza di Milano, lei è **ITALIANA**. Vive con la sua amica Susan, una ragazza **INGLESE** che 
-            studia storia all'università. Anna e Susan sono due ragazze **EDUCATE**, **ESTROVERSE** e amano uscire con 
-            gli amici. Luca è il fidanzato di Anna. Lui è un ragazzo **RISERVATO** e molto **ATLETICO**. Anna e 
-            Luca sono una coppia **FELICE**. Loro sono sempre **ALLEGRI**.";
+        $sentences = new UnorderedSentencesModel();
+        $sentences->setParams(3);
+        $sentences->setQuery('madLibs');
+        $pdoResult = $sentences->getSentences();
+
+
+        $this->madLibsText = $pdoResult;
 
         $_SESSION['exercises']['text'] = $this->madLibsText;
     }
 
     public function setGapsAndWords()
     {
-        $text = explode('**', $this->madLibsText);
+
+        foreach ($this->madLibsText as $exercise) {
+            $text = explode('**', $exercise['sentence']);
 
 
-        for ($i = 0; $i < count($text); $i++) {
+            $content = [];
+            $words = [];
 
-            if ($i % 2 == 0) {
-                $exercise[] = $text[$i];
-            } else {
-                $words[] = $text[$i];
+            for ($i = 0; $i < count($text); $i++) {
+
+
+                if ($i % 2 == 0) {
+                    $content[] = $text[$i];
+                } else {
+                    $words[] = $text[$i];
+                }
             }
-        }
-        $this->madLibsExercise = $exercise;
-        $_SESSION['exercises']['exercise'] = $exercise;
-        $_SESSION['exercises']['words'] = $words;
-        $this->madLibsWords = $words;
 
-        return $words;
+            $this->madLibsExercise[$exercise['exerciseId']] = $content;
+            $_SESSION['exercises']['exercise'][] = $content;
+            $_SESSION['exercises']['words'][] = $words;
+            $this->madLibsWords[$exercise['exerciseId']] = $words;
+
+        }
     }
 
     public function prepareForms()
     {
-        for ($i = 0; $i < count($this->madLibsWords); $i++) {
-            $answerField[] = "<input type='text' name='word" . $i . "' id='word" . $i . "'>";
+        foreach ($this->madLibsText as $exercise) {
+
+            $id = $exercise['exerciseId'];
+            $answerField = [];
+
+            for ($i = 0; $i < count($this->madLibsWords[$id]); $i++) {
+                $answerField[] = "<input type='text' name='ex" . $id . "word" . $i . "' id='ex" . $id . "word" . $i . "'>";
+            }
+
+
+            for ($i = 0; $i < count($this->madLibsExercise[$id]); $i++) {
+                $this->display[$id]['wording'][] = $this->madLibsExercise[$id][$i];
+                if (isset($answerField[$i])) {
+                    $this->display[$id]['wording'][] = $answerField[$i];
+                }
+            }
+
+            $this->display[$id]['fillingWords'] = $this->madLibsWords[$id];
+
+
         }
 
-        for ($i = 0; $i < count($this->madLibsExercise); $i++) {
-            $this->display[]  = $this->madLibsExercise[$i];
-            if(isset($answerField[$i])) {
-                $this->display[] = $answerField[$i];
-            }
-        }
+
     }
 
 }

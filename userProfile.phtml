@@ -1,0 +1,22 @@
+<?php
+require('./index.phtml');
+var_dump($_SESSION);
+?>
+
+<?php if (isset($_SESSION['error'])) : ?>
+    <div class="displayError">
+        <?= $_SESSION['error'] ?>
+    </div>
+<?php endif; ?>
+
+
+<h2><?= $_SESSION['username'] ?></h2>
+
+Nom
+Prénom
+
+
+Pays de résidence :
+Langue maternelle :
+
+email
