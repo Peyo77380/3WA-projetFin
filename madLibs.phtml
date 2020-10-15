@@ -5,31 +5,32 @@ require('./Controllers/madLibsController.php');
 
 ?>
 
+<div class="wrapper">
+    <form class="exercise" action="madLibsResult.phtml" method="post">
 
-<form class="exercise" action="madLibsResult.phtml" method="post">
+        <?php foreach ($madLibs->display as $exercise) : ?>
+            <fieldset class="exercise_question">
+                <div class="words gameButton">
+                    <?php foreach ($exercise['fillingWords'] as $word) : ?>
+                        <div class="word gameButton"><?= $word ?></div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="wording">
+                    <?php foreach ($exercise['wording'] as $wording) : ?>
 
-    <?php foreach ($madLibs->display as $exercise) : ?>
-        <fieldset class="exercise_question">
-            <div class="words gameButton">
-                <?php foreach ($exercise['fillingWords'] as $word) : ?>
-                    <div class="word gameButton"><?= $word ?></div>
-                <?php endforeach; ?>
-            </div>
-            <div class="wording">
-                <?php foreach ($exercise['wording'] as $wording) : ?>
+                        <?= $wording ?>
 
-                    <?= $wording ?>
-
-                <?php endforeach; ?>
-            </div>
-        </fieldset>
+                    <?php endforeach; ?>
+                </div>
+            </fieldset>
 
 
-    <?php endforeach; ?>
-    <input type="submit" value="Valider">
-</form>
+        <?php endforeach; ?>
+        <input type="submit" value="Valider">
+    </form>
+</div>
 
 <script type="text/javascript" src="assets/js/madLibs.js"></script>
-
+<script type="text/javascript" src="assets/js/exerciseDisplay.js"></script>
 
 
