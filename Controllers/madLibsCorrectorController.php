@@ -9,6 +9,7 @@ $correction->clearSession();
 
 
 
+
 class madLibsCorrectorController
 {
     // texte complet, y compris les mots des trous, indiqués entre **
@@ -18,7 +19,6 @@ class madLibsCorrectorController
     public $madLibsWords;
     public $madLibsAnswers;
     public $madLibsExercise;
-    public $display;
     public $note;
     public $correctionList;
 
@@ -27,49 +27,69 @@ class madLibsCorrectorController
     {
 
         $post = $_POST;
-        var_dump($post);
-        var_dump($_SESSION['exercises']);
+
+
         $this->madLibsText = $_SESSION['exercises']['text'];
         $this->madLibsWords = $_SESSION['exercises']['words'];
         $this->madLibsExercise = $_SESSION['exercises']['exercise'];
 
         $words = [];
-        foreach ($post as $word) {
-            $words[] = strtoupper($word);
+        foreach ($post as $index => $word) {
+
+
+            $wordpos = strpos($index, 'word');
+            $exerciseId = substr($index, 2, $wordpos - 2);
+
+            $words[$exerciseId][] = $word;
         }
 
         $this->madLibsAnswers = $words;
 
     }
 
-    public function setNote () {
+    public function setNote ()
+    {
         $this->note = 0;
-        for ($i=0; $i<count($this->madLibsWords); $i++){
+        $totalCount = 0;
+        foreach ($this->madLibsWords as $exerciseId => $words) {
+            $totalCount += count($this->madLibsWords[$exerciseId]);
 
-            if ($this->madLibsWords[$i] === $this->madLibsAnswers[$i]) {
-                $this->note ++;
+            for ($i = 0; $i < count($words); $i++) {
 
-            } else {
-                break;
+                if ($words[$i] === $this->madLibsAnswers[$exerciseId][$i]) {
+                    $this->note++;
+
+                } else {
+                    break;
+                }
             }
         }
 
-        $this->note = $this->note . "/" . count($this->madLibsWords);
+        $this->note = $this->note . "/" . $totalCount;
     }
 
-    public function setCorrection () {
+    public function setCorrection ()
+    {
         $correction = [];
 
-        for ($i=0; $i<count($this->madLibsWords); $i++){
-            $correct = FALSE;
-            if ($this->madLibsWords[$i] === $this->madLibsAnswers[$i]) {
-                $correct = TRUE;
+        foreach ($this->madLibsWords as $exerciseId => $words) {
+
+            for ($i = 0; $i < count($words); $i++) {
+                $correctWord = $words[$i];
+                $userAnswer = $this->madLibsAnswers[$exerciseId][$i];
+                $correct = FALSE;
+                if ($correctWord === $userAnswer) {
+                    $correct = TRUE;
+                }
+
+                $correction[$exerciseId][] = [
+                    'correctWord' => $correctWord,
+                    'answer' => $userAnswer = $this->madLibsAnswers[$exerciseId][$i],
+                    'correction' => $correct,
+                ];
             }
 
-            $correction[] = ['correctWord' => $this->madLibsWords[$i],
-                            'answer' => $this->madLibsAnswers[$i],
-                            'correction' => $correct
-                ];
+
         }
 
         $this->correctionList = $correction;

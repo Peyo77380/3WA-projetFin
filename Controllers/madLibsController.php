@@ -1,7 +1,7 @@
 <?php
 require('./models/unorderedSentencesModel.php');
 
-
+$_SESSION['exercises'] = [];
 $madLibs = new madLibsController();
 $madLibs->getExercise();
 $madLibs->setGapsAndWords();
@@ -55,8 +55,8 @@ class madLibsController
             }
 
             $this->madLibsExercise[$exercise['exerciseId']] = $content;
-            $_SESSION['exercises']['exercise'][] = $content;
-            $_SESSION['exercises']['words'][] = $words;
+            $_SESSION['exercises']['exercise'][$exercise['exerciseId']] = $content;
+            $_SESSION['exercises']['words'][$exercise['exerciseId']] = $words;
             $this->madLibsWords[$exercise['exerciseId']] = $words;
 
         }

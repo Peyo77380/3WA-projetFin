@@ -9,24 +9,30 @@ require('./Controllers/madLibsCorrectorController.php');
 
 <section>
 
-    <?php if(isset($correction->{'note'})) : ?>
+    <?php if (isset($correction->{'note'})) : ?>
         Votre note:
         <?= $correction->{'note'} ?>
     <?php endif; ?>
 </section>
 
 <section>
-    <?php for($i=0; $i<count($correction->{'madLibsExercise'}); $i++) : ?>
-        <?= $correction->{'madLibsExercise'}[$i] ?>
-        <?php
-        if(isset($correction->{'correctionList'}[$i]['answer'])){
-            if ($correction->{'correctionList'}[$i]['correction'] === TRUE) {
-                echo '<span class="correctAnswer"> ' . $correction->{'correctionList'}[$i]['correctWord'] . '</span>';
-            } else {
-                echo '<span class="wrongAnswer"> ' . $correction->{'correctionList'}[$i]['correctWord'] . '</span>';
-            }
-        }
+    <?php foreach ($correction->{'madLibsExercise'} as $exerciseId => $exercise) : ?>
+        <article>
+            <?php for ($i = 0; $i < count($exercise); $i++) : ?>
+                <?= $exercise[$i] ?>
+                <?php
 
-        ?>
-    <?php endfor; ?>
+                if (isset($correction->{'correctionList'}[$exerciseId][$i]['answer'])) {
+                    if ($correction->{'correctionList'}[$exerciseId][$i]['correction'] === TRUE) {
+                        echo '<span class="correctAnswer"> ' . $correction->{'correctionList'}[$exerciseId][$i]['correctWord'] . '</span>';
+                    } else {
+                        echo '<span class="wrongAnswer"> ' . $correction->{'correctionList'}[$exerciseId][$i]['answer'] . '</span> <span class="correctAnswer"> ' . $correction->{'correctionList'}[$exerciseId][$i]['correctWord'] . '</span>';
+                    }
+                }
+
+                ?>
+            <?php endfor; ?>
+        </article>
+
+    <?php endforeach; ?>
 </section>

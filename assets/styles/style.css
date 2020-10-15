@@ -373,3 +373,15 @@ input[value="Valider"]{
 .progressBar_sub:last-of-type {
     border-radius: 0 1rem 1rem 0;
 }
+
+
+.correctAnswer {
+    color: darkgreen;
+    font-weight: bold;
+}
+
+.wrongAnswer {
+    color: darkred;
+    font-weight: bold;
+    text-decoration: line-through;
+}
