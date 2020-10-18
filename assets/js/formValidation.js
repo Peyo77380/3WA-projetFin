@@ -6,7 +6,7 @@ class FormValidator {
 
         this.form;
         this.fields;
-        console.log('form val');
+
     }
 
     setTargetsForm(target) {
@@ -44,24 +44,35 @@ class FormValidator {
 
         if (emptyFieldDetected) {
             alert(
-                'Un ou plusieurs champs n\'ont pas été remplis. Voulez-vous vérifier vos réponses? ' +
-                'Pour rappel, un réponse manquante ou un erreur ne retirent pas de point.'
+                'Un ou plusieurs champs n\'ont pas été remplis.' +
+                'Pour rappel, un réponse manquante ou un erreur ne retirent pas de point, mais n\'en rapporte aucun...'
             );
+            if (confirm('Voulez-vous tout de même continuer?')) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
 
 function runValidation(e) {
     e.preventDefault();
+
     let validator = new FormValidator();
-    validator.setTargetsForm(this);
-    validator.emptyFieldValidator();
+    validator.setTargetsForm(e.target);
+    let validation = validator.emptyFieldValidator();
+
+    if (validation) {
+        e.target.submit();
+    }
+
+
 }
 
 function init() {
     let form = document.querySelector('form');
     form.addEventListener('submit', runValidation.bind(this));
-
 
 }
 
