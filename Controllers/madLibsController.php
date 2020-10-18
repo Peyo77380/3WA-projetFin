@@ -81,7 +81,10 @@ class madLibsController
                 }
             }
 
-            $this->display[$id]['fillingWords'] = $this->madLibsWords[$id];
+            $fillingWords = $this->madLibsWords[$id];
+            shuffle($fillingWords);
+
+            $this->display[$id]['fillingWords'] = ($fillingWords);
 
 
         }

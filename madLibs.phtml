@@ -9,6 +9,7 @@ require('./Controllers/madLibsController.php');
     <form class="exercise" action="madLibsResult.phtml" method="post">
 
         <?php foreach ($madLibs->display as $exercise) : ?>
+            <?php var_dump($exercise); ?>
             <fieldset class="exercise_question">
                 <div class="words gameButton">
                     <?php foreach ($exercise['fillingWords'] as $word) : ?>
