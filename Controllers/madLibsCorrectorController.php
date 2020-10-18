@@ -26,7 +26,7 @@ class madLibsCorrectorController
     public function getAnswers()
     {
 
-        $post = $_POST;
+        $post = postCleaner($_POST);
 
 
         $this->madLibsText = $_SESSION['exercises']['text'];
@@ -35,7 +35,9 @@ class madLibsCorrectorController
 
         $words = [];
         foreach ($post as $index => $word) {
-
+            if ($word === '') {
+                $word = '//empty//';
+            }
 
             $wordpos = strpos($index, 'word');
             $exerciseId = substr($index, 2, $wordpos - 2);

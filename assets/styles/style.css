@@ -385,3 +385,8 @@ input[value="Valider"]{
     font-weight: bold;
     text-decoration: line-through;
 }
+
+.missingAnswer {
+    color: darkred;
+    font-weight: bold;
+}

@@ -6,7 +6,22 @@ require('./Controllers/madLibsCorrectorController.php');
 
 ?>
 
+<section>
+    <article class="explanation">
+        <h4>Comment lire la correction?</h4>
 
+        <p>
+            Si vous avez répondu correctement, votre réponse apparait en vert, comme ceci :
+            <span class="correctAnswer">Mot correct</span>. <br>
+
+            Si vous avez fait une erreur, votre réponse apparait en rouge, barrée :
+            <span class="wrongAnswer">Erreur</span>. Si vous n'avez pas répondu,
+            <span class="missingAnswer"> ( X ) </span> apparait.
+            Le mot correct suit entre parenthèses, afin de vous aider à comprendre et à vous améliorer
+            <span class="correctAnswer"> (Mot correct) </span>.
+        </p>
+    </article>
+</section>
 <section>
 
     <?php if (isset($correction->{'note'})) : ?>
@@ -23,10 +38,12 @@ require('./Controllers/madLibsCorrectorController.php');
                 <?php
 
                 if (isset($correction->{'correctionList'}[$exerciseId][$i]['answer'])) {
-                    if ($correction->{'correctionList'}[$exerciseId][$i]['correction'] === TRUE) {
+                    if ($correction->{'correctionList'}[$exerciseId][$i]['answer'] === '//empty//') {
+                        echo '<span class="missingAnswer"> ( X ) </span> <span class="correctAnswer"> (' . $correction->{'correctionList'}[$exerciseId][$i]['correctWord'] . ') </span>';
+                    } else if ($correction->{'correctionList'}[$exerciseId][$i]['correction'] === TRUE) {
                         echo '<span class="correctAnswer"> ' . $correction->{'correctionList'}[$exerciseId][$i]['correctWord'] . '</span>';
                     } else {
-                        echo '<span class="wrongAnswer"> ' . $correction->{'correctionList'}[$exerciseId][$i]['answer'] . '</span> <span class="correctAnswer"> ' . $correction->{'correctionList'}[$exerciseId][$i]['correctWord'] . '</span>';
+                        echo '<span class="wrongAnswer"> ' . $correction->{'correctionList'}[$exerciseId][$i]['answer'] . '</span> <span class="correctAnswer"> (' . $correction->{'correctionList'}[$exerciseId][$i]['correctWord'] . ') </span>';
                     }
                 }
 
