@@ -10,10 +10,8 @@ function postCleaner($post)
     $rebuildPost = [];
 
     foreach ($post as $key => $value) {
-        // <script>
         $cleanValue = clean($value);
         $cleanKey = clean($key);
-
 
         $rebuildPost[$cleanKey] = $cleanValue;
 
@@ -24,3 +22,17 @@ function postCleaner($post)
 
 }
 
+function exercisesCleaner($exercises)
+{
+    $rebuiltExercises = [];
+    foreach ($exercises as $exerciseId => $exercise) {
+        foreach ($exercise as $key => $value) {
+            $cleanValue = htmlspecialchars($value);
+            $cleanKey = htmlspecialchars($key);
+
+            $rebuiltExercises[$exerciseId][$cleanKey] = $cleanValue;
+        }
+    }
+
+    return $rebuiltExercises;
+}

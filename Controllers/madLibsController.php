@@ -28,8 +28,9 @@ class madLibsController
         $sentences->setQuery('madLibs');
         $pdoResult = $sentences->getSentences();
 
+        $cleanExercises = exercisesCleaner($pdoResult);
 
-        $this->madLibsText = $pdoResult;
+        $this->madLibsText = $cleanExercises;
 
         $_SESSION['exercises']['text'] = $this->madLibsText;
     }

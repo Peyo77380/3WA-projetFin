@@ -28,9 +28,9 @@ class unorderedSentencesController
         $sentences->setQuery('unorderedSentences');
         $pdoResult = $sentences->getSentences();
 
+        $cleanExercise = exercisesCleaner($pdoResult);
 
-        $this->sentences = $pdoResult;
-
+        $this->sentences = $cleanExercise;
 
     }
 
@@ -63,41 +63,6 @@ class unorderedSentencesController
 
 
 
-    public function correctUnorderedSentences () {
-        $post = $_POST;
-        $correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
-        $userAnswers = [];
-        $note = 0;
-
-        foreach ($post as $answer) {
-
-            $answer = explode(" ", $answer);
-            $userAnswers[] = $answer;
-        }
-
-
-        foreach ($userAnswers as $key=>$value) {
-
-            if ($value == $correctAnswers[$key]) {
-                $note ++;
-                $rating = 'Correct';
-            } else {
-                $rating = 'Faux';
-            }
-
-            $individualCheck =
-                ['correctAnswer' => implode(" ", $correctAnswers[$key]),
-                    'userAnswer' => implode(" ", $value),
-                    'rating' => $rating
-                ];
-
-            $result['correction'][$key] = $individualCheck;
-
-        }
-        $result['note'] = $note . " / " . count($correctAnswers);
-        return $result;
-
-    }
 }
 
 
