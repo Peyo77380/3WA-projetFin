@@ -9,15 +9,16 @@ Class unorderedSentencesCorrectorController
     public function __construct ()
     {
 
-        var_dump($_SESSION);
 
         $post = $_POST;
+        $data = postCleaner($post);
+
         $correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
         $userAnswers = [];
         $note = 0;
 
 
-        foreach ($post as $answer) {
+        foreach ($data as $answer) {
             $answer = explode(" ", $answer);
             $userAnswers[] = $answer;
         }

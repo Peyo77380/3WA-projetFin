@@ -1,11 +1,9 @@
 <?php
-require('../connect.php');
-require ('../params/database.php');
-
-var_dump($_POST);
+require('../params/utilities.php');
+require('../params/database.php');
 
 $post = $_POST;
-
+$newUser = postCleaner($post);
 /*
  *
  * 1ere etape
@@ -16,15 +14,14 @@ $post = $_POST;
  */
 $database = new Database();
 $sql = 'INSERT INTO users (`username`, `email`, `password`, `role`) VALUES (?, ?, ?, "student")';
-$params = [$post['username'], $post['email'], $post['password']];
+$params = [$newUser['username'], $newUser['email'], $newUser['password']];
 
 $save = $database->saveToDb($sql, $params);
 
-var_dump($save);
 $_SESSION['user'] = [
-    'userName' => $post['username'],
+    'userName' => $newUser['username'],
     'userId' => $save,
-    'userMail' => $post['email']
+    'userMail' => $newUser['email']
 ];
 
 header('Location: ../userSubscribe.phtml');

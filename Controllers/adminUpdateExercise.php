@@ -1,10 +1,10 @@
 <?php
 
-<<<<<<< HEAD
 require('../params/database.php');
 
 
 $post = validateData($_POST);
+
 
 $exerciseName = $post['exerciseName'];
 $values = $post['id'];
@@ -40,15 +40,15 @@ function validateData($element)
         if ($value = "") {
             echo "Vous n'avez pas renseigné au moins une partie du formulaire";
             return;
-        };
+        }
 
         // si une des valeurs ou un des titres contient < (&lt;) > (&gt;) ou & (&amp;), on obtient un message d'erreur.
         // " et ' (&#039) sont acceptés. (non convertis car encodage avec ENT_NOQUOTES)
         // les titres n'ont pas a contenir de caratères spéciaux, y compris " (&quot;) et ' (&#039, &apos);
 
-        $forbiddenCharactersConvertion = ['&lt;', '&gt;', '&amp;', '&quot;', '&apos', '@'];
+        $forbiddenCharactersConversion = ['&lt;', '&gt;', '&amp;', '&quot;', '&apos', '@'];
 
-        foreach ($forbiddenCharactersConvertion as $char) {
+        foreach ($forbiddenCharactersConversion as $char) {
             if (strstr($title, $char) || strstr($value, $char)) {
                 echo "Vous ne pouvez pas utiliser de caractères spéciaux";
                 return;
@@ -59,18 +59,18 @@ function validateData($element)
 
     return $post;
 }
-=======
+
 $post = $_POST;
-var_dump($post);
+$update = postCleaner($post);
+
 $exerciseTranslation = '';
 $exerciseContent = $post['exerciseContent'];
 $exerciseId = $post['exerciseId'];
 
-if(!isset($post['exerciseName']))
-{
+if (!isset($post['exerciseName'])) {
     throw new Exception('Pas de nom d\'exercice');
 }
-if($post['exerciseName'] == 'unorderedSentences')
+if ($post['exerciseName'] == 'unorderedSentences')
 {
     $exerciseTranslation = 'Phrases déstructurées';
 }
@@ -86,4 +86,4 @@ return $display = [
     'content' => $exerciseContent,
     'id' => $exerciseId
 ];
->>>>>>> new
+

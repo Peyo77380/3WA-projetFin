@@ -1,12 +1,11 @@
 <?php
-<<<<<<< HEAD
 
 require('../models/adminExercisesUnorderedSentencesModel.php');
 
 $test = new AdminAddExercise();
 
 $data = $test->saveNewExercise();
-var_dump($data);
+
 
 
 
@@ -30,14 +29,15 @@ class AdminAddExercise
     public function validateData ($element)
     {
 
+        $element = postCleaner($element);
+
         // pas de caractères spéciaux
         if (!isset($element)) {
             echo "Quelque chose ne s'est pas passé comme prévu. Merci de réessayer.";
             echo "Si le problème persiste, merci de contacter l'administrateur.";
             return;
         }
-        foreach ($element as $key=>$value)
-        {
+        foreach ($element as $key => $value) {
 
             $cleanKey = htmlspecialchars($key);
             $cleanValue = htmlspecialchars($value /*, ENT_NOQUOTES*/);
@@ -52,7 +52,7 @@ class AdminAddExercise
             {
                 echo "Vous n'avez pas renseigné au moins une partie du formulaire";
                 return;
-            };
+            }
 
             // si une des valeurs ou un des titres contient < (&lt;) > (&gt;) ou & (&amp;), on obtient un message d'erreur.
             // " et ' (&#039) sont acceptés. (non convertis car encodage avec ENT_NOQUOTES)

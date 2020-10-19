@@ -3,10 +3,11 @@
 require('../params/database.php');
 
 $post = $_POST;
+$delete = postCleaner($post);
 
-var_dump($post);
-$exerciseId = $post['exerciseId'];
-$databaseTable = $post['exerciseName'];
+
+$exerciseId = $delete['exerciseId'];
+$databaseTable = $delete['exerciseName'];
 
 $sql = "DELETE FROM " . $databaseTable . " WHERE " . $databaseTable . ".`exerciseId` = ? ";
 
@@ -15,4 +16,4 @@ $param = [$exerciseId];
 $data = new Database();
 $data->update($sql, $param);
 
-// header('Location: ../adminExercisesUnorderedSentences.phtml');
+header('Location: ../adminExercisesUnorderedSentences.phtml');

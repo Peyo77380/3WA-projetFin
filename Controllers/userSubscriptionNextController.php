@@ -3,30 +3,29 @@ require('../params/database.php');
 
 
 $post = $_POST;
+$newUser = postCleaner($post)
 
-
-$birthdate = $post['year'] . "-"  . substr("0".$post['month'], -2) . "-" . substr("0".$post['day'], -2);
+$birthdate = $newUser['year'] . "-" . substr("0" . $newUser['month'], -2) . "-" . substr("0" . $newUser['day'], -2);
 
 $database = new Database();
 $sql = "UPDATE `users` SET `firstname` = ?, `lastname` = ?, `country` = ?, `birthdate` = STR_TO_DATE(?,'%Y-%m-%d')  WHERE `users`.`id` = ?";
 $params = [
     // firstname
-    $post['firstname'],
+    $newUser['firstname'],
     //lastname
-    $post['lastname'],
+    $newUser['lastname'],
     //country
-    $post['country'],
+    $newUser['country'],
     //birthdate
     $birthdate,
     //userId
-    $post['userId']
+    $newUser['userId']
 ];
 
 $save = $database->update($sql, $params);
 
-var_dump($save);
-$_SESSION['user']['userFirstname'] = $post['firstname'];
-$_SESSION['user']['userLastname'] = $post['lastname'];
+$_SESSION['user']['userFirstname'] = $newUser['firstname'];
+$_SESSION['user']['userLastname'] = $newUser['lastname'];
 
 header('Location: ../userSubscribeLast.phtml');
 

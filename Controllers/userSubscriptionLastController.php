@@ -2,8 +2,6 @@
 
 require('../params/database.php');
 
-
-
 /*
  *
  * 3e etape
@@ -13,41 +11,43 @@ require('../params/database.php');
  *
  */
 
-var_dump($_POST);
+
 $post = $_POST;
+
+$newUser = postCleaner($post);
 
 $data = new Database();
 $sql = "UPDATE `users` SET `motherlanguage` = ?, `knownlanguages` = ? WHERE `users`.`id` = ?";
 
 $knownLanguages = '';
 
-if($post['furtherLanguage1']) {
-    $knownLanguages = $knownLanguages. $post['furtherLanguage1'];
-    if(isset($post['furtherLanguage1Lvl'])){
-        $knownLanguages = $knownLanguages . "-" . $post['furtherLanguage1Lvl'] . "/";
+if ($newUser['furtherLanguage1']) {
+    $knownLanguages = $knownLanguages . $newUser['furtherLanguage1'];
+    if (isset($newUser['furtherLanguage1Lvl'])) {
+        $knownLanguages = $knownLanguages . "-" . $newUser['furtherLanguage1Lvl'] . "/";
     }
 }
 
-if($post['furtherLanguage2']) {
-    $knownLanguages = $knownLanguages. $post['furtherLanguage2'];
-    if(isset($post['furtherLanguage2Lvl'])){
-        $knownLanguages = $knownLanguages . "-" . $post['furtherLanguage2Lvl'] . "/";
+if ($newUser['furtherLanguage2']) {
+    $knownLanguages = $knownLanguages . $newUser['furtherLanguage2'];
+    if (isset($newUser['furtherLanguage2Lvl'])) {
+        $knownLanguages = $knownLanguages . "-" . $newUser['furtherLanguage2Lvl'] . "/";
     }
 }
 
-if($post['furtherLanguage3']) {
-    $knownLanguages = $knownLanguages. $post['furtherLanguage3'];
-    if(isset($post['furtherLanguage3Lvl'])){
-        $knownLanguages = $knownLanguages . "-" . $post['furtherLanguage3Lvl'] . "/";
+if ($newUser['furtherLanguage3']) {
+    $knownLanguages = $knownLanguages . $newUser['furtherLanguage3'];
+    if (isset($newUser['furtherLanguage3Lvl'])) {
+        $knownLanguages = $knownLanguages . "-" . $newUser['furtherLanguage3Lvl'] . "/";
     }
 }
 
 
 
 $params = [
-    $post['motherLanguage'],
+    $newUser['motherLanguage'],
     $knownLanguages,
-    $post['userId']
+    $newUser['userId']
 ];
 
 $save = $data->update($sql, $params);
