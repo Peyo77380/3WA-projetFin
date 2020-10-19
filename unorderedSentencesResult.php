@@ -1,0 +1,37 @@
+<?php
+require('index.phtml');
+
+require('./Controllers/unorderedSentencesCorrectorController.php');
+
+$corrector = new unorderedSentencesCorrectorController();
+
+?>
+
+<h1>Correction</h1>
+
+<table>
+    <thead>
+    <tr>
+        <td>Votre réponse</td>
+        <td>Correction</td>
+        <td>Résultat</td>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($corrector->result['correction'] as $sentence) : ?>
+
+        <tr class="<?php if ($sentence['rating'] == 'Faux') {
+            echo 'failure';
+        }
+        ?>">
+            <td><?= $sentence['userAnswer'] ?></td>
+            <td><?= $sentence['correctAnswer'] ?></td>
+            <td><?= $sentence['rating'] ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<div class="note">
+    Note : <?= $corrector->result['note'] ?>
+</div>

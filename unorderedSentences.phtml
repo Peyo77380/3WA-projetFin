@@ -1,22 +1,18 @@
 <?php
+require('index.phtml');
 require('./Controllers/unorderedSentencesController.php');
 
-require('connect.php');
-
-include('index.phtml');
 ?>
 
 
+    <div class="wrapper">
+        <h2>Examen</h2>
 
+        <section class="rule">
+            <p>Remettez les phrases dans l'ordre</p>
+        </section>
 
-<div class="wrapper">
-    <h2>Examen</h2>
-
-    <section class="rule">
-        <p>Remettez les phrases dans l'ordre</p>
-    </section>
-
-    <form action="sendAnswer.php" class="exercise" method="post" />
+        <form action="unorderedSentencesResult.php" class="exercise" method="post"/>
 
         <?php foreach ($unorderedSentences as $index => $sentences) : ?>
 

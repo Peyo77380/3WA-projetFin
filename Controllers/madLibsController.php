@@ -1,5 +1,5 @@
 <?php
-require('./models/unorderedSentencesModel.php');
+require('./models/exerciseModel.php');
 
 $_SESSION['exercises'] = [];
 $madLibs = new madLibsController();
@@ -23,7 +23,7 @@ class madLibsController
 
     public function getExercise()
     {
-        $sentences = new UnorderedSentencesModel();
+        $sentences = new Exercise();
         $sentences->setParams(3);
         $sentences->setQuery('madLibs');
         $pdoResult = $sentences->getSentences();

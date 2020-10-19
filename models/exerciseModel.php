@@ -1,7 +1,7 @@
 <?php
 require('./params/database.php');
 
-class UnorderedSentencesModel
+class Exercise
 {
     public $result;
     private $query;

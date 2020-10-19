@@ -1,5 +1,5 @@
 <?php
-require('./connect.php');
+require('index.phtml');
 
 require('./Controllers/unorderedSentencesCorrectorController.php');
 

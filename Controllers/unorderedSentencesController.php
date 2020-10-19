@@ -1,18 +1,17 @@
 <?php
 
-require('./models/unorderedSentencesModel.php');
+require('./models/exerciseModel.php');
 
 
-
-
+$_SESSION['exercises'] = [];
 $exercise = new unorderedSentencesController();
 
 $cutSentences = $exercise->sentenceCutter();
 
 $unorderedSentences = $exercise->sentenceRandomizer();
 
-$_SESSION['exercises']['unorderedSentences']['correct'] = $cutSentences;
 
+$_SESSION['exercises']['unorderedSentences']['correct'] = $exercise->cutSentences;
 
 
 class unorderedSentencesController
@@ -21,15 +20,16 @@ class unorderedSentencesController
     public $cutSentences;
     public $unorderedSentences;
 
-    public function __construct () {
-        $sentences = new UnorderedSentencesModel();
+    public function __construct()
+    {
+
+        $sentences = new Exercise();
         $sentences->setParams(5);
         $sentences->setQuery('unorderedSentences');
         $pdoResult = $sentences->getSentences();
 
 
         $this->sentences = $pdoResult;
-
 
 
     }
@@ -50,7 +50,7 @@ class unorderedSentencesController
     public function sentenceRandomizer () {
 
         foreach($this->cutSentences as $ex){
-            $shuffled = shuffle($ex['sentence']);
+            shuffle($ex['sentence']);
 
             $this->unorderedSentences[] = [
                 'exerciseId' => $ex['exerciseId'],
@@ -59,10 +59,6 @@ class unorderedSentencesController
         }
 
         return $this->unorderedSentences;
-    }
-
-    public function saveExercise ($a) {
-
     }
 
 
