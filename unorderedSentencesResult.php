@@ -3,7 +3,6 @@ require('index.phtml');
 
 require('./Controllers/unorderedSentencesCorrectorController.php');
 
-$corrector = new unorderedSentencesCorrectorController();
 
 ?>
 

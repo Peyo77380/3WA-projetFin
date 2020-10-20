@@ -1,16 +1,19 @@
 <?php
 
 
-Class unorderedSentencesCorrectorController
+$corrector = new unorderedSentencesCorrectorController();
+
+class unorderedSentencesCorrectorController
 {
 
     public $result;
 
-    public function __construct ()
+    public function __construct()
     {
 
 
         $post = $_POST;
+
         $data = postCleaner($post);
 
         $correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
@@ -24,9 +27,11 @@ Class unorderedSentencesCorrectorController
         }
 
 
-        foreach ($userAnswers as $key => $value) {
+        foreach ($userAnswers as $key => $values) {
 
-            if ($value == $correctAnswers[$key]) {
+            $userAnswer = decode($values);
+
+            if ($userAnswer == $correctAnswers[$key]['sentence']) {
                 $note++;
                 $rating = 'Correct';
             } else {
@@ -35,7 +40,7 @@ Class unorderedSentencesCorrectorController
 
             $individualCheck =
                 ['correctAnswer' => implode(" ", $correctAnswers[$key]['sentence']),
-                    'userAnswer' => implode(" ", $value),
+                    'userAnswer' => implode(" ", $userAnswer),
                     'rating' => $rating
                 ];
 

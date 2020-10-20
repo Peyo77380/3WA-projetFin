@@ -36,3 +36,17 @@ function exercisesCleaner($exercises)
 
     return $rebuiltExercises;
 }
+
+function decode($stringsArray)
+{
+    $decodedAnswer = [];
+
+    foreach ($stringsArray as $wordNumber => $word) {
+        $decodedWordNumber = html_entity_decode(htmlspecialchars_decode($wordNumber));
+        $decodedWord = html_entity_decode(htmlspecialchars_decode($word));
+
+        $decodedAnswer[$decodedWordNumber] = $decodedWord;
+    }
+
+    return $decodedAnswer;
+}
