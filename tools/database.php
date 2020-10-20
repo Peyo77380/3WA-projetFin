@@ -1,0 +1,86 @@
+<?php
+
+
+$db = new Database();
+
+class Database
+{
+    private $pdo;
+
+
+    public function __construct()
+    {
+
+        $dbSettings = parse_ini_file('/Applications/MAMP/htdocs/3WA-projetFin/tools/config/databaseConfig.ini');
+
+        $dsn = sprintf('mysql:dbname=%s;host=%s', $dbSettings['dbname'], $dbSettings['host']);
+
+        $pdoOptions = [
+            PDO::ATTR_ERRMODE,
+            PDO::ERRMODE_EXCEPTION
+        ];
+
+        try {
+            $this->pdo = new PDO(
+                $dsn,
+                $dbSettings['username'],
+                $dbSettings['password'],
+                $pdoOptions
+            );
+            // $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+        } catch(PDOException $e) {
+
+            echo "Connection failed: " . $e->getMessage();
+
+        }
+    }
+
+    public function sendQuery ($sql, $params)
+    {
+
+        $query = $this->pdo->prepare($sql);
+        if($params) {
+            $query->bindParam($params['variableName'], $params['variableValue'], $params['PDOparam']);
+        }
+
+
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getSingleData ($sql, $params)
+    {
+        $query = $this->pdo->prepare($sql);
+
+        $query->execute($params);
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update ($sql, $params)
+    {
+
+        $query = $this->pdo->prepare($sql);
+
+
+
+        $query->execute($params);
+
+
+    }
+
+    public function saveToDb ($sql, $params)
+    {
+        $query = $this->pdo->prepare($sql);
+
+        $query->execute($params);
+
+        $id = $this->pdo->lastInsertId();
+
+        return $id;
+    }
+
+}

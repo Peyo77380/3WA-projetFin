@@ -1,5 +1,5 @@
 <?php
-require('./params/database.php');
+require('./tools/database.php');
 
 $correction = new madLibsCorrectorController();
 $correction->getAnswers();

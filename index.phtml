@@ -1,7 +1,12 @@
 <?php
+include('router.php');
+$router = new Router();
+
+
 require('config.php');
 require('connect.php');
-require('./params/utilities.php');
+require('./tools/utilities.php');
+
 /*
 if(isset($_SESSION)) {
     var_dump($_SESSION);
@@ -29,7 +34,7 @@ if(isset($_SESSION)) {
     <nav>
         <ul>
             <li>
-                <a href="about.phtml">Qui suis-je?</a>
+                <a href="about">Qui suis-je?</a>
             </li>
             <li class="nav-menu">
                 Entrainez-vous
@@ -66,13 +71,13 @@ if(isset($_SESSION)) {
 
             <?php if (!isset($_SESSION['connectedUser'])) : ?>
                 <li>
-                    <a href="userConnection.phtml">Connectez vous</a>
+                    <a href="userConnection">Connectez vous</a>
                 </li>
             <?php endif; ?>
 
             <?php if (isset($_SESSION['connectedUser'])) : ?>
                 <li>
-                    <a href="./userProfile.phtml">Profil</a>
+                    <a href="./userProfile">Profil</a>
                 </li>
                 <li>
                     <a href="./Controllers/userLogOutController.php">Déconnexion</a>

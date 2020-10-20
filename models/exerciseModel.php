@@ -1,5 +1,5 @@
 <?php
-require('./params/database.php');
+require('./tools/database.php');
 
 class Exercise
 {
@@ -9,7 +9,7 @@ class Exercise
 
     public function getSentences()
     {
-        //replace by a sql query to database
+
         $data = new Database();
 
         $this->result = $data->sendQuery($this->query, $this->params);

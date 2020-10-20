@@ -1,5 +1,5 @@
 <?php
-require('./params/database.php');
+require('./tools/database.php');
 
 class userSubscriptionModel
 {
@@ -12,7 +12,7 @@ class userSubscriptionModel
                 'countryName' => $row[4],
                 'countryCode' => $row[3],
             ];
-        };
+        }
 
         return $countries;
     }
@@ -26,7 +26,7 @@ class userSubscriptionModel
                 'languageName' => ucfirst($row[2]),
                 'languageCode' => $row[0],
             ];
-        };
+        }
 
         return $languages;
     }
@@ -48,8 +48,7 @@ class userSubscriptionModel
             }
 
 
-
-        };
+        }
 
         return $language;
 

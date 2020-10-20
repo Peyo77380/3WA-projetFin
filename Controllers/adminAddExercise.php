@@ -74,15 +74,16 @@ class AdminAddExercise
         return $this->post;
     }
 
-    public function saveNewExercise () {
+    public function saveNewExercise()
+    {
         $conn = new Database();
         $conn->saveExercise($this->exerciseName, $this->values);
     }
 
 
 
-=======
-require('../params/database.php');
+====== =
+require ('../tools/database.php');
 
 var_dump($_POST);
 

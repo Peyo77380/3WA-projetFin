@@ -1,6 +1,7 @@
 <?php
-require('../connect.php');
-require('../params/database.php');
+
+require('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
+require('/Applications/MAMP/htdocs/3WA-projetFin/tools/utilities.php');
 
 $post = $_POST;
 $connection = postCleaner($post);

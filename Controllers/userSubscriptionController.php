@@ -1,6 +1,6 @@
 <?php
-require('../params/utilities.php');
-require('../params/database.php');
+require('../tools/utilities.php');
+require('../tools/database.php');
 
 $post = $_POST;
 $newUser = postCleaner($post);
