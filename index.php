@@ -52,15 +52,15 @@ if(isset($_SESSION)) {
                 <li class="nav-menu">
                     Administration
                     <ul class="nav-subMenu">
-                        <li><a href="adminUsers.phtml">Gestion des utilisateurs</a></li>
+                        <li><a href="Views/adminUsers.phtml">Gestion des utilisateurs</a></li>
                         <li class="nav-menuCategory">
                             Gestion des exercices
                             <ul class="nav-lastMenu">
                                 <li>
-                                    <a href="adminExercisesUnorderedSentences.phtml">Phrases déstructurées</a>
+                                    <a href="Views/adminExercisesUnorderedSentences.phtml">Phrases déstructurées</a>
                                 </li>
                                 <li>
-                                    <a href="adminExercisesMadLibs.phtml">Textes à trous</a>
+                                    <a href="Views/adminExercisesMadLibs.phtml">Textes à trous</a>
                                 </li>
                             </ul>
                         </li>
