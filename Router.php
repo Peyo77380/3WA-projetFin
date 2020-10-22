@@ -68,9 +68,9 @@ class Router
 
     public function reroute()
     {
-        var_dump(__DIR__ . '/Controllers/Controller.php');
+
         require __DIR__ . '/Controllers/Controller.php';
-        var_dump(__DIR__ . '/Controllers/' . $this->controllerName . '.php');
+
         require_once(__DIR__ . '/Controllers/' . $this->controllerName . '.php');
 
         $requiredController = new $this->controllerName ($this->research);
