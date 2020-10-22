@@ -43,15 +43,15 @@
                 <li class="nav-menu">
                     Administration
                     <ul class="nav-subMenu">
-                        <li><a href="Views/adminUsers.phtml">Gestion des utilisateurs</a></li>
+                        <li><a href="adminUsers.phtml">Gestion des utilisateurs</a></li>
                         <li class="nav-menuCategory">
                             Gestion des exercices
                             <ul class="nav-lastMenu">
                                 <li>
-                                    <a href="Views/adminExercisesUnorderedSentences.phtml">Phrases déstructurées</a>
+                                    <a href="adminExercisesUnorderedSentences.phtml">Phrases déstructurées</a>
                                 </li>
                                 <li>
-                                    <a href="Views/adminExercisesMadLibs.phtml">Textes à trous</a>
+                                    <a href="adminExercisesMadLibs.phtml">Textes à trous</a>
                                 </li>
                             </ul>
                         </li>
@@ -68,10 +68,10 @@
 
             <?php if (isset($_SESSION['connectedUser'])) : ?>
                 <li>
-                    <a href="./userProfile">Profil</a>
+                    <a href="userProfile">Profil</a>
                 </li>
                 <li>
-                    <a href="./Controllers/userLogOutController.php">Déconnexion</a>
+                    <a href="./Controllers/UserLogOutController.php">Déconnexion</a>
                 </li>
             <?php endif; ?>
         </ul>
