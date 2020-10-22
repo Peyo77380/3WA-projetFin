@@ -1,14 +1,12 @@
 <?php
 
 
-$corrector = new unorderedSentencesCorrectorController();
-
-class unorderedSentencesCorrectorController
+class UnorderedSentencesResultController extends Controller
 {
 
     public $result;
 
-    public function __construct()
+    public function __construct($target)
     {
 
 
@@ -49,8 +47,7 @@ class unorderedSentencesCorrectorController
         }
         $this->result['note'] = $note . " / " . count($correctAnswers);
 
-
-        return $this->result;
+        parent::__construct($target, $this->result);
 
     }
 }

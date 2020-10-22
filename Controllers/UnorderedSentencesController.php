@@ -6,13 +6,13 @@
 
 
 
-class unorderedSentencesController
+class unorderedSentencesController extends Controller
 {
     public $sentences;
     public $cutSentences;
     public $unorderedSentences;
 
-    public function __construct()
+    public function __construct($target)
     {
         require('./models/exerciseModel.php');
 
@@ -25,12 +25,13 @@ class unorderedSentencesController
 
         $this->sentences = $cleanExercise;
         var_dump($this->sentences);
-        $cutSentences = $this->sentences->sentenceCutter();
+        $this->sentenceCutter();
+        $this->sentenceRandomizer();
 
-        $unorderedSentences = $this->sentences->sentenceRandomizer();
 
+        $_SESSION['exercises']['unorderedSentences']['correct'] = $this->cutSentences;
 
-        $_SESSION['exercises']['unorderedSentences']['correct'] = $exercise->cutSentences;
+        parent::__construct($target, $this->unorderedSentences);
 
     }
 

@@ -4,27 +4,27 @@
 ?>
 
 
-    <div class="wrapper">
-        <h2>Examen</h2>
+<div class="wrapper">
+    <h2>Examen</h2>
 
-        <section class="rule">
-            <p>Remettez les phrases dans l'ordre</p>
-        </section>
+    <section class="rule">
+        <p>Remettez les phrases dans l'ordre</p>
+    </section>
 
-        <form action="unorderedSentencesResult.php" class="exercise" method="post"/>
+    <form action="unorderedSentencesResult" class="exercise" method="post"/>
 
-        <?php foreach ($unorderedSentences as $index => $sentences) : ?>
+    <?php foreach ($data as $index => $sentences) : ?>
 
-            <fieldset class="exercise_question">
+        <fieldset class="exercise_question">
 
-                <div class="exercise_answerElements">
-                    <?php foreach ($sentences['sentence'] as $word) : ?>
+            <div class="exercise_answerElements">
+                <?php foreach ($sentences['sentence'] as $word) : ?>
 
-                        <div class="word gameButton"><?= $word ?></div>
-                    <?php endforeach; ?>
-                </div>
+                    <div class="word gameButton"><?= $word ?></div>
+                <?php endforeach; ?>
+            </div>
 
-                <label for="anwser">Votre réponse : </label>
+            <label for="anwser">Votre réponse : </label>
                 <input type="text" class="answer" name="<?= $index ?>" id="answer_<?= $index ?>">
 
 

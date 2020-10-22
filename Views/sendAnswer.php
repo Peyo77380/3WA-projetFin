@@ -1,9 +1,9 @@
 <?php
 
 
-require('./Controllers/unorderedSentencesCorrectorController.php');
+require('./Controllers/UnorderedSentencesResultController.php');
 
-$corrector = new unorderedSentencesCorrectorController();
+$corrector = new unorderedSentencesResultController();
 
 ?>
 

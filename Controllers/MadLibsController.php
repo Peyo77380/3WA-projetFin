@@ -24,7 +24,7 @@ class MadLibsController extends Controller
         $this->setGapsAndWords();
         $this->prepareForms();
 
-        parent::__construct($target, $this->display,);
+        parent::__construct($target, $this->display);
 
 
     }
