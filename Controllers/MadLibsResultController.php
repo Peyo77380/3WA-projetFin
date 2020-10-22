@@ -1,16 +1,7 @@
 <?php
-require('./tools/database.php');
-
-$correction = new madLibsCorrectorController();
-$correction->getAnswers();
-$correction->setNote();
-$correction->setCorrection();
-$correction->clearSession();
 
 
-
-
-class madLibsCorrectorController
+class madLibsResultController extends Controller
 {
     // texte complet, y compris les mots des trous, indiqués entre **
     public $madLibsText;
@@ -21,6 +12,22 @@ class madLibsCorrectorController
     public $madLibsExercise;
     public $note;
     public $correctionList;
+
+    public function __construct($target)
+    {
+        require('./tools/database.php');
+        $this->getAnswers();
+        $this->setNote();
+        $this->setCorrection();
+        $this->clearSession();
+
+        $data = [
+            'correctionList' => $this->correctionList,
+            'madLibsExercise' => $this->madLibsExercise
+        ];
+
+        parent::__construct($target, $data);
+    }
 
 
     public function getAnswers()

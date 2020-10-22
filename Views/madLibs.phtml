@@ -2,10 +2,12 @@
 
 ?>
 
-<div class="wrapper">
-    <form class="exercise" action="madLibsResult.phtml" method="post">
 
-        <?php foreach ($madLibs->display as $exercise) : ?>
+<div class="wrapper">
+
+    <form class="exercise" action="madLibsResult" method="post">
+
+        <?php foreach ($data as $exercise) : ?>
             <fieldset class="exercise_question">
                 <div class="words gameButton">
                     <?php foreach ($exercise['fillingWords'] as $word) : ?>

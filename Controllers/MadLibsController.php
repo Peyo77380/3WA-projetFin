@@ -1,14 +1,7 @@
 <?php
-require('./models/exerciseModel.php');
-
-$_SESSION['exercises'] = [];
-$madLibs = new madLibsController();
-$madLibs->getExercise();
-$madLibs->setGapsAndWords();
-$exercises = $madLibs->prepareForms();
 
 
-class madLibsController
+class MadLibsController extends Controller
 {
     // texte complet, y compris les mots des trous, indiqués entre **
     public $madLibsText;
@@ -20,6 +13,21 @@ class madLibsController
     public $madLibsWords;
     public $madLibsAnswerFields;
     public $display;
+
+    public function __construct($target)
+
+    {
+        require('./models/exerciseModel.php');
+        $_SESSION['exercises'] = [];
+
+        $this->getExercise();
+        $this->setGapsAndWords();
+        $this->prepareForms();
+
+        parent::__construct($target, $this->display,);
+
+
+    }
 
     public function getExercise()
     {

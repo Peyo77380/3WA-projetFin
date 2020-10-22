@@ -1,8 +1,6 @@
 <?php
 
 
-
-
 ?>
 
 <section>
@@ -23,26 +21,26 @@
 </section>
 <section>
 
-    <?php if (isset($correction->{'note'})) : ?>
+    <?php if (isset($data->{'note'})) : ?>
         Votre note:
-        <?= $correction->{'note'} ?>
+        <?= $data->{'note'} ?>
     <?php endif; ?>
 </section>
 
 <section>
-    <?php foreach ($correction->{'madLibsExercise'} as $exerciseId => $exercise) : ?>
+    <?php foreach ($data['madLibsExercise'] as $exerciseId => $exercise) : ?>
         <article>
             <?php for ($i = 0; $i < count($exercise); $i++) : ?>
                 <?= $exercise[$i] ?>
                 <?php
 
-                if (isset($correction->{'correctionList'}[$exerciseId][$i]['answer'])) {
-                    if ($correction->{'correctionList'}[$exerciseId][$i]['answer'] === '//empty//') {
-                        echo '<span class="missingAnswer"> ( X ) </span> <span class="correctAnswer"> (' . $correction->{'correctionList'}[$exerciseId][$i]['correctWord'] . ') </span>';
-                    } else if ($correction->{'correctionList'}[$exerciseId][$i]['correction'] === TRUE) {
-                        echo '<span class="correctAnswer"> ' . $correction->{'correctionList'}[$exerciseId][$i]['correctWord'] . '</span>';
+                if (isset($data['correctionList'][$exerciseId][$i]['answer'])) {
+                    if ($data['correctionList'][$exerciseId][$i]['answer'] === '//empty//') {
+                        echo '<span class="missingAnswer"> ( X ) </span> <span class="correctAnswer"> (' . $data['correctionList'][$exerciseId][$i]['correctWord'] . ') </span>';
+                    } else if ($data['correctionList'][$exerciseId][$i]['correction'] === TRUE) {
+                        echo '<span class="correctAnswer"> ' . $data['correctionList'][$exerciseId][$i]['correctWord'] . '</span>';
                     } else {
-                        echo '<span class="wrongAnswer"> ' . $correction->{'correctionList'}[$exerciseId][$i]['answer'] . '</span> <span class="correctAnswer"> (' . $correction->{'correctionList'}[$exerciseId][$i]['correctWord'] . ') </span>';
+                        echo '<span class="wrongAnswer"> ' . $data['correctionList'][$exerciseId][$i]['answer'] . '</span> <span class="correctAnswer"> (' . $data['correctionList'][$exerciseId][$i]['correctWord'] . ') </span>';
                     }
                 }
 
