@@ -6,9 +6,9 @@
 
 class UserConnectionController extends Controller
 {
-    public function __construct($target, $data)
+    public function __construct($target)
     {
-        parent::__construct($target, $data);
+        parent::__construct($target);
     }
 }
 
