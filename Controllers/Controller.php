@@ -3,20 +3,31 @@
 
 abstract class Controller
 {
+    public $display;
 
     public function __construct($target)
     {
-
+        if ($target == "") {
+            $target = "/index";
+        }
 
         $this->getDedicatedView($target);
 
+
     }
 
-    protected function getDedicatedView($view)
+    protected function getDedicatedView($target)
     {
-        include($_SERVER['DOCUMENT_ROOT'] . '/3WA-projetFin' . '/Views/layout.phtml');
-        include($_SERVER['DOCUMENT_ROOT'] . '/3WA-projetFin' . '/Views' . $view . '.phtml');
-        include($_SERVER['DOCUMENT_ROOT'] . '/3WA-projetFin' . '/Views/footer.php');
+
+
+        $view = new Views($target);
+        $this->display = $view->createTemplate($target);
+
+    }
+
+    abstract protected function getModel($modelName)
+    {
+        //todo
     }
 
 

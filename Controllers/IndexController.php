@@ -2,9 +2,10 @@
 
 class IndexController extends Controller
 {
-    public function __construct()
+    public function __construct($target)
     {
-        var_dump(__DIR__ . '/Views/layout.phtml');
-        require_once(__DIR__ . '/Views/layout.phtml');
+        echo "arrivé sur controlleur index";
+        parent::__construct($target);
+
     }
 }

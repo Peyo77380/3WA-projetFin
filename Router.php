@@ -16,14 +16,19 @@ class Router
 
         if ($this->request === '' || $this->request === '/') {
 
+            /*
             require(__DIR__ . '/Controllers/Controller.php');
             require_once(__DIR__ . '/Controllers/IndexController.php');
 
             $requiredController = new IndexController ();
+*/
+            $this->controllerName = 'IndexController';
+            $this->reroute($this->controllerName);
 
         } else {
             try {
                 $controllerName = $this->defineControllerName();
+
                 $this->reroute($controllerName);
 
             } catch (Exception $e) {
@@ -68,7 +73,7 @@ class Router
 
     public function reroute()
     {
-
+        require __DIR__ . '/Views/Views.php';
         require __DIR__ . '/Controllers/Controller.php';
 
         require_once(__DIR__ . '/Controllers/' . $this->controllerName . '.php');
