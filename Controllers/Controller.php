@@ -4,9 +4,9 @@
 abstract class Controller
 {
     public $display;
-    public array $data = [];
+    public $data;
 
-    public function __construct($target, $data)
+    public function __construct($target, $data = [])
     {
         if ($target == "") {
             $target = "/index";

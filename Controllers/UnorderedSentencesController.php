@@ -24,7 +24,7 @@ class unorderedSentencesController extends Controller
         $cleanExercise = exercisesCleaner($pdoResult);
 
         $this->sentences = $cleanExercise;
-        var_dump($this->sentences);
+
         $this->sentenceCutter();
         $this->sentenceRandomizer();
 

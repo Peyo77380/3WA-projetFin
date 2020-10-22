@@ -1,8 +1,18 @@
 <?php
 
-require('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
-require('/Applications/MAMP/htdocs/3WA-projetFin/tools/utilities.php');
+//require('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
+//require('/Applications/MAMP/htdocs/3WA-projetFin/tools/utilities.php');
 
+
+class UserConnectionController extends Controller
+{
+    public function __construct($target, $data)
+    {
+        parent::__construct($target, $data);
+    }
+}
+
+/*
 $post = $_POST;
 $connection = postCleaner($post);
 
@@ -32,3 +42,4 @@ if ($connection['password'] == $user['password']) {
 
 header('Location: ../index.phtml');
 
+*/
