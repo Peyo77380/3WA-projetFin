@@ -15,7 +15,11 @@ class Router
         $view;
 
         if ($this->request === '' || $this->request === '/') {
-            $this->reroute('Index');
+
+            require(__DIR__ . '/Controllers/Controller.php');
+            require_once(__DIR__ . '/Controllers/IndexController.php');
+
+            $requiredController = new IndexController ();
 
         } else {
             try {
@@ -35,8 +39,10 @@ class Router
 
     public function defineRequest()
     {
+
         $serverName = '3WA-projetFin/';
         $this->request = str_replace($serverName, '', $_SERVER['REQUEST_URI']);
+
         $this->globalRoute =
             substr_replace(
                 $_SERVER['REQUEST_URI'],
@@ -60,10 +66,12 @@ class Router
 
     }
 
-    public function reroute($controllerName)
+    public function reroute()
     {
+        var_dump(__DIR__ . '/Controllers/Controller.php');
         require __DIR__ . '/Controllers/Controller.php';
-        require_once($_SERVER['DOCUMENT_ROOT'] . $this->globalRoute . 'Controllers/' . $this->controllerName . '.php');
+        var_dump(__DIR__ . '/Controllers/' . $this->controllerName . '.php');
+        require_once(__DIR__ . '/Controllers/' . $this->controllerName . '.php');
 
         $requiredController = new $this->controllerName ($this->research);
     }
