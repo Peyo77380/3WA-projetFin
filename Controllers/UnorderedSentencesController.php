@@ -1,17 +1,9 @@
 <?php
 
-require('./models/exerciseModel.php');
 
 
-$_SESSION['exercises'] = [];
-$exercise = new unorderedSentencesController();
-
-$cutSentences = $exercise->sentenceCutter();
-
-$unorderedSentences = $exercise->sentenceRandomizer();
 
 
-$_SESSION['exercises']['unorderedSentences']['correct'] = $exercise->cutSentences;
 
 
 class unorderedSentencesController
@@ -22,6 +14,7 @@ class unorderedSentencesController
 
     public function __construct()
     {
+        require('./models/exerciseModel.php');
 
         $sentences = new Exercise();
         $sentences->setParams(5);
@@ -31,6 +24,13 @@ class unorderedSentencesController
         $cleanExercise = exercisesCleaner($pdoResult);
 
         $this->sentences = $cleanExercise;
+        var_dump($this->sentences);
+        $cutSentences = $this->sentences->sentenceCutter();
+
+        $unorderedSentences = $this->sentences->sentenceRandomizer();
+
+
+        $_SESSION['exercises']['unorderedSentences']['correct'] = $exercise->cutSentences;
 
     }
 

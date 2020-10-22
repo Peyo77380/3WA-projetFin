@@ -1,8 +1,6 @@
 <?php
 
 
-require('./Controllers/unorderedSentencesCorrectorController.php');
-
 
 ?>
 
