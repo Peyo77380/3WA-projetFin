@@ -1,11 +1,13 @@
 <?php
-include('router.php');
+
+require_once('config.php');
+require_once('connect.php');
+require_once('./tools/utilities.php');
+
+
+include('Router.php');
 $router = new Router();
 
-
-require('config.php');
-require('connect.php');
-require('./tools/utilities.php');
 
 /*
 if(isset($_SESSION)) {
@@ -13,81 +15,3 @@ if(isset($_SESSION)) {
 }
 */
 ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <title>Projet fin d'année</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles/normalize.css">
-    <link rel="stylesheet" href="assets/styles/style.css">
-
-</head>
-<body>
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="about">Qui suis-je?</a>
-            </li>
-            <li class="nav-menu">
-                Entrainez-vous
-                <ul class="nav-subMenu">
-                    <li>
-                        <a href="unorderedSentences.phtml">Phrases déstructurées</a>
-                    </li>
-                    <li>
-                        <a href="madLibs.phtml">Textes à trous</a>
-                    </li>
-                </ul>
-            </li>
-
-            <?php if (isset($_SESSION['connectedUser']) && ($_SESSION['connectedUser']['role'] == 'teacher' || $_SESSION['connectedUser']['role'] == 'admin')): ?>
-                <li class="nav-menu">
-                    Administration
-                    <ul class="nav-subMenu">
-                        <li><a href="Views/adminUsers.phtml">Gestion des utilisateurs</a></li>
-                        <li class="nav-menuCategory">
-                            Gestion des exercices
-                            <ul class="nav-lastMenu">
-                                <li>
-                                    <a href="Views/adminExercisesUnorderedSentences.phtml">Phrases déstructurées</a>
-                                </li>
-                                <li>
-                                    <a href="Views/adminExercisesMadLibs.phtml">Textes à trous</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Gestion des rendez-vous</a></li>
-                    </ul>
-                </li>
-            <?php endif; ?>
-
-            <?php if (!isset($_SESSION['connectedUser'])) : ?>
-                <li>
-                    <a href="userConnection">Connectez vous</a>
-                </li>
-            <?php endif; ?>
-
-            <?php if (isset($_SESSION['connectedUser'])) : ?>
-                <li>
-                    <a href="./userProfile">Profil</a>
-                </li>
-                <li>
-                    <a href="./Controllers/userLogOutController.php">Déconnexion</a>
-                </li>
-            <?php endif; ?>
-        </ul>
-
-    </nav>
-</header>
-
-<main>
-
-

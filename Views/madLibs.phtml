@@ -1,6 +1,5 @@
 <?php
 
-require('index.phtml');
 require('./Controllers/madLibsController.php');
 
 ?>
@@ -9,7 +8,6 @@ require('./Controllers/madLibsController.php');
     <form class="exercise" action="madLibsResult.phtml" method="post">
 
         <?php foreach ($madLibs->display as $exercise) : ?>
-            <?php var_dump($exercise); ?>
             <fieldset class="exercise_question">
                 <div class="words gameButton">
                     <?php foreach ($exercise['fillingWords'] as $word) : ?>
@@ -31,8 +29,8 @@ require('./Controllers/madLibsController.php');
     </form>
 </div>
 
-<script type="text/javascript" src="assets/js/madLibs.js"></script>
-<script type="text/javascript" src="assets/js/exerciseDisplay.js"></script>
-<script type="text/javascript" src="assets/js/formValidation.js"></script>
+<script type="text/javascript" src="../assets/js/madLibs.js"></script>
+<script type="text/javascript" src="../assets/js/exerciseDisplay.js"></script>
+<script type="text/javascript" src="../assets/js/formValidation.js"></script>
 
 

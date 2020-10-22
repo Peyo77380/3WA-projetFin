@@ -1,7 +1,7 @@
 <?php
 
 
-class AboutController
+class AboutController extends Controller
 {
 
 }

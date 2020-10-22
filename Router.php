@@ -5,6 +5,7 @@ class Router
     public $request;
     public $globalRoute;
     public $research;
+    public $controllerName;
 
     public function __construct()
     {
@@ -14,18 +15,13 @@ class Router
         $view;
 
         if ($this->request === '' || $this->request === '/') {
-            require __DIR__ . '/Controllers/Controller.php';
-            require __DIR__ . '/Controllers/indexController.php';
-            $view = new Index();
+            $this->reroute('Index');
 
         } else {
             try {
-                $controllerName = $this->setTarget();
+                $controllerName = $this->defineControllerName();
+                $this->reroute($controllerName);
 
-                require __DIR__ . '/Controllers/Controller.php';
-                require_once($_SERVER['DOCUMENT_ROOT'] . $this->route . 'Controllers/' . $controllerName . '.php');
-
-                $requiredController = new $controllerName ($this->research);
             } catch (Exception $e) {
                 http_response_code(404);
                 require __DIR__ . '/Views/404.php';
@@ -39,11 +35,19 @@ class Router
 
     public function defineRequest()
     {
-        $serverName = '/3WA-projetFin';
+        $serverName = '3WA-projetFin/';
         $this->request = str_replace($serverName, '', $_SERVER['REQUEST_URI']);
+        $this->globalRoute =
+            substr_replace(
+                $_SERVER['REQUEST_URI'],
+                "",
+                strpos(
+                    $_SERVER['REQUEST_URI'],
+                    $this->research)
+            ) . "/" . $serverName;
     }
 
-    public function setTarget()
+    public function defineControllerName()
     {
 
         $this->research = substr($_SERVER['REQUEST_URI'],
@@ -51,10 +55,16 @@ class Router
                 '/',
                 1),
             strlen($_SERVER['REQUEST_URI']));
-        $controllerName = ucfirst(trim($this->research, '/')) . 'Controller';
+        $this->controllerName = ucfirst(trim($this->research, '/')) . 'Controller';
 
-        $this->route = substr_replace($_SERVER['REQUEST_URI'], "", strpos($_SERVER['REQUEST_URI'], $this->research)) . "/";
 
-        return $controllerName;
+    }
+
+    public function reroute($controllerName)
+    {
+        require __DIR__ . '/Controllers/Controller.php';
+        require_once($_SERVER['DOCUMENT_ROOT'] . $this->globalRoute . 'Controllers/' . $this->controllerName . '.php');
+
+        $requiredController = new $this->controllerName ($this->research);
     }
 }
