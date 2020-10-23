@@ -17,7 +17,7 @@ class MadLibsController extends Controller
     public function __construct($target)
 
     {
-        require('./models/exerciseModel.php');
+        require('./models/ExercisesModel.php');
         $_SESSION['exercises'] = [];
 
         $this->getExercise();
@@ -31,9 +31,10 @@ class MadLibsController extends Controller
 
     public function getExercise()
     {
-        $sentences = new Exercise();
-        $sentences->setParams(3);
-        $sentences->setQuery('madLibs');
+        $sentences = new ExercisesModel();
+        $sentences->setTableName('MadLibs');
+        $sentences->setNumberOfSentences(3);
+        $sentences->setQuery();
         $pdoResult = $sentences->getSentences();
 
         $cleanExercises = exercisesCleaner($pdoResult);

@@ -7,12 +7,13 @@ class adminExercisesMadLibsController extends Controller
 
     public function __construct($target)
     {
-        require('./models/adminExercisesMadLibsModel.php');
-        $data = new adminExercisesMadLibsModel();
+        $exerciseName = 'MadLibs';
 
-        $data->setQuery();
-        $pdoResult = $data->getSentences();
-
+        require('./models/ExercisesModel.php');
+        $connection = new ExercisesModel();
+        $connection->setTableName($exerciseName);
+        $connection->setQuery();
+        $pdoResult = $connection->getSentences();
 
         $this->sentences = $pdoResult;
         parent::__construct($target, $this->sentences);

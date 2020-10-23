@@ -34,11 +34,5 @@ abstract class Controller
 
     }
 
-    /*
-    abstract protected function getModel($modelName)
-    {
-        //todo
-    }
-    */
 
 }

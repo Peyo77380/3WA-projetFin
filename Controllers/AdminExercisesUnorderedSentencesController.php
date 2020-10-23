@@ -8,12 +8,13 @@ class AdminExercisesUnorderedSentencesController extends Controller
 
     public function __construct($target, $data = [])
     {
-        require('./models/adminExercisesUnorderedSentencesModel.php');
-        $data = new adminExercisesUnorderedSentencesModel();
+        $exerciseName = 'UnorderedSentences';
 
-        $data->setQuery();
-        $pdoResult = $data->getSentences();
-
+        require('./models/ExercisesModel.php');
+        $connection = new ExercisesModel();
+        $connection->setTableName($exerciseName);
+        $connection->setQuery();
+        $pdoResult = $connection->getSentences();
 
         $this->sentences = $pdoResult;
 

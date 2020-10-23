@@ -32,12 +32,15 @@ class Database
         }
     }
 
-    public function sendQuery ($sql, $params)
+    public function sendQuery($sql, array $params)
     {
 
         $query = $this->pdo->prepare($sql);
-        if($params) {
-            $query->bindParam($params['variableName'], $params['variableValue'], $params['PDOparam']);
+        if ($params) {
+            foreach ($params as $param) {
+                $query->bindParam($param['variableName'], $param['variableValue'], $param['PDOparam']);
+
+            }
         }
 
 

@@ -1,11 +1,5 @@
 <?php
 
-
-
-
-
-
-
 class unorderedSentencesController extends Controller
 {
     public $sentences;
@@ -14,17 +8,11 @@ class unorderedSentencesController extends Controller
 
     public function __construct($target)
     {
-        require('./models/exerciseModel.php');
+        require('./models/ExercisesModel.php');
 
-        $sentences = new Exercise();
-        $sentences->setParams(5);
-        $sentences->setQuery('unorderedSentences');
-        $pdoResult = $sentences->getSentences();
+        $_SESSION['exercises'] = [];
 
-        $cleanExercise = exercisesCleaner($pdoResult);
-
-        $this->sentences = $cleanExercise;
-
+        $this->getExercise();
         $this->sentenceCutter();
         $this->sentenceRandomizer();
 
@@ -35,8 +23,24 @@ class unorderedSentencesController extends Controller
 
     }
 
-    public function sentenceCutter () {
-        foreach($this->sentences as $ex) {
+    public function getExercise()
+    {
+        $sentences = new ExercisesModel();
+        $sentences->setTableName('UnorderedSentences');
+        $sentences->setNumberOfSentences(3);
+        $sentences->setQuery();
+        $pdoResult = $sentences->getSentences();
+
+        $cleanExercises = exercisesCleaner($pdoResult);
+
+        $this->sentences = $cleanExercises;
+
+        $_SESSION['exercises']['text'] = $this->sentences;
+    }
+
+    public function sentenceCutter()
+    {
+        foreach ($this->sentences as $ex) {
             $sentence = explode(" ", $ex['sentence']);
 
             $this->cutSentences[] = [
