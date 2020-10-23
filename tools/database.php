@@ -1,8 +1,5 @@
 <?php
 
-
-$db = new Database();
-
 class Database
 {
     private $pdo;
@@ -25,10 +22,8 @@ class Database
                 $dsn,
                 $dbSettings['username'],
                 $dbSettings['password'],
-                $pdoOptions
+                $pdoOptions,
             );
-            // $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
         } catch(PDOException $e) {
 

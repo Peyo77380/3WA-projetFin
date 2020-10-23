@@ -1,6 +1,5 @@
 <?php
 
-require('../tools/database.php');
 
 $post = $_POST;
 $delete = postCleaner($post);

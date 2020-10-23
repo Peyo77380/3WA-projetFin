@@ -1,5 +1,5 @@
 <?php
-require('./tools/database.php');
+
 
 class userSubscriptionModel
 {

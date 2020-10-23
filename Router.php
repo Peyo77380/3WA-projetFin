@@ -63,7 +63,7 @@ class Router
 
         $this->research = substr($_SERVER['REQUEST_URI'],
             strpos($_SERVER['REQUEST_URI'],
-                '/',
+                "/",
                 1),
             strlen($_SERVER['REQUEST_URI']));
         $this->controllerName = ucfirst(trim($this->research, '/')) . 'Controller';
@@ -73,11 +73,24 @@ class Router
 
     public function reroute()
     {
-        require __DIR__ . '/Views/Views.php';
-        require __DIR__ . '/Controllers/Controller.php';
+        try {
 
-        require_once(__DIR__ . '/Controllers/' . $this->controllerName . '.php');
 
-        $requiredController = new $this->controllerName ($this->research);
+            if (file_exists(__DIR__ . '/Controllers/' . $this->controllerName . '.php')) {
+                require __DIR__ . '/Views/Views.php';
+                require __DIR__ . '/Controllers/Controller.php';
+
+                require_once(__DIR__ . '/Controllers/' . $this->controllerName . '.php');
+
+                $requiredController = new $this->controllerName ($this->research);
+            } else {
+                throw $e = new Exception();
+            }
+
+        } catch (Exception $e) {
+            http_response_code(404);
+            require __DIR__ . '/Views/404.php';
+
+        }
     }
 }

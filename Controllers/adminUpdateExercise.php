@@ -1,6 +1,5 @@
 <?php
 
-require('../tools/database.php');
 
 
 $post = validateData($_POST);
