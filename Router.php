@@ -48,24 +48,31 @@ class Router
         $serverName = '3WA-projetFin/';
         $this->request = str_replace($serverName, '', $_SERVER['REQUEST_URI']);
 
+
+        $address = $_SERVER['REQUEST_URI'];
+        $needle = '';
+
         $this->globalRoute =
             substr_replace(
-                $_SERVER['REQUEST_URI'],
-                "",
+                $address,
+                $needle,
                 strpos(
-                    $_SERVER['REQUEST_URI'],
-                    $this->research)
+                    $address,
+                    (string)$this->request)
             ) . "/" . $serverName;
     }
 
     public function defineControllerName()
     {
 
-        $this->research = substr($_SERVER['REQUEST_URI'],
-            strpos($_SERVER['REQUEST_URI'],
-                "/",
-                1),
-            strlen($_SERVER['REQUEST_URI']));
+
+        $address = $_SERVER['REQUEST_URI'];
+        $needle = '/';
+
+        $this->research = substr($address,
+            strpos($address, (string)$needle, 1),
+            strlen($address));
+
         $this->controllerName = ucfirst(trim($this->research, '/')) . 'Controller';
 
 
