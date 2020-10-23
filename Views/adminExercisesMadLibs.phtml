@@ -20,48 +20,49 @@
         <td>Actions</td>
         </thead>
         <tbody>
-        <?php foreach ($admin->sentences as $sentence) : ?>
+        <?php foreach ($data as $sentence) : ?>
             <tr>
                 <td class="exerciseId"><?= $sentence['exerciseId'] ?></td>
                 <td class="exerciseSentence"><?= $sentence['sentence'] ?></td>
                 <td>
-                    <form action="./Controllers/adminUpdateExercise.php" method="post">
+                    <form action="adminUpdateExercise" method="post">
                         <button><i class="fa fa-pencil"></i></button>
                         <input type="hidden" name="exerciseName" value="madLibs">
                         <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
                         <input type="hidden" name="exerciseContent" value="<?= $sentence['sentence'] ?>">
                     </form>
-                        <form action="./Controllers/adminDeleteExercise.php" method="post">
-                            <button><i class="fa fa-times"></i></button>
-                            <input type="hidden" name="exerciseName" value="madLibs">
-                            <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
+                    <form action="adminDeleteExercise" method="post">
+                        <button><i class="fa fa-times"></i></button>
+                        <input type="hidden" name="exerciseName" value="madLibs">
+                        <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
                         </form>
 
                     </td>
                 </tr>
             <?php endforeach; ?>
-            </tbody>
-        </table>
-    </section>
+        </tbody>
+    </table>
+</section>
 
-    <section id="addExercice">
-        <form action="Controllers/adminAddExercise.php" method="post">
-            <p>Conseils d'utilisation : reseigner le texte complet dans le cadre ci-dessous.</p>
-            <p>Indiquer les mots qui seront des trous à compléter entre deux astérisques au débuts et à la fin.</p>
-            <p class="example">Exemple : Vengo **da** Milano. : da sera reconnu comme un futur trou dans le texte.</p>
+<section id="addExercice">
+    <form action="adminAddExercise" method="post">
+        <p>Conseils d'utilisation : reseigner le texte complet dans le cadre ci-dessous.</p>
+        <p>Indiquer les mots qui seront des trous à compléter entre deux astérisques au débuts et à la fin.</p>
+        <p class="example">Exemple : Vengo **da** Milano. : da sera reconnu comme un futur trou dans le texte.</p>
 
-            <label for="newSentence">Nouveau texte</label>
-            <textarea name="newSentence" id="newSentence"></textarea>
-            <input type="hidden" name="exerciseName" value="madLibs">
+        <label for="newSentence">Nouveau texte</label>
+        <textarea name="newSentence" id="newSentence"></textarea>
+        <input type="hidden" name="exerciseName" value="madLibs">
 
-            <input type="submit" id="submitButton" value="Sauvegarder">
-        </form>
-    </section>
+        <input type="submit" id="submitButton" value="Sauvegarder">
+    </form>
+</section>
 </div>
 
 
-<script src="./assets/js/adminExercisesMadLibs.js" type="text/javascript"></script>
+<script src="http://localhost:8888/3WA-projetFin/assets/js/adminExercisesMadLibs.js" type="text/javascript"></script>
 
-<script src="./assets/js/adminExercisesMadLibsNewExercise.js" type="text/javascript"></script>
+<script src="http://localhost:8888/3WA-projetFin/assets/js/adminExercisesMadLibsNewExercise.js"
+        type="text/javascript"></script>
 
 

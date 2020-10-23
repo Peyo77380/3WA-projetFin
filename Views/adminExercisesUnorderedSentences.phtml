@@ -18,21 +18,21 @@
             <td>Actions</td>
             </thead>
             <tbody>
-            <?php foreach ($admin->sentences as $sentence) : ?>
+            <?php foreach ($data as $sentence) : ?>
                 <tr>
                     <td class="exerciseId"><?= $sentence['exerciseId'] ?></td>
                     <td class="exerciseSentence"><?= $sentence['sentence'] ?></td>
                     <td>
-                        <form action="./Controllers/adminUpdateExercise.php" method="post">
+                        <form action="adminUpdateExercise" method="post">
                             <button><i class="fa fa-pencil"></i></button>
                             <input type="hidden" name="exerciseName" value="unorderedSentences">
                             <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
                             <input type="hidden" name="exerciseContent" value="<?= $sentence['sentence'] ?>">
                         </form>
-                            <form action="./Controllers/adminDeleteExercise.php" method="post">
-                                <button><i class="fa fa-times"></i></button>
-                                <input type="hidden" name="exerciseName" value="unorderedSentences">
-                                <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
+                        <form action="adminDeleteExercise" method="post">
+                            <button><i class="fa fa-times"></i></button>
+                            <input type="hidden" name="exerciseName" value="unorderedSentences">
+                            <input type="hidden" name="exerciseId" value="<?= $sentence['exerciseId'] ?>">
                             </form>
 
                         </td>
@@ -43,7 +43,7 @@
     </section>
 
     <section id="addExercice">
-        <form action="Controllers/adminAddExercise.php" method="post">
+        <form action="adminAddExercise" method="post">
             <label for="newSentence">Phrase à ajouter</label>
             <input type="text" name="newSentence" id="newSentence">
             <input type="hidden" name="exerciseName" value="unorderedSentences">
@@ -54,5 +54,6 @@
 </div>
 
 
-<script src="./assets/js/adminExercisesUnorderedSentences.js" type="text/javascript"></script>
+<script src="http://localhost:8888/3WA-projetFin/assets/js/adminExercisesUnorderedSentences.js"
+        type="text/javascript"></script>
 
