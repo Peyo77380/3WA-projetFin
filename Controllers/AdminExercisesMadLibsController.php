@@ -1,21 +1,12 @@
 <?php
 
-class adminExercisesMadLibsController extends Controller
+require_once(__DIR__ . '/AdminExercisesController.php');
+
+class AdminExercisesMadLibsController extends AdminExercisesController
 {
-    public $sentences;
-
-
     public function __construct($target)
     {
-        $exerciseName = 'MadLibs';
-
-        require('./models/ExercisesModel.php');
-        $connection = new ExercisesModel();
-        $connection->setTableName($exerciseName);
-        $connection->setQuery();
-        $pdoResult = $connection->getSentences();
-
-        $this->sentences = $pdoResult;
-        parent::__construct($target, $this->sentences);
+        $this->exerciseName = 'UnorderedSentences';
+        parent::__construct($target);
     }
 }

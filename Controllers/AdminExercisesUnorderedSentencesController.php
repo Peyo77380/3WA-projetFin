@@ -1,24 +1,14 @@
 <?php
 
+require_once(__DIR__ . '/AdminExercisesController.php');
 
-class AdminExercisesUnorderedSentencesController extends Controller
+
+class AdminExercisesUnorderedSentencesController extends AdminExercisesController
 {
-    public $sentences;
-
-
-    public function __construct($target, $data = [])
+    public function __construct($target)
     {
-        $exerciseName = 'UnorderedSentences';
-
-        require('./models/ExercisesModel.php');
-        $connection = new ExercisesModel();
-        $connection->setTableName($exerciseName);
-        $connection->setQuery();
-        $pdoResult = $connection->getSentences();
-
-        $this->sentences = $pdoResult;
-
-        parent::__construct($target, $this->sentences);
+        $this->exerciseName = 'UnorderedSentences';
+        parent::__construct($target);
     }
 
 
