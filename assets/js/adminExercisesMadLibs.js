@@ -90,7 +90,7 @@ function saveEveryChanges () {
 
 
 function eventListenerSetter () {
-    let updaterForms = document.querySelectorAll('form[action = "./Controllers/adminUpdateExercise.php"]');
+    let updaterForms = document.querySelectorAll('form[action = "./Controllers/AdminUpdateExerciseController.php"]');
     console.log(updaterForms);
     //rajouter bouton pr sauvegarder les changements
 
