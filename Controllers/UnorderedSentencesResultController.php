@@ -8,7 +8,7 @@ class UnorderedSentencesResultController extends Controller
 
     public function __construct($target)
     {
-
+        $this->setTitle('Correction - Phrases destructurées');
 
         $post = $_POST;
 

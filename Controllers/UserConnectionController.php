@@ -8,6 +8,7 @@ class UserConnectionController extends Controller
 {
     public function __construct($target)
     {
+        $this->setTitle('Connection');
         parent::__construct($target);
     }
 }

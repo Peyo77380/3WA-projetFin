@@ -6,6 +6,7 @@ abstract class Controller
     public $display;
     public $data;
     public $postResult;
+    public $meta = [];
 
     public function __construct($target, $data = [])
     {
@@ -13,17 +14,17 @@ abstract class Controller
             $target = "/index";
         }
 
-        $this->getDedicatedView($target, $data);
+        $this->getDedicatedView($target, $data, $this->meta);
 
 
     }
 
-    protected function getDedicatedView($target, array $data = [])
+    protected function getDedicatedView($target, array $data = [], array $meta = [])
     {
 
 
         $view = new Views($target);
-        $this->display = $view->createTemplate($target, $data);
+        $this->display = $view->createTemplate($target, $data, $meta);
 
     }
 
@@ -34,5 +35,14 @@ abstract class Controller
 
     }
 
+    public function setScript($scriptName)
+    {
+        $this->meta['scriptName'][] = $scriptName;
+    }
+
+    public function setTitle($title)
+    {
+        $this->meta['title'] = $title . " - Parliamo";
+    }
 
 }

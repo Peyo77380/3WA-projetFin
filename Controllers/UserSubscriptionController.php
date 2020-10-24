@@ -7,6 +7,7 @@ class UserSubscriptionController extends Controller
 
     public function __construct($target)
     {
+        $this->setTitle('Inscription');
 
 
         $this->recievePostForm();
@@ -25,17 +26,14 @@ class UserSubscriptionController extends Controller
     public function saveToDatabase()
     {
         require_once('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
-        echo "require ok";
+
         $database = new Database();
-        echo 'new db ok';
 
         $sql = 'INSERT INTO users (`username`, `email`, `password`, `role`) VALUES (?, ?, ?, "student")';
-        echo 'sql ok';
+
         $params = [$this->postResult['username'], $this->postResult['email'], $this->postResult['password']];
-        echo 'params ok';
 
         $this->userId = $database->saveToDb($sql, $params);
-        echo 'save db ok';
 
 
     }

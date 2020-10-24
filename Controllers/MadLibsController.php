@@ -17,6 +17,12 @@ class MadLibsController extends Controller
     public function __construct($target)
 
     {
+        $this->setTitle('Texte à trous');
+        $this->setScript('madLibs');
+        $this->setScript('exerciseDisplay');
+        $this->setScript('formValidation');
+
+
         require('./models/ExercisesModel.php');
         $_SESSION['exercises'] = [];
 

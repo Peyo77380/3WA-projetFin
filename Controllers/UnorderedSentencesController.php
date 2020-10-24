@@ -8,6 +8,10 @@ class unorderedSentencesController extends Controller
 
     public function __construct($target)
     {
+        $this->setTitle('Phrases déstructurées');
+        $this->setScript('exerciseDisplay');
+        $this->setScript('formValidation');
+
         require('./models/ExercisesModel.php');
 
         $_SESSION['exercises'] = [];

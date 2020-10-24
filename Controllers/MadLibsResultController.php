@@ -15,6 +15,7 @@ class madLibsResultController extends Controller
 
     public function __construct($target)
     {
+        $this->setTitle('Correction - Texte à trous');
         require('./tools/database.php');
         $this->getAnswers();
         $this->setNote();

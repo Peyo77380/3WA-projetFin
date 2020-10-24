@@ -4,13 +4,14 @@ class Views
 {
     public $template;
 
+
     public function __constructor($request)
     {
 
 
     }
 
-    public function createTemplate($request, $data)
+    public function createTemplate($request, $data, $meta)
     {
         //crée la vue en associant les éléments nécessaires.
         require_once($_SERVER['DOCUMENT_ROOT'] . '/Views/layout.phtml');

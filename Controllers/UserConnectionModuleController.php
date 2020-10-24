@@ -1,16 +1,13 @@
 <?php
 
-//require('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
-//require('/Applications/MAMP/htdocs/3WA-projetFin/tools/utilities.php');
-
-
 class UserConnectionModuleController extends Controller
 {
     public $userData;
 
     public function __construct($target)
     {
-        parent::recievePostForm();
+        $this->setTitle('Confirmation de connection');
+        $this->recievePostForm();
         $this->searchExistingUser();
 
         parent::__construct($target, $this->userData);

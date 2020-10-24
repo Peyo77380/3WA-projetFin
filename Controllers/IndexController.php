@@ -4,7 +4,7 @@ class IndexController extends Controller
 {
     public function __construct($target)
     {
-        echo "arrivé sur controlleur index";
+        $this->setTitle('Bienvenue');
         parent::__construct($target);
 
     }

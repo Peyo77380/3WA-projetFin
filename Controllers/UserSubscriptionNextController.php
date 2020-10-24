@@ -6,6 +6,8 @@ class UserSubscriptionNextController extends Controller
 
     public function __construct($target)
     {
+        $this->setTitle('Inscription');
+
         $this->recievePostForm();
         $this->setBirthday();
         $this->updateDatabase();
