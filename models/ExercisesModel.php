@@ -49,7 +49,7 @@ class ExercisesModel
 
     public function setDeleteQuery()
     {
-        $this->query = "DELETE FROM $this->tableName WHERE `unorderedSentences`.`exerciseId` = :exerciseId";
+        $this->query = "DELETE FROM $this->tableName WHERE $this->tableName.`exerciseId` = :exerciseId";
     }
 
     public function setTableName(string $table)
