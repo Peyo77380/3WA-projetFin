@@ -46,14 +46,12 @@ class ExercisesModel
     {
         $this->params[] = ['variableName' => ':exerciseId', 'variableValue' => $exerciseId, 'PDOparam' => PDO::PARAM_INT];
 
-        return $this->params;
     }
 
     public function setNumberOfSentences(int $nbOfSentences)
     {
         $this->params[] = ['variableName' => ':nbOfSentences', 'variableValue' => $nbOfSentences, 'PDOparam' => PDO::PARAM_INT];
 
-        return $this->params;
     }
 
     public function setTableName($table)

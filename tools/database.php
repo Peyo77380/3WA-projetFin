@@ -32,8 +32,10 @@ class Database
         }
     }
 
-    public function sendQuery($sql, array $params)
+    public function sendQuery($sql, array $params = [])
     {
+        var_dump($sql);
+        var_dump($params);
 
         $query = $this->pdo->prepare($sql);
         if ($params) {
