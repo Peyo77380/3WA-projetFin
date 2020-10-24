@@ -38,7 +38,7 @@ function saveEveryChanges () {
 
             let ajaxRequest = new XMLHttpRequest();
 
-            ajaxRequest.open('POST', '../3WA-projetFin/Controllers/adminDeleteExercise.php');
+            ajaxRequest.open('POST', '../3WA-projetFin/Controllers/AdminDeleteExerciseController.php');
 
             ajaxRequest.send(formData);
 
@@ -99,7 +99,7 @@ function eventListenerSetter () {
         form.addEventListener('submit', setUpdateFormSelectedField);
     });
 
-    let deleterForms = document.querySelectorAll('form[action = "./Controllers/adminDeleteExercise.php"]');
+    let deleterForms = document.querySelectorAll('form[action = "./Controllers/AdminDeleteExerciseController.php"]');
 
     //rajouter bouton pr sauvegarder les changements
 
@@ -173,8 +173,8 @@ function updateSelectedField (e) {
         'exerciseName': name,
         'exerciseId': id,
         'sentence': newValue,
-        'originalSentence' : originalSentence
-    }
+        'originalSentence': originalSentence
+    };
 
     if(!localStorage.getItem('exerciseChanges'))
     {

@@ -33,8 +33,8 @@ class unorderedSentencesController extends Controller
         $sentences = new ExercisesModel();
         $sentences->setTableName('UnorderedSentences');
         $sentences->setNumberOfSentences(3);
-        $sentences->setQuery();
-        $pdoResult = $sentences->getSentences();
+        $sentences->setGetterQuery();
+        $pdoResult = $sentences->launchDBRequest();
 
         $cleanExercises = exercisesCleaner($pdoResult);
 

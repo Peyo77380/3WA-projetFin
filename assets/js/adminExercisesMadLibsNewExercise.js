@@ -12,7 +12,7 @@ function init () {
 
 function eventListenerSetter() {
 
-    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
     let newTextArea = form.querySelector('textarea');
 
     let submitButton = document.getElementById('submitButton');
@@ -27,7 +27,7 @@ function eventListenerSetter() {
 }
 
 function setNewExerciseControls () {
-    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
     let newTextArea = form.querySelector('textarea');
     let div = document.createElement('div');
 
@@ -53,7 +53,7 @@ function setNewExerciseControls () {
 }
 
 function setGap () {
-    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
     let newTextArea = form.querySelector('textarea');
     console.log(newTextArea.selectionStart);
     console.log(newTextArea.selectionEnd);
@@ -121,7 +121,7 @@ function restoreWord () {
     let existingWords = JSON.parse(localStorage.getItem('fillingWords'));
     let wordToRestore = existingWords[index];
 
-    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
     let newTextArea = form.querySelector('textarea');
 
     let finalText =
@@ -140,7 +140,7 @@ function restoreWord () {
 
 function formatForSaving () {
     console.log(this);
-    let form = document.querySelector('form[action="Controllers/adminAddExercise.php"]');
+    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
     let newTextArea = form.querySelector('textarea');
 
     let remainingText = newTextArea.value;
@@ -195,9 +195,9 @@ function formatForSaving () {
     console.log(formatedText);
 
     let exercise = {
-        exerciseName : 'madLibs',
-        exerciseContent : formatedText.join(''),
-    }
+        exerciseName: 'madLibs',
+        exerciseContent: formatedText.join(''),
+    };
 
     localStorage.setItem('formatedExercise', JSON.stringify(exercise));
 
@@ -221,7 +221,7 @@ function sendToDB () {
     let ajaxRequest = new XMLHttpRequest();
 
 
-    ajaxRequest.open('POST', '../3WA-projetFin/Controllers/adminAddExercise.php');
+    ajaxRequest.open('POST', '../3WA-projetFin/Controllers/AdminAddExerciseController.php');
     let id = ajaxRequest.send(formData);
 
     console.log(id);
