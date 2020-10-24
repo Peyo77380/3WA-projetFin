@@ -40,13 +40,13 @@ class Router
     {
         // variable nécessaire car nous ne sommes pas à la racine du serveur.
         // elle est amenée à changer selon le serveur où les fichiers sont utilisés.
-        $serverName = '3WA-projetFin/';
+        //$serverName = '3WA-projetFin/';
 
-        $address = $_SERVER['REQUEST_URI'];
-        $needle = '';
+        //$address = $_SERVER['REQUEST_URI'];
+        //$needle = '';
         // retourne le chemin vers le dossier Root du serveur
-        $this->request = str_replace($serverName, $needle, $address);
-
+        //$this->request = str_replace($serverName, $needle, $address);
+        $this->request = $_SERVER['REQUEST_URI'];
 
     }
 

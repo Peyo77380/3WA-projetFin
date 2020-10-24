@@ -2,7 +2,7 @@ RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.+) http://localhost:8888/3WA-projetFin/index.php [QSA,L]
+RewriteRule ^(.+) /index.php [QSA,L]
 
 # CUSTOM ERROR PAGES
 ErrorDocument 404 /index.php
