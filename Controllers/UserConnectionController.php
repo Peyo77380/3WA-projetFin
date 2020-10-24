@@ -1,14 +1,11 @@
 <?php
 
-//require('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
-//require('/Applications/MAMP/htdocs/3WA-projetFin/tools/utilities.php');
-
-
 class UserConnectionController extends Controller
 {
     public function __construct($target)
     {
         $this->setTitle('Connection');
+        $this->setDescription('Connection ou inscription des utilisateurs');
         parent::__construct($target);
     }
 }

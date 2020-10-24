@@ -9,6 +9,7 @@ class AdminExercisesUnorderedSentencesController extends AdminExercisesControlle
     {
         $this->setTitle('Admin - Phrases déstructurées');
         $this->setScript('adminExercisesUnorderedSentences');
+        $this->setDescription('Page de gestion de l\'exercise de phrases destrucutérées, réservée à certains utilisateurs disposant des droits.');
         $this->exerciseName = 'UnorderedSentences';
         parent::__construct($target);
     }

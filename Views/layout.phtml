@@ -20,6 +20,15 @@
         }
         ?>
     </title>
+    <meta name="description" content="
+            <?php
+    if (isset($meta['description'])) {
+        echo $meta['description'];
+    } else {
+        echo 'Page du site pour apprendre l\'italien Parliamo';
+    }
+    ?>
+        "/>
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">

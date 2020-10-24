@@ -17,6 +17,7 @@ class UserSubscriptionLastController extends Controller
     public function __construct($target, $data = [])
     {
         $this->setTitle('Inscription');
+        $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
 
         $this->recievePostForm();
         $this->setKnownLanguages();

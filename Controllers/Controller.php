@@ -3,10 +3,10 @@
 
 abstract class Controller
 {
-    public $display;
-    public $data;
-    public $postResult;
-    public $meta = [];
+    protected $display;
+    protected $data;
+    protected $postResult;
+    protected $meta = [];
 
     public function __construct($target, $data = [])
     {
@@ -35,14 +35,19 @@ abstract class Controller
 
     }
 
-    public function setScript($scriptName)
+    public function setScript(string $scriptName)
     {
         $this->meta['scriptName'][] = $scriptName;
     }
 
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->meta['title'] = $title . " - Parliamo";
+    }
+
+    public function setDescription(string $description)
+    {
+        $this->meta['description'] = $description;
     }
 
 }

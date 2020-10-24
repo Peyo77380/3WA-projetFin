@@ -7,6 +7,7 @@ class UserConnectionModuleController extends Controller
     public function __construct($target)
     {
         $this->setTitle('Confirmation de connection');
+        $this->setDescription('Confirmation de connection d\un utilisateur connu');
         $this->recievePostForm();
         $this->searchExistingUser();
 
@@ -26,12 +27,12 @@ class UserConnectionModuleController extends Controller
 
         if ($user == FALSE) {
             $_SESSION['error'] = "Aucun utilisateur n'est enregistré sous ce nom, réessayez.";
-            header('Location: ../userConnection.phtml');
+            header('Location: userConnection');
             return;
         }
         if ($this->postResult['password'] !== $user['password']) {
             $_SESSION['error'] = "Le nom d'utilisateur et le mot de passe fournis ne correspondent pas. Réessayez.";
-            header('Location: ../userConnection.phtml');
+            header('Location: userConnection');
             return;
         }
 

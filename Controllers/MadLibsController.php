@@ -18,6 +18,7 @@ class MadLibsController extends Controller
 
     {
         $this->setTitle('Texte à trous');
+        $this->setDescription('Exercices de textes à trous en italien');
         $this->setScript('madLibs');
         $this->setScript('exerciseDisplay');
         $this->setScript('formValidation');

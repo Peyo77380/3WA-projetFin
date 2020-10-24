@@ -9,6 +9,7 @@ class unorderedSentencesController extends Controller
     public function __construct($target)
     {
         $this->setTitle('Phrases déstructurées');
+        $this->setDescription('Exercices de phrases destructurées en italien');
         $this->setScript('exerciseDisplay');
         $this->setScript('formValidation');
 

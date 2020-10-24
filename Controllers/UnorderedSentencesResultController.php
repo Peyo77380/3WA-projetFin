@@ -9,7 +9,7 @@ class UnorderedSentencesResultController extends Controller
     public function __construct($target)
     {
         $this->setTitle('Correction - Phrases destructurées');
-
+        $this->setDescription('Correction des exercices de phrases destructurées en italien');
         $post = $_POST;
 
         $data = postCleaner($post);

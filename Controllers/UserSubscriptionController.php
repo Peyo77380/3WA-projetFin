@@ -8,7 +8,7 @@ class UserSubscriptionController extends Controller
     public function __construct($target)
     {
         $this->setTitle('Inscription');
-
+        $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
 
         $this->recievePostForm();
         $this->saveToDatabase();
