@@ -42,7 +42,7 @@ abstract class Controller
 
     public function setTitle(string $title)
     {
-        $this->meta['title'] = $title . " - Parliamo";
+        $this->meta['title'] = $title . " - Lasciatemi parlare";
     }
 
     public function setDescription(string $description)

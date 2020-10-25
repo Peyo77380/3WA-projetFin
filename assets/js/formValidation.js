@@ -24,8 +24,6 @@ class FormValidator {
             inspectedFields = selectedFields;
         }
 
-        console.log(inspectedFields);
-
         let emptyFieldDetected = false;
 
         inspectedFields.forEach(field => {
