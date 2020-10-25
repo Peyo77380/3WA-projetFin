@@ -97,7 +97,7 @@ function saveEveryChanges () {
 
 
 function eventListenerSetter () {
-    let updaterForms = document.querySelectorAll('form[action = "./controllers/adminUpdateExercise.phtml"]');
+    let updaterForms = document.querySelectorAll('form[action = "adminUpdateExercise"]');
 
     //rajouter bouton pr sauvegarder les changements
 
@@ -106,7 +106,7 @@ function eventListenerSetter () {
         form.addEventListener('submit', setUpdateFormSelectedField);
     });
 
-    let deleterForms = document.querySelectorAll('form[action = "./controllers/AdminDeleteExerciseController.php"]');
+    let deleterForms = document.querySelectorAll('form[action = "adminDeleteExercise"]');
 
     //rajouter bouton pr sauvegarder les changements
 

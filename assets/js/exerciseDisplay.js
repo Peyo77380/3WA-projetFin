@@ -14,7 +14,6 @@ class ExerciseDisplay {
         document.querySelector('.wrapper').appendChild(this._navigationControl);
 
         this.setNavigationButtons();
-        this.setProgressBar();
         this.hideSubmit();
         this.hideQuestions();
         this.questionIndex = 0;
@@ -39,25 +38,6 @@ class ExerciseDisplay {
         this._navigationControl.appendChild(previousButton);
         this._navigationControl.appendChild(nextButton);
     }
-
-
-    setProgressBar() {
-        //ajouter barre de progression
-        let progressBar = document.createElement('div');
-
-        progressBar.classList.add('progressBar');
-        this._navigationControl.appendChild(progressBar);
-
-        //créer les divisions par question dans la barre de progression
-        for (let question of this._exerciseQuestions) {
-
-            let subdivision = document.createElement('div');
-            subdivision.classList.add('progressBar_sub');
-            progressBar.appendChild(subdivision);
-
-        }
-    }
-
 
     hideSubmit() {
         //rendre validation invisible

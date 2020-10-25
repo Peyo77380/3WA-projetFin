@@ -11,6 +11,7 @@ class unorderedSentencesController extends Controller
         $this->setTitle('Phrases déstructurées');
         $this->setDescription('Exercices de phrases destructurées en italien');
         $this->setScript('exerciseDisplay');
+        $this->setScript('unorderedSentences');
         $this->setScript('formValidation');
 
         require('./models/ExercisesModel.php');
