@@ -16,6 +16,7 @@ class ExercisesModel
 
         $this->result = $this->data->sendQuery($this->query, $this->params);
 
+
         return $this->result;
 
     }

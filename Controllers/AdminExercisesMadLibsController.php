@@ -20,7 +20,7 @@ class AdminExercisesMadLibsController extends AdminExercisesController
         $connection->setGetterQuery();
         $pdoResult = $connection->launchDBRequest();
 
-        $this->sentences = $pdoResult;
+        $this->sentences = decode($pdoResult);
 
         parent::__construct($target, $this->sentences);
     }

@@ -44,7 +44,7 @@ class MadLibsController extends Controller
         $sentences->setGetterQuery();
         $pdoResult = $sentences->launchDBRequest();
 
-        $cleanExercises = exercisesCleaner($pdoResult);
+        $cleanExercises = decode($pdoResult);
 
         $this->madLibsText = $cleanExercises;
 

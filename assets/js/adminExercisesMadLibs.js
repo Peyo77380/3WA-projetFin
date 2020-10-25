@@ -1,11 +1,12 @@
-"use strict";
+'use strict';
+
+document.addEventListener('DOMContentLoaded', init);
 
 
-
-function setControls () {
+function setControls() {
     console.log('set  controls');
-    let table = document.querySelector('table');
-    let div = document.createElement('div');
+    const table = document.querySelector('table');
+    const div = document.createElement('div');
 
     div.innerHTML =
         '<button class="cancelButton">Annuler la dernière action</button>';
@@ -17,22 +18,21 @@ function setControls () {
     document.querySelector('.saveButton').addEventListener('click', saveEveryChanges);
     document.querySelector('.cancelButton').addEventListener('click', cancelLastAction);
 }
-function saveEveryChanges () {
+
+function saveEveryChanges() {
 
     let deletionList = JSON.parse(localStorage.getItem('exerciseDelete'));
     let changeList = JSON.parse(localStorage.getItem('exerciseChanges'));
 
 
-    if(deletionList)
-    {
-        for (let el of deletionList)
-        {
+    if (deletionList) {
+        for (let el of deletionList) {
 
             /* POST attendu :
             $exerciseId = $post['exerciseId'];
             $databaseTable = $post['exerciseName'];
              */
-            let formData = new FormData;
+            let formData = new FormData();
             formData.append('exerciseId', el.exerciseId);
             formData.append('exerciseName', el.exerciseName);
 
@@ -45,17 +45,13 @@ function saveEveryChanges () {
             localStorage.removeItem('exerciseDelete');
 
 
-
         }
-
 
 
     }
 
-    if (changeList)
-    {
-        for (let el of changeList)
-        {
+    if (changeList) {
+        for (let el of changeList) {
             /*
             POST attendu :
             $databaseTable = $post['exerciseName'];
@@ -63,7 +59,7 @@ function saveEveryChanges () {
             $exerciseId = $post['exerciseId'];
             */
 
-            let formData = new FormData;
+            let formData = new FormData();
 
             formData.append('exerciseName', el.exerciseName);
             formData.append('exerciseContent', el.sentence);
@@ -82,16 +78,13 @@ function saveEveryChanges () {
     }
 
 
-
 }
 
 
-
-
-
-function eventListenerSetter () {
+function eventListenerSetter() {
     let updaterForms = document.querySelectorAll('form[action = "adminUpdateExercise"]');
-    console.log(updaterForms);
+
+    console.log('coucou');
     //rajouter bouton pr sauvegarder les changements
 
 
@@ -106,17 +99,16 @@ function eventListenerSetter () {
 
     deleterForms.forEach(form => {
         form.addEventListener('submit', deleteSelectedField);
-    })
+    });
 }
 
-function setUpdateFormSelectedField (e) {
+function setUpdateFormSelectedField(e) {
     e.preventDefault();
     console.log('modif');
 
     let sentenceCell = this.parentElement.parentElement.querySelector('.exerciseSentence');
 
-    if (sentenceCell.children.length != 0)
-    {
+    if (sentenceCell.children.length !== 0) {
         return;
     }
 
@@ -161,7 +153,7 @@ function setUpdateFormSelectedField (e) {
     temporaryForm.addEventListener('submit', updateSelectedField);
 }
 
-function updateSelectedField (e) {
+function updateSelectedField(e) {
     e.preventDefault();
 
     let newValue = this.querySelector('input[name="exerciseContent"]').value;
@@ -173,16 +165,13 @@ function updateSelectedField (e) {
         'exerciseName': name,
         'exerciseId': id,
         'sentence': newValue,
-        'originalSentence': originalSentence
+        'originalSentence': originalSentence,
     };
 
-    if(!localStorage.getItem('exerciseChanges'))
-    {
-       localStorage.setItem('exerciseChanges', JSON.stringify([changes]));
+    if (!localStorage.getItem('exerciseChanges')) {
+        localStorage.setItem('exerciseChanges', JSON.stringify(changes));
 
-    }
-    else
-    {
+    } else {
         let existingChanges = JSON.parse(localStorage.getItem('exerciseChanges'));
 
         existingChanges.push(changes);
@@ -198,7 +187,7 @@ function updateSelectedField (e) {
 }
 
 
-function deleteSelectedField (e) {
+function deleteSelectedField(e) {
     e.preventDefault();
 
     let id = this.querySelector('input[name="exerciseId"]').value;
@@ -206,16 +195,13 @@ function deleteSelectedField (e) {
 
     let toDelete = {
         'exerciseName': name,
-        'exerciseId': id
+        'exerciseId': id,
     };
 
-    if(!localStorage.getItem('exerciseDelete'))
-    {
-        localStorage.setItem('exerciseDelete', JSON.stringify([toDelete]));
+    if (!localStorage.getItem('exerciseDelete')) {
+        localStorage.setItem('exerciseDelete', JSON.stringify(toDelete));
 
-    }
-    else
-    {
+    } else {
         let existingDelete = JSON.parse(localStorage.getItem('exerciseDelete'));
 
         existingDelete.push(toDelete);
@@ -230,7 +216,7 @@ function deleteSelectedField (e) {
 }
 
 
-function refreshFromLocalStorage () {
+function refreshFromLocalStorage() {
     let deletionList = JSON.parse(localStorage.getItem('exerciseDelete'));
     let changeList = JSON.parse(localStorage.getItem('exerciseChanges'));
 
@@ -238,23 +224,17 @@ function refreshFromLocalStorage () {
 
     for (let cell of idCells) {
         cell.parentElement.style.display = "table-row";
-        if(deletionList)
-        {
-            for ( let el of deletionList)
-            {
-                if(cell.innerHTML == el.exerciseId)
-                {
+        if (deletionList) {
+            for (let el of deletionList) {
+                if (cell.innerHTML == el.exerciseId) {
                     cell.parentElement.style.display = "none";
                 }
             }
         }
 
-        if (changeList)
-        {
-            for (let el of changeList)
-            {
-                if(cell.innerHTML == el.exerciseId)
-                {
+        if (changeList) {
+            for (let el of changeList) {
+                if (cell.innerHTML == el.exerciseId) {
                     let row = cell.parentElement;
                     row.querySelector('.exerciseSentence').innerHTML = el.sentence;
                 }
@@ -267,16 +247,12 @@ function refreshFromLocalStorage () {
 }
 
 
-
 function updateActionHistory(actionType) {
-    if(!localStorage.getItem('actionHistory'))
-    {
+    if (!localStorage.getItem('actionHistory')) {
         localStorage.setItem('actionHistory', JSON.stringify([actionType]));
 
 
-    }
-    else
-    {
+    } else {
         let existingHistory = JSON.parse(localStorage.getItem('actionHistory'));
 
         existingHistory.push(actionType);
@@ -286,17 +262,17 @@ function updateActionHistory(actionType) {
     }
 }
 
-function cancelLastAction () {
+function cancelLastAction() {
 
     let history = JSON.parse(localStorage.getItem('actionHistory'));
 
-    if(!history){
+    if (!history) {
         return;
     }
 
     let deleteList = JSON.parse(localStorage.getItem('exerciseDelete'));
     let updateList = JSON.parse(localStorage.getItem('exerciseChanges'));
-    let lastAction = history[history.length-1];
+    let lastAction = history[history.length - 1];
 
     if (lastAction == 'changes' && updateList) {
         let lastCancel = updateList.pop();
@@ -331,15 +307,10 @@ function cancelLastAction () {
     localStorage.setItem('actionHistory', JSON.stringify(history));
 
 
-
-
-
 }
 
 
-document.addEventListener('DOMContentLoaded', init);
-
-function init () {
+function init() {
     console.log('script général');
     eventListenerSetter();
     setControls();

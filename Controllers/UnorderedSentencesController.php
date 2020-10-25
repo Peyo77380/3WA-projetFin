@@ -36,7 +36,7 @@ class unorderedSentencesController extends Controller
         $sentences->setGetterQuery();
         $pdoResult = $sentences->launchDBRequest();
 
-        $cleanExercises = exercisesCleaner($pdoResult);
+        $cleanExercises = decode($pdoResult);
 
         $this->sentences = $cleanExercises;
 
