@@ -11,7 +11,8 @@ function init() {
 
 class MadLibs {
     constructor() {
-        this.madLibsExercise = document.querySelector("form[action='madLibsResult.phtml']");
+        this.madLibsExercise = document.querySelector("form[action='madLibsResult']");
+        console.log(this.madLibsExercise);
         this.questions = this.getElements();
 
     }
