@@ -1,18 +1,10 @@
 "use strict";
 
-document.addEventListener('DOMContentLoaded', init);
 
-function init () {
-    console.log('ok');
-    eventListenerSetter();
-    setNewExerciseControls();
-
-    refreshFromLocalStorage();
-}
 
 function eventListenerSetter() {
 
-    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
+    let form = document.querySelector('form[action="adminAddExercise"]');
     let newTextArea = form.querySelector('textarea');
 
     let submitButton = document.getElementById('submitButton');
@@ -27,7 +19,7 @@ function eventListenerSetter() {
 }
 
 function setNewExerciseControls () {
-    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
+    let form = document.querySelector('form[action="adminAddExercise"]');
     let newTextArea = form.querySelector('textarea');
     let div = document.createElement('div');
 
@@ -53,7 +45,7 @@ function setNewExerciseControls () {
 }
 
 function setGap () {
-    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
+    let form = document.querySelector('form[action="adminAddExercise"]');
     let newTextArea = form.querySelector('textarea');
     console.log(newTextArea.selectionStart);
     console.log(newTextArea.selectionEnd);
@@ -121,7 +113,7 @@ function restoreWord () {
     let existingWords = JSON.parse(localStorage.getItem('fillingWords'));
     let wordToRestore = existingWords[index];
 
-    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
+    let form = document.querySelector('form[action="adminAddExercise"]');
     let newTextArea = form.querySelector('textarea');
 
     let finalText =
@@ -140,7 +132,7 @@ function restoreWord () {
 
 function formatForSaving () {
     console.log(this);
-    let form = document.querySelector('form[action="Controllers/AdminAddExerciseController.php"]');
+    let form = document.querySelector('form[action="adminAddExercise"]');
     let newTextArea = form.querySelector('textarea');
 
     let remainingText = newTextArea.value;
@@ -230,4 +222,15 @@ function sendToDB () {
 
     refreshFromLocalStorage();
 
+}
+
+
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+    console.log('ok');
+    eventListenerSetter();
+    setNewExerciseControls();
+
+    refreshFromLocalStorage();
 }

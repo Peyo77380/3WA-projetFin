@@ -21,7 +21,7 @@ class AdminExercisesUnorderedSentencesController extends AdminExercisesControlle
 
         $this->sentences = $pdoResult;
 
-        parent::__construct($target);
+        parent::__construct($target, $this->sentences);
     }
 
 

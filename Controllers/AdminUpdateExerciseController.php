@@ -8,17 +8,19 @@ class AdminUpdateExerciseController extends AdminExercisesController
     {
         $this->recievePostForm();
         var_dump($this->postResult);
-        $this->exerciseName = $this->postResult['exerciseName'];
-        $this->values = $this->postResult['exerciseId'];
 
-        $data = [
+        $this->setTitle('Modification d\'exercice');
+        $this->setDescription('Page de modification d\'un exercise existant.');
+
+
+        $exercise = [
             'exerciseName' => $this->postResult['exerciseName'],
             'exerciseId' => $this->postResult['exerciseId'],
             'exerciseContent' => $this->postResult['exerciseContent']
         ];
 
 
-        parent::__construct($target, $data);
+        parent::__construct($target, $exercise, $this->meta);
     }
 
 

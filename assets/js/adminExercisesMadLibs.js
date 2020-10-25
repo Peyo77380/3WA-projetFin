@@ -3,8 +3,8 @@
 
 
 function setControls () {
+    console.log('set  controls');
     let table = document.querySelector('table');
-    console.log('blablablabalbalba');
     let div = document.createElement('div');
 
     div.innerHTML =
@@ -38,7 +38,7 @@ function saveEveryChanges () {
 
             let ajaxRequest = new XMLHttpRequest();
 
-            ajaxRequest.open('POST', '../3WA-projetFin/Controllers/AdminDeleteExerciseController.php');
+            ajaxRequest.open('POST', '../Controllers/AdminDeleteExerciseController.php');
 
             ajaxRequest.send(formData);
 
@@ -72,7 +72,7 @@ function saveEveryChanges () {
             let ajaxRequest = new XMLHttpRequest();
 
 
-            ajaxRequest.open('POST', '../3WA-projetFin/Controllers/adminUpdateExerciseSave.php');
+            ajaxRequest.open('POST', '../Controllers/AdminUpdateExerciseSaveController.php');
             ajaxRequest.send(formData);
 
 
@@ -90,7 +90,7 @@ function saveEveryChanges () {
 
 
 function eventListenerSetter () {
-    let updaterForms = document.querySelectorAll('form[action = "./Controllers/AdminUpdateExerciseController.php"]');
+    let updaterForms = document.querySelectorAll('form[action = "adminUpdateExercise"]');
     console.log(updaterForms);
     //rajouter bouton pr sauvegarder les changements
 
@@ -99,7 +99,7 @@ function eventListenerSetter () {
         form.addEventListener('submit', setUpdateFormSelectedField);
     });
 
-    let deleterForms = document.querySelectorAll('form[action = "./Controllers/AdminDeleteExerciseController.php"]');
+    let deleterForms = document.querySelectorAll('form[action = "adminDeleteExercise"]');
 
     //rajouter bouton pr sauvegarder les changements
 
@@ -125,7 +125,7 @@ function setUpdateFormSelectedField (e) {
     let sentenceText = sentenceCell.innerHTML;
 
     let temporaryForm = document.createElement('form');
-    temporaryForm.action = './Controllers/adminUpdateExerciseSave.php';
+    temporaryForm.action = 'adminUpdateExerciseSave';
     temporaryForm.method = 'post';
 
     let temporaryInput = document.createElement('input');

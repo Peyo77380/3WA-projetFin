@@ -6,10 +6,10 @@ abstract class AdminExercisesController extends Controller
     public $exerciseName;
 
 
-    public function __construct($target)
+    public function __construct($target, $data)
     {
 
-        parent::__construct($target, $this->sentences);
+        parent::__construct($target, $data);
     }
 
     public function validateData()

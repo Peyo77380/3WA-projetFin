@@ -11,7 +11,7 @@
         <div>ID : <?= $display['id'] ?></div>
     </section>
 
-    <form action="Controllers/adminUpdateExerciseSave.php" method="post">
+    <form action="Controllers/AdminUpdateExerciseSaveController.php" method="post">
         <label for="exerciseContent">Exercise à modifier</label>
         <input type="text" id="exerciseContent" name="exerciseContent" value="<?= $display['content'] ?>">
         <input type="hidden" name="exerciseId" value="<?= $display['id'] ?>">

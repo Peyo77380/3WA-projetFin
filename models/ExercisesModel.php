@@ -52,6 +52,11 @@ class ExercisesModel
         $this->query = "DELETE FROM $this->tableName WHERE $this->tableName.`exerciseId` = :exerciseId";
     }
 
+    public function setUpdateExerciseQuery()
+    {
+        $this->query = "UPDATE " . $this->tableName . " SET `sentence` = :newExercise WHERE " . $this->tableName . ".`exerciseId` = :exerciseId ";
+    }
+
     public function setTableName(string $table)
     {
         $this->tableName = $table;
