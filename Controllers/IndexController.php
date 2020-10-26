@@ -6,7 +6,7 @@ class IndexController extends Controller
     {
         $this->setTitle('Bienvenue');
         $this->setDescription(
-            'Parliamo est un projet de site pour une professeur d\'italien, 
+            'Lasciatemi parlare est un projet de site pour une professeur d\'italien, 
             qui permet de mettre en ligne des exercices librement accessibles, ainsi que 
             de prendre contact avec la professeur.');
         parent::__construct($target);

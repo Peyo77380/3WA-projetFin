@@ -7,7 +7,7 @@ class AboutController extends Controller
     {
         $this->setTitle('A propos');
         $this->setScript('aboutDisplay');
-        $this->setDescription('Page de présentation du site Parliamo');
+        $this->setDescription('Page de présentation du site Lasciatemi Parlare');
         parent::__construct($target, $data);
     }
 }
