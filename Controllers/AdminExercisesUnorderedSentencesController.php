@@ -19,7 +19,7 @@ class AdminExercisesUnorderedSentencesController extends AdminExercisesControlle
         $connection->setGetterQuery();
         $pdoResult = $connection->launchDBRequest();
 
-        $this->sentences = decode($pdoResult);
+        $this->sentences = decodeArray($pdoResult);
 
         parent::__construct($target, $this->sentences);
     }

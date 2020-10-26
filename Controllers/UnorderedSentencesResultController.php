@@ -5,6 +5,9 @@ class UnorderedSentencesResultController extends Controller
 {
 
     public $result;
+    public $userAnswers = [];
+    public $note = 0;
+    public $correctAnswers;
 
     public function __construct($target)
     {
@@ -12,42 +15,54 @@ class UnorderedSentencesResultController extends Controller
         $this->setDescription('Correction des exercices de phrases destructurées en italien');
         $post = $_POST;
 
-        $data = postCleaner($post);
+        $this->recievePostForm();
+        $this->prepareAnswerForChecking();
+        $this->getCorrectAnswer();
+        $this->setCorrection();
 
-        $correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
-        $userAnswers = [];
-        $note = 0;
 
+        parent::__construct($target, $this->result);
 
-        foreach ($data as $answer) {
+    }
+
+    public function prepareAnswerForChecking()
+    {
+
+        foreach ($this->postResult as $answer) {
             $answer = explode(" ", $answer);
-            $userAnswers[] = $answer;
+            $this->userAnswers[] = $answer;
         }
 
+    }
 
-        foreach ($userAnswers as $key => $values) {
+    public function getCorrectAnswer()
+    {
+        $this->correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
+    }
 
-            $userAnswer = decode($values);
+    public function setCorrection()
+    {
 
-            if ($userAnswer == $correctAnswers[$key]['sentence']) {
-                $note++;
+        foreach ($this->userAnswers as $key => $values) {
+
+            $userAnswer = $values;
+
+            if ($userAnswer == $this->correctAnswers[$key]['sentence']) {
+                $this->note++;
                 $rating = 'Correct';
             } else {
                 $rating = 'Faux';
             }
 
             $individualCheck =
-                ['correctAnswer' => implode(" ", $correctAnswers[$key]['sentence']),
+                ['correctAnswer' => implode(" ", $this->correctAnswers[$key]['sentence']),
                     'userAnswer' => implode(" ", $userAnswer),
-                    'rating' => $rating
+                    'rating' => $rating,
                 ];
 
             $this->result['correction'][$key] = $individualCheck;
 
         }
-        $this->result['note'] = $note . " / " . count($correctAnswers);
-
-        parent::__construct($target, $this->result);
-
+        $this->result['note'] = $this->note . " / " . count($this->correctAnswers);
     }
 }

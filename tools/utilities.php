@@ -37,10 +37,21 @@ function exercisesCleaner($exercises)
     return $rebuiltExercises;
 }
 
-function decode($stringsArray)
+function decode($string)
+{
+    foreach ($string as $wordNumber => $word) {
+        $decodedWordNumber = html_entity_decode(htmlspecialchars_decode($wordNumber));
+        $decodedWord = html_entity_decode(htmlspecialchars_decode($word));
+
+        $decodedAnswer[$decodedWordNumber] = $decodedWord;
+    }
+}
+
+function decodeArray($stringsArray)
 {
     $decodedAnswer = [];
     foreach ($stringsArray as $id => $string) {
+
         foreach ($string as $wordNumber => $word) {
             $decodedWordNumber = html_entity_decode(htmlspecialchars_decode($wordNumber));
             $decodedWord = html_entity_decode(htmlspecialchars_decode($word));
@@ -52,3 +63,4 @@ function decode($stringsArray)
 
     return $decodedAnswer;
 }
+
