@@ -1,22 +1,61 @@
-<?php
-
-
-?>
-
 <?php if (isset($_SESSION['error'])) : ?>
     <div class="displayError">
         <?= $_SESSION['error'] ?>
     </div>
 <?php endif; ?>
 
+<h2>Votre pofil</h2>
 
-<h2><?= $_SESSION['username'] ?></h2>
+<div class="wrapper">
+    <div class="row">
+        <div class="box">
+            <h4>Login</h4>
+            <div class="field"><?= $_SESSION['connectedUser']['username'] ?></div>
+        </div>
+        <div class="box">
+            <h4>Email</h4>
+            <div class="field"><?= $_SESSION['connectedUser']['email'] ?></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="box">
+            <h4>Nom</h4>
+            <div class="field"><?= $_SESSION['connectedUser']['lastname'] ?></div>
+        </div>
+        <div class="box">
+            <h4>Prénom</h4>
+            <div class="field"><?= $_SESSION['connectedUser']['firstname'] ?></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="box">
+            <h4>Langue maternelle</h4>
+            <div class="field"><?= $_SESSION['connectedUser']['motherlanguage'] ?></div>
+        </div>
+        <div class="box">
+            <h4>Langues parlées</h4>
+            <table>
+                <thead>
+                <th>Langue</th>
+                <th>Niveau</th>
+                </thead>
+                <?php if ($data != []) : ?>
+                    <?php foreach ($data as $language => $level) : ?>
+                        <tr>
+                            <td><?= ucfirst($language) ?></td>
+                            <td><?= ucfirst($level) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="2">-</td>
+                    </tr>
+                <?php endif; ?>
+            </table>
 
-Nom
-Prénom
 
+        </div>
 
-Pays de résidence :
-Langue maternelle :
+    </div>
 
-email
+</div>

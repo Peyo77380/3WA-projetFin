@@ -32,7 +32,7 @@ class userSubscriptionModel
     }
 
     public function getLanguage ($iso) {
-
+        var_dump($iso);
         $filehandle = fopen("./resources/sql-Lang-iso_639-2.csv", 'r');
         $language = [];
 

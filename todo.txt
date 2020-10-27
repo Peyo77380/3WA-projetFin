@@ -1,1 +1,8 @@
 changer nom du serveur sur Router (L48)
+
+
+filtre ehtmlentities affichage corrections
+
+js : bloque validation exo
+
+js : cible pas vers controllers en ajax (admin + exo)
