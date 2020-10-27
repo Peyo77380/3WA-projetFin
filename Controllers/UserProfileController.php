@@ -8,6 +8,7 @@ class UserProfileController extends Controller
         $this->setTitle('Votre profil');
 
         $this->setDescription('Votre profil - Lasciatemi Parlare');
+        $this->setScript('userProfile');
 
         $knownlanguages = explode("/", $_SESSION['connectedUser']['knownlanguages']);
         $formattedLanguages = [];

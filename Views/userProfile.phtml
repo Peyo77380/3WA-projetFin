@@ -8,33 +8,72 @@
 
 <div class="wrapper">
     <div class="row">
+        <?php //var_dump($_SESSION) ?>
         <div class="box">
             <h4>Login</h4>
             <div class="field"><?= $_SESSION['connectedUser']['username'] ?></div>
+            <form action="UserProfileUpdate" class="hidden" method="post">
+
+                <input type="text" name="newValue">
+                <input type="hidden" name="selectedField" value="username">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+                <button><i class="fa fa-check"></i></button>
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
         </div>
         <div class="box">
             <h4>Email</h4>
             <div class="field"><?= $_SESSION['connectedUser']['email'] ?></div>
+            <form action="UserProfileUpdate" class="hidden" method="post">
+                <input type="text" name="newValue">
+                <button><i class="fa fa-check"></i></button>
+                <input type="hidden" name="selectedField" value="email">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
         </div>
     </div>
     <div class="row">
         <div class="box">
             <h4>Nom</h4>
             <div class="field"><?= $_SESSION['connectedUser']['lastname'] ?></div>
+            <form action="UserProfileUpdate" class="hidden" method="post">
+                <input type="text" name="newValue">
+                <button><i class="fa fa-check"></i></button>
+                <input type="hidden" name="selectedField" value="lastname">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
         </div>
         <div class="box">
             <h4>Prénom</h4>
             <div class="field"><?= $_SESSION['connectedUser']['firstname'] ?></div>
+            <form action="UserProfileUpdate" class="hidden" method="post">
+                <input type="text" name="newValue">
+                <button><i class="fa fa-check"></i></button>
+                <input type="hidden" name="selectedField" value="firstname">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
         </div>
     </div>
     <div class="row">
         <div class="box">
             <h4>Langue maternelle</h4>
             <div class="field"><?= $_SESSION['connectedUser']['motherlanguage'] ?></div>
+            <form action="UserProfileUpdate" class="hidden" method="post">
+                <input type="text" name="newValue">
+                <button><i class="fa fa-check"></i></button>
+
+                <input type="hidden" name="selectedField" value="motherlanguage">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
         </div>
         <div class="box">
             <h4>Langues parlées</h4>
             <table>
+
                 <thead>
                 <th>Langue</th>
                 <th>Niveau</th>
