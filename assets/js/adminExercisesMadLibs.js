@@ -54,9 +54,9 @@ function saveEveryChanges() {
         for (let el of changeList) {
             /*
             POST attendu :
-            $databaseTable = $post['exerciseName'];
-            $newValue = $post['exerciseContent'];
-            $exerciseId = $post['exerciseId'];
+            $db->setId($this->postResult['exerciseId']);
+            $db->setNewExercise($this->postResult['sentence']);
+            $db->setTableName($this->postResult['exerciseName']);
             */
 
             let formData = new FormData();
@@ -68,7 +68,7 @@ function saveEveryChanges() {
             let ajaxRequest = new XMLHttpRequest();
 
 
-            ajaxRequest.open('POST', '../Controllers/AdminUpdateExerciseSaveController.php');
+            ajaxRequest.open('POST', 'AdminUpdateExerciseSave');
             ajaxRequest.send(formData);
 
 

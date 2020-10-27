@@ -45,7 +45,7 @@ function saveEveryChanges () {
 
             let ajaxRequest = new XMLHttpRequest();
 
-            ajaxRequest.open('POST', '../3WA-projetFin/Controllers/AdminDeleteExerciseController.php');
+            ajaxRequest.open('POST', 'AdminDeleteExercise');
 
             ajaxRequest.send(formData);
 
@@ -79,7 +79,7 @@ function saveEveryChanges () {
             let ajaxRequest = new XMLHttpRequest();
 
 
-            ajaxRequest.open('POST', '../3WA-projetFin/Controllers/AdminUpdateExerciseSaveController.php');
+            ajaxRequest.open('POST', 'AdminUpdateExerciseSave');
             ajaxRequest.send(formData);
 
 
@@ -131,7 +131,7 @@ function setUpdateFormSelectedField (e) {
     let sentenceText = sentenceCell.innerHTML;
 
     let temporaryForm = document.createElement('form');
-    temporaryForm.action = './Controllers/AdminUpdateExerciseSaveController.php';
+    temporaryForm.action = 'AdminUpdateExerciseSave';
     temporaryForm.method = 'post';
 
     let temporaryInput = document.createElement('input');

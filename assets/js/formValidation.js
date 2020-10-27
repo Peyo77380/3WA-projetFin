@@ -61,7 +61,7 @@ function runValidation(e) {
     validator.setTargetsForm(e.target);
     let validation = validator.emptyFieldValidator();
 
-    if (validation) {
+    if (validation === true) {
         e.target.submit();
     }
 
