@@ -1,53 +1,117 @@
 <div class="wrapper">
-
-    <h2>Gestion des utilisateurs</h2>
-    <h3>Liste des élèves</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nom d'utilisateur</th>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Langue maternelle</th>
-            <th>Langues parlées</th>
-            <th>Pays</th>
-            <th>Date de naissance</th>
-            <th>Date d'inscription</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        <?php foreach ($data['students'] as $student) : ?>
-            <tr>
-                <th><?= $student['id'] ?></th>
-                <th><?= $student['username'] ?></th>
-                <th><?= $student['firstname'] ?></th>
-                <th><?= $student['lastname'] ?></th>
-                <th><?= $student['email'] ?></th>
-                <th>
-                    <?php if (isset($student['motherlanguage']['languageName'])) : ?>
-                        <?= $student['motherlanguage']['languageName'] ?>
-                    <?php endif; ?>
-                        <?php if(!isset($student['motherlanguage']['languageName'])) : ?>
-                            <?= $student['motherlanguage'] ?>
-                        <?php endif; ?>
-
-                    </th>
-                    <th>
-                        <?php if(isset($student['knownlanguages'])) : ?>
-                            <?php foreach($student['knownlanguages'] as $knownlanguage) : ?>
-                                <?= $knownlanguage['languageName'] ?> - <?= $knownlanguage['languageLvl'] ?> <br>
-                            <?php endforeach; ?>
-                        <?php endif ?>
-                    </th>
-                    <th><?= $student['country'] ?></th>
-                    <th><?= $student['birthdate'] ?></th>
-                    <th><?= $student['subscribedate']?></th>
+    <section>
+        <h2>Liste des utilisateurs</h2>
+        <article>
+            <h3>Liste des élèves</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Langue maternelle</th>
+                    <th>Pays</th>
+                    <th>Date de naissance</th>
+                    <th>Date d'inscription</th>
+                    <th>Droits</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+                </thead>
+                <tbody>
 
+                <?php foreach ($data['students'] as $student) : ?>
+                    <tr>
+                        <th><?= $student['id'] ?></th>
+                        <th><?= $student['username'] ?></th>
+                        <th><?= $student['firstname'] ?></th>
+                        <th><?= $student['lastname'] ?></th>
+                        <th><?= $student['email'] ?></th>
+                        <th>
+                            <?php if (isset($student['motherlanguage']['languageName'])) : ?>
+                                <?= $student['motherlanguage']['languageName'] ?>
+                            <?php endif; ?>
+                            <?php if (!isset($student['motherlanguage']['languageName'])) : ?>
+                                <?= $student['motherlanguage'] ?>
+                            <?php endif; ?>
+
+                        </th>
+                        <th><?= $student['country'] ?></th>
+                        <th><?= $student['birthdate'] ?></th>
+                        <th><?= $student['subscribedate'] ?></th>
+                        <th>
+                            <form action="UserProfileUpdate" method="post">
+                                <select name="newValue" id="motherlanguage">
+                                    <option value='teacher'>Professeur</option>
+                                    <option value='student' selected>Elève</option>
+                                </select>
+                                <button><i class="fa fa-check"></i></button>
+
+                                <input type="hidden" name="selectedField" value="role">
+                                <input type="hidden" name="userId" value="<?= $student['id'] ?>">
+                                <input type="hidden" name="origin" value="adminUsers">
+                            </form>
+                        </th>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </article>
+        <article>
+            <h3>Liste des professeurs</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Langue maternelle</th>
+                    <th>Pays</th>
+                    <th>Date de naissance</th>
+                    <th>Date d'inscription</th>
+                    <th>Droits</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <?php foreach ($data['teachers'] as $teacher) : ?>
+                    <tr>
+                        <th><?= $teacher['id'] ?></th>
+                        <th><?= $teacher['username'] ?></th>
+                        <th><?= $teacher['firstname'] ?></th>
+                        <th><?= $teacher['lastname'] ?></th>
+                        <th><?= $teacher['email'] ?></th>
+                        <th>
+                            <?php if (isset($teacher['motherlanguage']['languageName'])) : ?>
+                                <?= $teacher['motherlanguage']['languageName'] ?>
+                            <?php endif; ?>
+                            <?php if (!isset($teacher['motherlanguage']['languageName'])) : ?>
+                                <?= $teacher['motherlanguage'] ?>
+                            <?php endif; ?>
+
+                        </th>
+                        <th><?= $teacher['country'] ?></th>
+                        <th><?= $teacher['birthdate'] ?></th>
+                        <th><?= $teacher['subscribedate'] ?></th>
+                        <th>
+                            <form action="UserProfileUpdate" method="post">
+                                <select name="newValue" id="motherlanguage">
+                                    <option value='teacher' selected>Professeur</option>
+                                    <option value='student'>Elève</option>
+                                </select>
+                                <button><i class="fa fa-check"></i></button>
+
+                                <input type="hidden" name="selectedField" value="role">
+                                <input type="hidden" name="userId" value="<?= $teacher['id'] ?>">
+                                <input type="hidden" name="origin" value="adminUsers">
+                            </form>
+                        </th>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </article>
+    </section>
 </div>

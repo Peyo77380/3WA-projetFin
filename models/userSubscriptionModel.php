@@ -3,11 +3,29 @@
 
 class userSubscriptionModel
 {
-    public function getCountries () {
+    public function getCountry($iso)
+    {
+        $filehandle = fopen("./resources/sql-pays.csv", 'r');
+        $country = [];
+
+        while (($row = fgetcsv($filehandle, 0, ",")) !== FALSE) {
+            if ($row[3] == $iso) {
+                $country = [
+                    'countryName' => $row[4],
+                    'countryCode' => $row[3],
+                ];
+                break;
+            }
+        }
+
+        return $country;
+    }
+
+    public function getCountries()
+    {
         $filehandle = fopen("./resources/sql-pays.csv", 'r');
 
-        while( ($row = fgetcsv($filehandle, 0, ",")) !== FALSE)
-        {
+        while (($row = fgetcsv($filehandle, 0, ",")) !== FALSE) {
             $countries[] = [
                 'countryName' => $row[4],
                 'countryCode' => $row[3],
@@ -16,6 +34,7 @@ class userSubscriptionModel
 
         return $countries;
     }
+
 
     public function getLanguages () {
         $filehandle = fopen("./resources/sql-Lang-iso_639-2.csv", 'r');
@@ -32,7 +51,7 @@ class userSubscriptionModel
     }
 
     public function getLanguage ($iso) {
-        var_dump($iso);
+
         $filehandle = fopen("./resources/sql-Lang-iso_639-2.csv", 'r');
         $language = [];
 

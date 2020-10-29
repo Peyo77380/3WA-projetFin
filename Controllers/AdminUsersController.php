@@ -12,80 +12,43 @@ class AdminUsersController extends Controller
 
         require_once('./models/UsersModel.php');
         $userDb = new UsersModel();
-        $userDb->setQuery();
+        $userDb->setGetterQuery();
+        $userDb->setUserCategory('student');
+        $this->usersArray['student'] = $userDb->launchDBRequest();
+
         $userDb->setUserCategory('teacher');
-        $this->usersArray = $userDb->getUsers();
-        // $this->getUsers('teacher');
+        $this->usersArray['teacher'] = $userDb->launchDBRequest();
 
-        $this->getLanguagesInfo();
-
+        $this->result['students'] = $this->getLanguagesInfo($this->usersArray['student']);
+        $this->result['teachers'] = $this->getLanguagesInfo($this->usersArray['teacher']);
 
         parent::__construct($target, $this->result);
     }
 
-    public function getLanguagesInfo()
+    public function getLanguagesInfo($array)
     {
         //va cherche dans liste iso des langues le nom développé de la langue en français
         $users = [];
-        foreach ($this->usersArray as $student) {
+        foreach ($array as $user) {
 
-            if ($student['motherlanguage']) {
+            if ($user['motherlanguage']) {
                 require_once('./models/userSubscriptionModel.php');
-                $defaultAnswer = $student['motherlanguage'];
+                $defaultAnswer = $user['motherlanguage'];
 
                 $subs = new userSubscriptionModel();
 
-                $languageInfos = $subs->getLanguage($student['motherlanguage']);
+                $languageInfos = $subs->getLanguage($user['motherlanguage']);
 
                 if ($languageInfos != []) {
-                    $student['motherlanguage'] = $languageInfos;
+                    $user['motherlanguage'] = $languageInfos;
                 }
             }
 
-
-            if ($student['knownlanguages']) {
-
-                $student['knownlanguages'] = explode("/", $student['knownlanguages']);
-
-                $knowlanguage = [];
-
-                foreach ($student['knownlanguages'] as $language) {
-
-                    if ($language == '') {
-                        break;
-                    }
-                    $language = explode("-", $language);
-
-
-                    $subs = new userSubscriptionModel();
-
-                    $languageInfos = $subs->getLanguage($language[0]);
-
-                    if (!isset($languageInfos['languageName'])) {
-                        $languageInfos['languageName'] = $language[0];
-                    }
-
-                    if (isset($language[1])) {
-                        $languageInfos['languageLvl'] = $language[1];
-                    } else {
-                        $languageInfos['languageLvl'] = 'Non renseigné';
-
-                    }
-
-
-                    $knowlanguage[] = $languageInfos;
-
-                }
-
-                $student['knownlanguages'] = $knowlanguage;
-
-            }
-
-            $users[] = $student;
+            $users[] = $user;
         }
 
 
-        $this->result['students'] = $users;
+        return $users;
     }
 
 
