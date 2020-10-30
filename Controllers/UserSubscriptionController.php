@@ -11,6 +11,7 @@ class UserSubscriptionController extends Controller
         $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
 
         $this->recievePostForm();
+        $this->hashPassword();
         $this->saveToDatabase();
         $this->saveToSession();
 
@@ -50,6 +51,17 @@ class UserSubscriptionController extends Controller
         $countries = $subs->getCountries();
 
         return $countries;
+    }
+
+    public function hashPassword()
+    {
+        // sel aleatoire : string aleatoire : le début du salt est une clé indiquant l'algo utilisé dans le hash. Ici bcrypt.
+        $salt = '$2y$11$' . substr(bin2hex(openssl_random_pseudo_bytes(32)), 0, 22);
+
+        // hash avec bcrypt
+        // bcrypt stocke le sel dans le hash donc pas besoin de champ supplementaires
+        $this->postResult['password'] = crypt($this->postResult['password'], $salt);
+
     }
 }
 

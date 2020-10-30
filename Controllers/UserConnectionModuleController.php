@@ -29,18 +29,17 @@ class UserConnectionModuleController extends Controller
             header('Location: userConnection');
             return;
         }
-        if ($this->postResult['password'] !== $user['password']) {
+
+        if (password_verify($this->postResult['password'], $user['password']) !== true) {
             $_SESSION['error'] = "Le nom d'utilisateur et le mot de passe fournis ne correspondent pas. Réessayez.";
             header('Location: userConnection');
 
             return;
         }
 
-        if ($this->postResult['password'] == $user['password']) {
-            $this->userData = $user;
-            $_SESSION['connectedUser'] = $user;
-            $_SESSION['error'] = NULL;
-        }
+        $this->userData = $user;
+        $_SESSION['connectedUser'] = $user;
+        $_SESSION['error'] = NULL;
 
 
     }
