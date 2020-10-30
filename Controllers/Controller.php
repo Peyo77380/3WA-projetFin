@@ -17,6 +17,7 @@ abstract class Controller
 
         $this->getDedicatedView($target, $data, $this->meta);
 
+        $_SESSION['error'] = [];
 
     }
 

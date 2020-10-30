@@ -1,16 +1,29 @@
 :root {
     --light: white;
+    --bg-light: #fdf6f2;
+    --bg-higlight: #ffe2d3;
     --main-dark: #381a00;
     --main-darker: #1f0f00;
     --contrast: #DA1616;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-light);
     line-height: 1.75;
 }
 
+
+/* style du header et de la nav (commun à toutes les pages) */
 header {
+    background-image: url('../images/pexels-pixabay-417344.jpg');
+    background-position: top;
+    background-repeat: no-repeat;
+
     background-color: var(--main-dark);
     color: var(--light);
 }
@@ -33,10 +46,12 @@ header .logo h1 {
 }
 
 nav {
+    background-color: rgba(0, 0, 0, 0.2);
     width: 100%;
 }
 
 nav ul {
+    margin: 0;
     width: 100%;
     padding: 0;
     text-align: center;
@@ -45,14 +60,15 @@ nav ul {
 
 nav li {
     padding: 0.5rem 0;
+
+    transition: 0.5s ease-out;
 }
 
 nav li:hover {
-    background-color: var(--contrast);
+    transform: scale(1.1);
 }
 
 .nav-subMenu {
-    background-color: var(--main-darker);
     display: none;
     width: 80%;
     margin: auto;
@@ -61,5 +77,266 @@ nav li:hover {
 
 .nav-menu:hover .nav-subMenu {
     display: block;
+}
+
+/* style général */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Sansita Swashed", cursive;
+    color: var(--main-dark);
+}
+
+h1, h2 {
+    color: var(--light);
+}
+
+
+button {
+    background-color: var(--contrast);
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    padding: 1rem;
+}
+
+/* style de l'index */
+
+.banner {
+    color: var(--light);
+    background-color: var(--main-darker);
+}
+
+.banner h1 {
+    display: none;
+}
+
+.banner h2 {
+    margin: 0;
+    padding: 2rem;
+}
+
+/* style des splitscreens */
+
+.splitscreen .textContainer {
+    padding: 0.5rem;
+    overflow: hidden;
+    text-align: center;
+
+}
+
+.splitscreen h4 {
+    position: relative;
+    padding: 0;
+}
+
+.splitscreen h4:after {
+    position: absolute;
+    content: "";
+    height: 1px;
+    background-color: var(--main-darker);
+    width: 100%;
+    margin-left: 5px;
+    bottom: 20%;
+}
+
+.splitscreen article {
+    text-align: justify;
+}
+
+.splitscreen .imgContainer {
+    width: 100%;
+}
+
+.splitscreen .imgContainer figure, .splitscreen .imgContainer img {
+    margin: 0;
+    width: 100%;
+    position: relative;
+}
+
+.splitscreen .imgContainer figure figcaption {
+    position: absolute;
+    bottom: 1rem;
+    padding: 0.5rem 0.5rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    font-size: 0.7rem;
+}
+
+.splitscreen .imgContainer figure figcaption a {
+    color: white;
+    text-decoration: none;
+
+}
+
+/* pricesBox */
+.priceBox {
+    display: flex;
+}
+
+.priceBox {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3);
+    background-color: var(--bg-higlight);
+    margin: 1rem auto;
+    transition: 0.5s ease-out;
+}
+
+.priceBox:hover {
+    transform: scale(1.1);
+}
+
+.priceBox:first-of-type {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.priceBox h5, .priceBox h6 {
+    margin: 0;
+}
+
+.priceBox .hourNumber {
+    grid-column: 1/4;
+}
+
+.hourlyRate, .discount, .totalCost {
+    display: flex;
+    justify-content: center;
+    grid-row: 3;
+    font-size: 0.9rem;
+
+}
+
+.originalCost {
+    font-size: 0.7rem;
+    text-decoration: line-through;
+}
+
+main {
+    padding-bottom: 10rem;
+}
+
+/* style footer */
+
+footer {
+    background-color: var(--main-darker);
+    color: white;
+    text-align: center;
+    font-size: small;
+    position: fixed;
+    bottom: 0;
+    max-height: 10rem;
+    width: 100%;
+}
+
+footer img {
+    width: 10%;
+}
+
+@media all and (min-width: 480px) {
+    .textContainer {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media all and (min-width: 750px) {
+    nav > ul > li {
+        display: inline-block;
+        margin: auto 2rem;
+    }
+
+    footer {
+        display: flex;
+        justify-content: space-between;
+        max-height: 10rem;
+        padding: 1rem;
+    }
+
+    footer img {
+        max-width: 5%;
+    }
+}
+
+@media all and (min-width: 960px) {
+
+}
+
+@media all and (min-width: 1280px) {
+    header {
+        display: flex;
+    }
+
+    header .logo {
+        font-size: 80%;
+        max-width: 20%;
+    }
+
+    nav {
+        background: none;
+    }
+
+    nav > ul, nav > ul > li, nav > ul > li > a {
+        height: 100%;
+    }
+
+
+    /*split screen */
+    /* split screen */
+    .splitscreen {
+        display: flex;
+        width: 100%;
+        padding: 2rem;
+    }
+
+    .splitscreenLeft, .splitscreenRight {
+        width: 50%;
+        justify-content: center;
+        vertical-align: bottom;
+        padding: 3rem;
+        opacity: 0;
+        transition: 1s ease-out;
+    }
+
+
+    .splitscreenLeft {
+
+        transform: translateX(-200px);
+
+    }
+
+    .splitscreenRight {
+        transform: translateX(200px);
+    }
+
+    .splitscreen.visible .splitscreenLeft, .splitscreen.visible .splitscreenRight {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .splitscreen:nth-child(even) {
+        background: -moz-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ff3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(222, 184, 135, 0)), color-stop(50%, rgba(222, 184, 135, 0)), color-stop(50%, rgba(222, 184, 135, 1)), color-stop(100%, rgba(222, 184, 135, 1))); /* safari4+,chrome */
+        background: -webkit-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* safari5.1+,chrome10+ */
+        background: -o-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* opera 11.10+ */
+        background: -ms-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ie10+ */
+        background: linear-gradient(90deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* w3c */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DEB887', endColorstr='#DEB887', GradientType=1); /* ie6-9 */
+    }
+
+    .splitscreen:nth-child(odd) {
+        background: -moz-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ff3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(222, 184, 135, 1)), color-stop(50%, rgba(222, 184, 135, 1)), color-stop(50%, rgba(222, 184, 135, 0)), color-stop(100%, rgba(222, 184, 135, 0))); /* safari4+,chrome */
+        background: -webkit-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* safari5.1+,chrome10+ */
+        background: -o-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* opera 11.10+ */
+        background: -ms-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ie10+ */
+        background: linear-gradient(270deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* w3c */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DEB887', endColorstr='#DEB887', GradientType=1); /* ie6-9 */
+    }
+}
+
+
 }
 

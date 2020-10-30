@@ -1,7 +1,7 @@
-<?php if(isset($_SESSION['error'])) : ?>
-<div class="displayError">
-    <?= $_SESSION['error'] ?>
-</div>
+<?php if (isset($_SESSION['error']) && $_SESSION['error'] !== []) : ?>
+    <div class="displayError">
+        <?= $_SESSION['error'] ?>
+    </div>
 <?php endif; ?>
 
 
