@@ -27,8 +27,8 @@ class Router
 
         } catch (Exception $e) {
             // renvoie vers la vue de l'erreur 404 quand le controlleur et la vue demandés n'existent pas.
-            http_response_code(404);
-            require __DIR__ . '/Views/error/404.phtml';
+            $this->routeErrors($e);
+
 
         }
 
@@ -82,9 +82,25 @@ class Router
             }
 
         } catch (Exception $e) {
-            http_response_code(404);
-            require __DIR__ . '/Views/error/404.phtml';
+            $this->routeErrors($e);
 
         }
+    }
+
+    public function routeErrors($e)
+    {
+        $exceptionMessage = $e->getMessage();
+
+        switch ($exceptionMessage) {
+            case "notAllowed":
+                header('Location: /userConnection');
+
+                break;
+
+            default:
+                http_response_code(404);
+                require __DIR__ . '/Views/error/404.phtml';
+        }
+
     }
 }

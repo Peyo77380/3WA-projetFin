@@ -6,6 +6,7 @@ class AdminUpdateExerciseController extends AdminExercisesController
 {
     public function __construct($target)
     {
+        $this->setAdminFilter();
         $this->recievePostForm();
         var_dump($this->postResult);
 

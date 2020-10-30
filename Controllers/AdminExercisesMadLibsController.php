@@ -6,6 +6,7 @@ class AdminExercisesMadLibsController extends AdminExercisesController
 {
     public function __construct($target)
     {
+        $this->setAdminFilter();
         $this->setTitle('Admin Textes à trous');
         $this->setScript('adminExercisesMadLibs');
         $this->setScript('adminExercisesMadLibsNewExercise');

@@ -7,6 +7,7 @@ abstract class Controller
     protected $data;
     protected $postResult;
     protected $meta = [];
+    protected string $target;
 
     public function __construct($target, $data = [])
     {
@@ -48,6 +49,24 @@ abstract class Controller
     public function setDescription(string $description)
     {
         $this->meta['description'] = $description;
+    }
+
+    public function setAdminFilter()
+    {
+
+        if (!isset($_SESSION['connectedUser']['role']) || ($_SESSION['connectedUser']['role'] !== 'teacher' && $_SESSION['connectedUser']['role'] !== 'admin')) {
+
+            throw new Exception('notAllowed');
+        }
+    }
+
+    public function setConnectedUserFilter()
+    {
+
+        if (!isset($_SESSION['connectedUser'])) {
+            $_SESSION['error'] = "Vous devez vous connecter pour visualiser cette page.";
+            throw new Exception('notAllowed');
+        }
     }
 
 }

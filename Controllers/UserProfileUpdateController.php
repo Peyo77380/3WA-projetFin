@@ -4,7 +4,7 @@ class UserProfileUpdateController extends Controller
 {
     public function __construct()
     {
-
+        $this->setConnectedUserFilter();
         $this->recievePostForm();
         var_dump($this->postResult);
         $this->updateUserInDb();

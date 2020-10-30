@@ -7,6 +7,8 @@ class AdminUsersController extends Controller
 
     public function __construct($target, $data = [])
     {
+        $this->setAdminFilter();
+        $this->setAdminFilter();
         $this->setTitle('Gestion des utilisateurs');
         $this->setDescription('Page de gestion des utilisateurs enregistrés.');
 

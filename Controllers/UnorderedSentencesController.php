@@ -8,6 +8,7 @@ class unorderedSentencesController extends Controller
 
     public function __construct($target)
     {
+        $this->setConnectedUserFilter();
         $this->setTitle('Phrases déstructurées');
         $this->setDescription('Exercices de phrases destructurées en italien');
         $this->setScript('exerciseDisplay');

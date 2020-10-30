@@ -7,9 +7,10 @@ class UserProfileController extends Controller
 
     public function __construct($target, $data = [])
     {
+
         require_once('./models/UsersModel.php');
         require_once('./models/userSubscriptionModel.php');
-
+        $this->setConnectedUserFilter();
         $this->setTitle('Votre profil');
 
         $this->setDescription('Votre profil - Lasciatemi Parlare');

@@ -16,7 +16,9 @@ class MadLibsController extends Controller
 
     public function __construct($target)
 
+
     {
+        $this->setConnectedUserFilter();
         $this->setTitle('Texte à trous');
         $this->setDescription('Exercices de textes à trous en italien');
         $this->setScript('madLibs');

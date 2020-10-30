@@ -9,6 +9,7 @@ class IndexController extends Controller
             'Lasciatemi parlare est un projet de site pour une professeur d\'italien, 
             qui permet de mettre en ligne des exercices librement accessibles, ainsi que 
             de prendre contact avec la professeur.');
+        $this->setScript('splitScreen');
         parent::__construct($target);
 
     }

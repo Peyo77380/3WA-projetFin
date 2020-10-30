@@ -1,7 +1,6 @@
 changer nom du serveur sur Router (L48)
 
-
-filtre ehtmlentities affichage corrections
+hash password
 
 js : bloque validation exo
 
