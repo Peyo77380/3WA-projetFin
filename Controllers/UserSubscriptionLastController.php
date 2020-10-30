@@ -55,22 +55,19 @@ class UserSubscriptionLastController extends Controller
     }
 
 
+
     public function updateDatabase()
     {
 
-        require_once('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
+        $this->postResult['userId'] = (int)$this->postResult['userId'];
 
-        $data = new Database();
-        $sql = "UPDATE `users` SET `motherlanguage` = ?, `knownlanguages` = ? WHERE `users`.`id` = ?";
+        require_once('./models/UsersModel.php');
+        $data = new UsersModel();
+        $data->saveNewUserQueryThirdStep();
+        $data->saveNewUserParameterThirdStep($this->postResult['motherLanguage'], $this->knownLanguages, (int)$this->postResult['userId']);
+        $data->updateDB();
 
 
-        $params = [
-            $this->postResult['motherLanguage'],
-            $this->knownLanguages,
-            $this->postResult['userId']
-        ];
-
-        $save = $data->update($sql, $params);
     }
 }
 

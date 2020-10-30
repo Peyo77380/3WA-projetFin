@@ -25,16 +25,12 @@ class UserSubscriptionController extends Controller
 
     public function saveToDatabase()
     {
-        require_once('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
+        require_once('./models/UsersModel.php');
 
-        $database = new Database();
-
-        $sql = 'INSERT INTO users (`username`, `email`, `password`, `role`) VALUES (?, ?, ?, "student")';
-
-        $params = [$this->postResult['username'], $this->postResult['email'], $this->postResult['password']];
-
-        $this->userId = $database->saveToDb($sql, $params);
-
+        $data = new UsersModel();
+        $data->saveNewUserQuery();
+        $data->saveNewUserParameter($this->postResult['username'], $this->postResult['email'], $this->postResult['password']);
+        $this->userId = $data->saveToDB();
 
     }
 

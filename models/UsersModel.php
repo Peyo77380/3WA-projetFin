@@ -20,6 +20,25 @@ class UsersModel
         return $this->result;
     }
 
+    public function saveToDB()
+    {
+        $this->data = new Database();
+
+        $this->result = $this->data->saveToDb($this->query, $this->params);
+
+        return $this->result;
+
+    }
+
+    public function updateDB()
+    {
+        $this->data = new Database();
+        var_dump($this->query);
+        var_dump($this->params);
+        $this->result = $this->data->update($this->query, $this->params);
+
+    }
+
     public function setGetterQuery()
     {
         $this->query = "SELECT * FROM `users` WHERE `role`= :userCategory";
@@ -29,6 +48,44 @@ class UsersModel
     public function setGetSingleUserQuery()
     {
         $this->query = "SELECT * FROM `users` WHERE `users`.`id` = :userId";
+    }
+
+    public function saveNewUserQuery()
+    {
+        $this->query = 'INSERT INTO users (`username`, `email`, `password`, `role`) VALUES (:username, :email, :password, "student")';
+    }
+
+    public function saveNewUserQuerySecondStep()
+    {
+        $this->query = "UPDATE `users` SET `users`.`firstname` = :firstname, `users`.`lastname` = :lastname, `users`.`birthdate` = :birthdate, `users`.`country` = :country WHERE `users`.`id` = :userid";
+    }
+
+    public function saveNewUserQueryThirdStep()
+    {
+        $this->query = "UPDATE `users` SET `users`.`motherlanguage` = :motherlanguage, `users`.`knownlanguages` = :knownlanguages WHERE `users`.`id` = :userid";
+    }
+
+    public function saveNewUserParameter($username, $email, $password)
+    {
+        $this->params[] = ['variableName' => ':username', 'variableValue' => $username, 'PDOparam' => PDO::PARAM_STR];
+        $this->params[] = ['variableName' => ':email', 'variableValue' => $email, 'PDOparam' => PDO::PARAM_STR];
+        $this->params[] = ['variableName' => ':password', 'variableValue' => $password, 'PDOparam' => PDO::PARAM_STR];
+    }
+
+    public function saveNewUserParameterSecondStep(string $firstname, string $lastname, string $country, string $birthdate, int $userid)
+    {
+        $this->params[] = ['variableName' => ':firstname', 'variableValue' => $firstname, 'PDOparam' => PDO::PARAM_STR];
+        $this->params[] = ['variableName' => ':lastname', 'variableValue' => $lastname, 'PDOparam' => PDO::PARAM_STR];
+        $this->params[] = ['variableName' => ':country', 'variableValue' => $country, 'PDOparam' => PDO::PARAM_STR];
+        $this->params[] = ['variableName' => ':birthdate', 'variableValue' => $birthdate, 'PDOparam' => PDO::PARAM_STR];
+        $this->params[] = ['variableName' => ':userid', 'variableValue' => $userid, 'PDOparam' => PDO::PARAM_INT];
+    }
+
+    public function saveNewUserParameterThirdStep(string $motherlanguage, string $knownlanguages, int $userId)
+    {
+        $this->params[] = ['variableName' => ':motherlanguage', 'variableValue' => $motherlanguage, 'PDOparam' => PDO::PARAM_STR];
+        $this->params[] = ['variableName' => ':knownlanguages', 'variableValue' => $knownlanguages, 'PDOparam' => PDO::PARAM_STR];
+        $this->params[] = ['variableName' => ':userid', 'variableValue' => $userId, 'PDOparam' => PDO::PARAM_INT];
     }
 
     public function setUserCategory(string $userCategory)

@@ -10,6 +10,7 @@ class UserSubscriptionNextController extends Controller
         $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
 
         $this->recievePostForm();
+        var_dump($this->postResult);
         $this->setBirthday();
         $this->updateDatabase();
         $this->saveToSession();
@@ -34,23 +35,16 @@ class UserSubscriptionNextController extends Controller
 
     public function updateDatabase()
     {
-        require_once('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
-        $database = new Database();
-        $sql = "UPDATE `users` SET `firstname` = ?, `lastname` = ?, `country` = ?, `birthdate` = STR_TO_DATE(?,'%Y-%m-%d')  WHERE `users`.`id` = ?";
-        $params = [
-            // firstname
-            $this->postResult['firstname'],
-            //lastname
-            $this->postResult['lastname'],
-            //country
-            $this->postResult['country'],
-            //birthdate
-            $this->birthday,
-            //userId
-            $this->postResult['userId']
-        ];
 
-        $save = $database->update($sql, $params);
+        $this->postResult['userId'] = (int)$this->postResult['userId'];
+
+        require_once('./models/UsersModel.php');
+        $data = new UsersModel();
+        $data->saveNewUserQuerySecondStep();
+        $data->saveNewUserParameterSecondStep($this->postResult['firstname'], $this->postResult['lastname'], $this->postResult['country'], $this->birthday, (int)$this->postResult['userId']);
+        $data->updateDB();
+
+
     }
 
     public function saveToSession()
