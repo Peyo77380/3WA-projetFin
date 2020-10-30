@@ -25,18 +25,19 @@
     ?>
         "/>
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sansita+Swashed&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/assets/styles/normalize.css">
     <link rel="stylesheet" href="http://<?= $_SERVER['HTTP_HOST'] ?>/assets/styles/style.css">
 
 </head>
 <body>
 <header>
+    <a href="/" class="logo">
+        <h1>Lasciatemi parlare</h1>
+    </a>
     <nav>
-        <a href="/" class="logo">
-            Lasciatemi parlare
-        </a>
+
         <ul>
             <li>
                 <a href="about">Qui suis-je?</a>
@@ -99,7 +100,8 @@
 </main>
 
 <footer>
-    coucou footer
+    <p>Site proposé par Pierre Guichard pour la fin de formation 3WA Academy</p>
+    <img src="./assets/images/logo3wa.png" alt="Logo 3WA"/>
 </footer>
 <?php
 if (isset($meta['scriptName'])) {
