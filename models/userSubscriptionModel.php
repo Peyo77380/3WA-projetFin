@@ -60,7 +60,7 @@ class userSubscriptionModel
             if ($row[0] == $iso)
             {
 
-                $language['languageName'] = ucfirst($row[1]);
+                $language['languageName'] = ucfirst($row[2]);
                 $language['languageCode'] = $row[0];
 
                 break;

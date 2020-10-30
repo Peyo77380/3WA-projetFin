@@ -89,8 +89,13 @@
 
             <div class="box">
                 <h4>Langue maternelle</h4>
-
-                <div class="field"><?= $data[0]['motherlanguage']['languageName'] ?></div>
+                <div class="field">
+                    <?php if (isset($data[0]['motherlanguage']['languageName'])): ?>
+                        <?= $data[0]['motherlanguage']['languageName'] ?>
+                    <?php else : ?>
+                        -
+                    <?php endif; ?>
+                </div>
                 <form action="UserProfileUpdate" class="hidden" method="post">
                     <select name="newValue" id="motherlanguage">
                         <option value='-'>-</option>

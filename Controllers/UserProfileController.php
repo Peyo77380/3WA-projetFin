@@ -31,7 +31,7 @@ class UserProfileController extends Controller
 
 
         $data = new UsersModel();
-        $data->setGetSingleUserQuery();
+        $data->setGetSingleUserQueryById();
         $data->setUserId($_SESSION['connectedUser']['id']);
         $this->result = $data->launchDBRequest();
 

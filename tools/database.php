@@ -52,8 +52,13 @@ class Database
     public function getSingleData ($sql, $params)
     {
         $query = $this->pdo->prepare($sql);
+        if ($params) {
+            foreach ($params as $param) {
+                $query->bindParam($param['variableName'], $param['variableValue'], $param['PDOparam']);
 
-        $query->execute($params);
+            }
+        }
+        $query->execute();
 
         return $query->fetch(PDO::FETCH_ASSOC);
     }

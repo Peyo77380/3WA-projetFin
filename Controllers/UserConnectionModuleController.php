@@ -17,13 +17,12 @@ class UserConnectionModuleController extends Controller
 
     public function searchExistingUser()
     {
-        require('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
-        $data = new Database();
+        require_once('./models/UsersModel.php');
 
-        $sql = "SELECT * FROM `users` WHERE `users`.`username` = ?";
-        $params = [$this->postResult['username']];
-
-        $user = $data->getSingleData($sql, $params);
+        $data = new UsersModel();
+        $data->setGetSingleUserQueryByUsername();
+        $data->setUsername($this->postResult['username']);
+        $user = $data->launchDBSingleRequest();
 
         if ($user == FALSE) {
             $_SESSION['error'] = "Aucun utilisateur n'est enregistré sous ce nom, réessayez.";
@@ -33,6 +32,7 @@ class UserConnectionModuleController extends Controller
         if ($this->postResult['password'] !== $user['password']) {
             $_SESSION['error'] = "Le nom d'utilisateur et le mot de passe fournis ne correspondent pas. Réessayez.";
             header('Location: userConnection');
+
             return;
         }
 
@@ -42,7 +42,7 @@ class UserConnectionModuleController extends Controller
             $_SESSION['error'] = NULL;
         }
 
-        // header('Location: /index');
+
     }
 
 

@@ -20,6 +20,18 @@ class UsersModel
         return $this->result;
     }
 
+
+    public function launchDBSingleRequest()
+    {
+
+
+        $this->data = new Database();
+
+        $this->result = $this->data->getSingleData($this->query, $this->params);
+
+        return $this->result;
+    }
+
     public function saveToDB()
     {
         $this->data = new Database();
@@ -45,9 +57,14 @@ class UsersModel
 
     }
 
-    public function setGetSingleUserQuery()
+    public function setGetSingleUserQueryById()
     {
         $this->query = "SELECT * FROM `users` WHERE `users`.`id` = :userId";
+    }
+
+    public function setGetSingleUserQueryByUsername()
+    {
+        $this->query = "SELECT * FROM `users` WHERE `users`.`username` = :username";
     }
 
     public function saveNewUserQuery()
@@ -103,6 +120,12 @@ class UsersModel
     public function setUserId(int $userId)
     {
         $this->params[] = ['variableName' => ':userId', 'variableValue' => $userId, 'PDOparam' => PDO::PARAM_INT];
+
+    }
+
+    public function setUsername(string $username)
+    {
+        $this->params[] = ['variableName' => ':username', 'variableValue' => $username, 'PDOparam' => PDO::PARAM_STR];
 
     }
 
