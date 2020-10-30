@@ -291,11 +291,16 @@ footer img {
         padding: 2rem;
     }
 
+    .splitscreen:nth-of-type(odd) {
+        flex-direction: row-reverse;
+    }
+
     .splitscreenLeft, .splitscreenRight {
         width: 50%;
         justify-content: center;
         vertical-align: bottom;
-        padding: 3rem;
+        padding: 0.5rem;
+        margin: auto 2rem;
         opacity: 0;
         transition: 1s ease-out;
     }
