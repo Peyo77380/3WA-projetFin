@@ -55,7 +55,7 @@ abstract class Controller
     {
 
         if (!isset($_SESSION['connectedUser']['role']) || ($_SESSION['connectedUser']['role'] !== 'teacher' && $_SESSION['connectedUser']['role'] !== 'admin')) {
-
+            $_SESSION['error'] = "Vous n'avez pas les droits nécessaires pour visualiser cette page.";
             throw new Exception('notAllowed');
         }
     }
