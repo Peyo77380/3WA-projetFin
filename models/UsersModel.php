@@ -45,8 +45,7 @@ class UsersModel
     public function updateDB()
     {
         $this->data = new Database();
-        var_dump($this->query);
-        var_dump($this->params);
+
         $this->result = $this->data->update($this->query, $this->params);
 
     }

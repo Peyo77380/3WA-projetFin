@@ -7,7 +7,7 @@ function setControls() {
     console.log('set  controls');
     const table = document.querySelector('table');
     const div = document.createElement('div');
-
+    div.classList.add('controls');
     div.innerHTML =
         '<button class="cancelButton">Annuler la dernière action</button>';
     div.innerHTML +=

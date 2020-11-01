@@ -67,7 +67,7 @@ class Database
     {
 
         $query = $this->pdo->prepare($sql);
-        var_dump($params);
+
         if ($params) {
             foreach ($params as $param) {
                 $query->bindParam($param['variableName'], $param['variableValue'], $param['PDOparam']);
@@ -77,7 +77,7 @@ class Database
 
 
         $query->execute();
-        var_dump($query);
+
 
     }
 
@@ -94,7 +94,7 @@ class Database
         $query->execute();
 
         $id = $this->pdo->lastInsertId();
-        var_dump($query);
+
         return $id;
     }
 

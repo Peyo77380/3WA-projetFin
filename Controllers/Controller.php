@@ -37,6 +37,13 @@ abstract class Controller
 
     }
 
+    public function recieveExercise()
+    {
+        $post = $_POST;
+        $this->postResult = exercisesCleaner($post);
+
+    }
+
     public function setScript(string $scriptName)
     {
         $this->meta['scriptName'][] = $scriptName;

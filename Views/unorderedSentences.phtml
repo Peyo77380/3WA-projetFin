@@ -1,5 +1,8 @@
-<div class="wrapper">
-    <h2>Examen</h2>
+<div class="banner">
+    <h2>Phrases déstructurées</h2>
+</div>
+<div class="fullscreen">
+
 
     <section class="rule">
         <p>Remettez les phrases dans l'ordre</p>
@@ -18,16 +21,16 @@
                 <?php endforeach; ?>
             </div>
 
-            <label for="anwser">Votre réponse : </label>
-                <input type="text" class="answer" name="<?= $index ?>" id="answer_<?= $index ?>">
+            <label for="anwser_<?= $index ?>">Votre réponse : </label>
+            <input type="text" class="answer" name="<?= $index ?>" id="answer_<?= $index ?>">
 
 
-            </fieldset>
+        </fieldset>
 
-        <?php endforeach; ?>
-    <fieldset>
-        <input type="submit" value="Valider">
-    </fieldset>
+    <?php endforeach; ?>
+
+    <input type="submit" value="Valider">
+
 
     </form>
 </div>

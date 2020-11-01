@@ -25,12 +25,14 @@ class userProfileDisplay {
         let button = this;
         let icon = button.querySelector('i');
         let form = this.previousElementSibling;
+        let value = form.previousElementSibling;
 
         // change le crayon en croix
         icon.classList.toggle('fa-times');
         icon.classList.toggle('fa-pencil');
         // montre ou cache le formulaire correspondant.
         form.classList.toggle("hidden");
+        value.classList.toggle("hidden");
 
 
     }

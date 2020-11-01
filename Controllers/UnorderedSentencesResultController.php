@@ -24,6 +24,8 @@ class UnorderedSentencesResultController extends Controller
 
         parent::__construct($target, $this->result);
 
+        $this->clearSession();
+
     }
 
     public function prepareAnswerForChecking()
@@ -46,8 +48,14 @@ class UnorderedSentencesResultController extends Controller
 
         foreach ($this->userAnswers as $key => $values) {
 
-            $userAnswer = $values;
+            $userAnswer = [];
+            foreach ($values as $exercise) {
+                $userAnswer[] = htmlspecialchars_decode($exercise);
+            }
 
+
+            var_dump($userAnswer);
+            var_dump($this->correctAnswers[$key]['sentence']);
             if ($userAnswer == $this->correctAnswers[$key]['sentence']) {
                 $this->note++;
                 $rating = 'Correct';
@@ -65,5 +73,10 @@ class UnorderedSentencesResultController extends Controller
 
         }
         $this->result['note'] = $this->note . " / " . count($this->correctAnswers);
+    }
+
+    public function clearSession()
+    {
+        unset($_SESSION['exercises']);
     }
 }

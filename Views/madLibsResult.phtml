@@ -1,12 +1,9 @@
-<?php
-
-
-?>
-
-<section>
-    <article class="explanation">
+<div class="banner">
+    <h2>Correction</h2>
+</div>
+<div class="fullscreen madLibsCorrection">
+    <section class="rule">
         <h4>Comment lire la correction?</h4>
-
         <p>
             Si vous avez répondu correctement, votre réponse apparait en vert, comme ceci :
             <span class="correctAnswer">Mot correct</span>. <br>
@@ -17,36 +14,36 @@
             Le mot correct suit entre parenthèses, afin de vous aider à comprendre et à vous améliorer
             <span class="correctAnswer"> (Mot correct) </span>.
         </p>
-    </article>
-</section>
-<section>
+    </section>
+    <section class="note">
 
-    <?php if (isset($data->{'note'})) : ?>
-        Votre note:
-        <?= $data->{'note'} ?>
-    <?php endif; ?>
-</section>
+        <?php if (isset($data->{'note'})) : ?>
+            Votre note:
+            <?= $data->{'note'} ?>
+        <?php endif; ?>
+    </section>
 
-<section>
-    <?php foreach ($data['madLibsExercise'] as $exerciseId => $exercise) : ?>
-        <article>
-            <?php for ($i = 0; $i < count($exercise); $i++) : ?>
-                <?= $exercise[$i] ?>
-                <?php
+    <section>
+        <?php foreach ($data['madLibsExercise'] as $exerciseId => $exercise) : ?>
+            <article class="exerciseCorrection">
+                <?php for ($i = 0; $i < count($exercise); $i++) : ?>
+                    <?= $exercise[$i] ?>
+                    <?php
 
-                if (isset($data['correctionList'][$exerciseId][$i]['answer'])) {
-                    if ($data['correctionList'][$exerciseId][$i]['answer'] === '//empty//') {
-                        echo '<span class="missingAnswer"> ( X ) </span> <span class="correctAnswer"> (' . $data['correctionList'][$exerciseId][$i]['correctWord'] . ') </span>';
-                    } else if ($data['correctionList'][$exerciseId][$i]['correction'] === TRUE) {
-                        echo '<span class="correctAnswer"> ' . $data['correctionList'][$exerciseId][$i]['correctWord'] . '</span>';
-                    } else {
-                        echo '<span class="wrongAnswer"> ' . $data['correctionList'][$exerciseId][$i]['answer'] . '</span> <span class="correctAnswer"> (' . $data['correctionList'][$exerciseId][$i]['correctWord'] . ') </span>';
+                    if (isset($data['correctionList'][$exerciseId][$i]['answer'])) {
+                        if ($data['correctionList'][$exerciseId][$i]['answer'] === '//empty//') {
+                            echo '<span class="missingAnswer"> ( X ) </span> <span class="correctAnswer"> (' . $data['correctionList'][$exerciseId][$i]['correctWord'] . ') </span>';
+                        } else if ($data['correctionList'][$exerciseId][$i]['correction'] === TRUE) {
+                            echo '<span class="correctAnswer"> ' . $data['correctionList'][$exerciseId][$i]['correctWord'] . '</span>';
+                        } else {
+                            echo '<span class="wrongAnswer"> ' . $data['correctionList'][$exerciseId][$i]['answer'] . '</span> <span class="correctAnswer"> (' . $data['correctionList'][$exerciseId][$i]['correctWord'] . ') </span>';
+                        }
                     }
-                }
 
-                ?>
-            <?php endfor; ?>
-        </article>
+                    ?>
+                <?php endfor; ?>
+            </article>
 
-    <?php endforeach; ?>
-</section>
+        <?php endforeach; ?>
+    </section>
+</div>

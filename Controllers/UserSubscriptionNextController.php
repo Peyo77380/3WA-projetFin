@@ -10,7 +10,7 @@ class UserSubscriptionNextController extends Controller
         $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
 
         $this->recievePostForm();
-        var_dump($this->postResult);
+
         $this->setBirthday();
         $this->updateDatabase();
         $this->saveToSession();

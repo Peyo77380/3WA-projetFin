@@ -1,6 +1,9 @@
-<div class="wrapper">
+<div class="banner">
+    <h2>Liste des utilisateurs</h2>
+
+</div>
+<div class="fullscreen admin">
     <section>
-        <h2>Liste des utilisateurs</h2>
         <article>
             <h3>Liste des élèves</h3>
             <table>
@@ -22,12 +25,12 @@
 
                 <?php foreach ($data['students'] as $student) : ?>
                     <tr>
-                        <th><?= $student['id'] ?></th>
-                        <th><?= $student['username'] ?></th>
-                        <th><?= $student['firstname'] ?></th>
-                        <th><?= $student['lastname'] ?></th>
-                        <th><?= $student['email'] ?></th>
-                        <th>
+                        <td><?= $student['id'] ?></td>
+                        <td><?= $student['username'] ?></td>
+                        <td><?= $student['firstname'] ?></td>
+                        <td><?= $student['lastname'] ?></td>
+                        <td><?= $student['email'] ?></td>
+                        <td>
                             <?php if (isset($student['motherlanguage']['languageName'])) : ?>
                                 <?= $student['motherlanguage']['languageName'] ?>
                             <?php endif; ?>
@@ -35,11 +38,11 @@
                                 <?= $student['motherlanguage'] ?>
                             <?php endif; ?>
 
-                        </th>
-                        <th><?= $student['country'] ?></th>
-                        <th><?= $student['birthdate'] ?></th>
-                        <th><?= $student['subscribedate'] ?></th>
-                        <th>
+                        </td>
+                        <td><?= $student['country'] ?></td>
+                        <td><?= $student['birthdate'] ?></td>
+                        <td><?= $student['subscribedate'] ?></td>
+                        <td>
                             <form action="UserProfileUpdate" method="post">
                                 <select name="newValue" id="motherlanguage">
                                     <option value='teacher'>Professeur</option>
@@ -51,7 +54,7 @@
                                 <input type="hidden" name="userId" value="<?= $student['id'] ?>">
                                 <input type="hidden" name="origin" value="adminUsers">
                             </form>
-                        </th>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -78,12 +81,12 @@
 
                 <?php foreach ($data['teachers'] as $teacher) : ?>
                     <tr>
-                        <th><?= $teacher['id'] ?></th>
-                        <th><?= $teacher['username'] ?></th>
-                        <th><?= $teacher['firstname'] ?></th>
-                        <th><?= $teacher['lastname'] ?></th>
-                        <th><?= $teacher['email'] ?></th>
-                        <th>
+                        <td><?= $teacher['id'] ?></td>
+                        <td><?= $teacher['username'] ?></td>
+                        <td><?= $teacher['firstname'] ?></td>
+                        <td><?= $teacher['lastname'] ?></td>
+                        <td><?= $teacher['email'] ?></td>
+                        <td>
                             <?php if (isset($teacher['motherlanguage']['languageName'])) : ?>
                                 <?= $teacher['motherlanguage']['languageName'] ?>
                             <?php endif; ?>
@@ -91,11 +94,11 @@
                                 <?= $teacher['motherlanguage'] ?>
                             <?php endif; ?>
 
-                        </th>
-                        <th><?= $teacher['country'] ?></th>
-                        <th><?= $teacher['birthdate'] ?></th>
-                        <th><?= $teacher['subscribedate'] ?></th>
-                        <th>
+                        </td>
+                        <td><?= $teacher['country'] ?></td>
+                        <td><?= $teacher['birthdate'] ?></td>
+                        <td><?= $teacher['subscribedate'] ?></td>
+                        <td>
                             <form action="UserProfileUpdate" method="post">
                                 <select name="newValue" id="motherlanguage">
                                     <option value='teacher' selected>Professeur</option>
@@ -107,7 +110,7 @@
                                 <input type="hidden" name="userId" value="<?= $teacher['id'] ?>">
                                 <input type="hidden" name="origin" value="adminUsers">
                             </form>
-                        </th>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

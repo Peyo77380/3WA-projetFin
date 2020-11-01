@@ -13,7 +13,7 @@ function setControls () {
     let table = document.querySelector('table');
 
     let div = document.createElement('div');
-
+    div.classList.add('controls');
     div.innerHTML =
         '<button class="cancelButton">Annuler la dernière action</button>';
     div.innerHTML +=

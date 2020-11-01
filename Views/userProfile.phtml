@@ -1,12 +1,13 @@
-<?php if (isset($_SESSION['error'])) : ?>
+<?php if (isset($_SESSION['error']) && $_SESSION['error'] !== []) : ?>
     <div class="displayError">
         <?= $_SESSION['error'] ?>
     </div>
 <?php endif; ?>
+<div class="banner">
+    <h2>Votre profil</h2>
+</div>
 
-<h2>Votre profil</h2>
-
-<div class="wrapper">
+<div class="fullscreen profile textContainer">
     <div class="row">
 
         <div class="box">
@@ -67,7 +68,13 @@
 
             <h4>Pays</h4>
 
-            <div class="field"><?= $data[0]['country']['countryName'] ?></div>
+            <div class="field">
+                <?php if (isset($data[0]['country']['countryName'])): ?>
+                    <?= $data[0]['country']['countryName'] ?>
+                <?php else : ?>
+                    -
+                <?php endif; ?>
+            </div>
 
             <form action="UserProfileUpdate" class="hidden" method="post">
                 <select name="newValue" id="country">
@@ -77,6 +84,7 @@
                         <option value="<?= $country['countryCode'] ?>"><?= $country['countryName'] ?></option>
 
                     <?php endforeach; ?>
+
                 </select>
 
                 <button><i class="fa fa-check"></i></button>
@@ -86,37 +94,37 @@
                 <input type="hidden" name="origin" value="userProfile">
             </form>
             <button><i class="fa fa-pencil"></i></button>
-
-            <div class="box">
-                <h4>Langue maternelle</h4>
-                <div class="field">
-                    <?php if (isset($data[0]['motherlanguage']['languageName'])): ?>
-                        <?= $data[0]['motherlanguage']['languageName'] ?>
-                    <?php else : ?>
-                        -
-                    <?php endif; ?>
-                </div>
-                <form action="UserProfileUpdate" class="hidden" method="post">
-                    <select name="newValue" id="motherlanguage">
-                        <option value='-'>-</option>
-                        <?php foreach ($data['languages'] as $languages) : ?>
-
-                            <option value="<?= $languages['languageCode'] ?>"><?= $languages['languageName'] ?></option>
-
-                        <?php endforeach; ?>
-                    </select>
-                    <button><i class="fa fa-check"></i></button>
-
-                    <input type="hidden" name="selectedField" value="motherlanguage">
-                    <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
-                    <input type="hidden" name="origin" value="userProfile">
-                </form>
-                <button><i class="fa fa-pencil"></i></button>
-
-            </div>
         </div>
+        <div class="box">
+            <h4>Langue maternelle</h4>
+            <div class="field">
+                <?php if (isset($data[0]['motherlanguage']['languageName'])): ?>
+                    <?= $data[0]['motherlanguage']['languageName'] ?>
+                <?php else : ?>
+                    -
+                <?php endif; ?>
+            </div>
+            <form action="UserProfileUpdate" class="hidden" method="post">
+                <select name="newValue" id="motherlanguage">
+                    <option value='-'>-</option>
+                    <?php foreach ($data['languages'] as $languages) : ?>
 
+                        <option value="<?= $languages['languageCode'] ?>"><?= $languages['languageName'] ?></option>
 
+                    <?php endforeach; ?>
+                </select>
+                <button><i class="fa fa-check"></i></button>
+
+                <input type="hidden" name="selectedField" value="motherlanguage">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+                <input type="hidden" name="origin" value="userProfile">
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
+
+        </div>
     </div>
+
+
+</div>
 
 </div>
