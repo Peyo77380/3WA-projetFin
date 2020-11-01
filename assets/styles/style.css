@@ -75,6 +75,7 @@ nav li:hover {
 
 .nav-menu {
     position: relative;
+    z-index: 100;
 
 }
 
@@ -88,7 +89,7 @@ nav li:hover {
     margin: auto;
     margin-top: -0.1rem;
     background-color: var(--main-darker);
-    z-index: 99;
+    z-index: 101;
 
 }
 
@@ -106,7 +107,7 @@ nav li:hover {
     width: 100%;
     margin: auto;
     background-color: var(--main-darker);
-    z-index: 99;
+    z-index: 102;
 
 }
 
