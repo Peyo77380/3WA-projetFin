@@ -66,6 +66,11 @@ class UsersModel
         $this->query = "SELECT * FROM `users` WHERE `users`.`username` = :username";
     }
 
+    public function setGetSingleUserQueryByEmail()
+    {
+        $this->query = "SELECT * FROM `users` WHERE `users`.`email` = :email";
+    }
+
     public function saveNewUserQuery()
     {
         $this->query = 'INSERT INTO users (`username`, `email`, `password`, `role`) VALUES (:username, :email, :password, "student")';
@@ -125,6 +130,12 @@ class UsersModel
     public function setUsername(string $username)
     {
         $this->params[] = ['variableName' => ':username', 'variableValue' => $username, 'PDOparam' => PDO::PARAM_STR];
+
+    }
+
+    public function setEmail(string $email)
+    {
+        $this->params[] = ['variableName' => ':email', 'variableValue' => $email, 'PDOparam' => PDO::PARAM_STR];
 
     }
 

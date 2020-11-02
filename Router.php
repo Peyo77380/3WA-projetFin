@@ -89,17 +89,44 @@ class Router
 
     public function routeErrors($e)
     {
-        $exceptionMessage = $e->getMessage();
-
+        $exceptionMessage = json_decode($e->getMessage());
+        var_dump($exceptionMessage->{'message'});
+        var_dump($exceptionMessage->{'origin'});
         switch ($exceptionMessage) {
             case "notAllowed":
                 header('Location: /userConnection');
-
                 break;
+
+            case "Le login est déjà pris":
+                $_SESSION['error'] = $exceptionMessage;
+                header('Location: /userConnection');
+                break;
+
+            case "Cet email est déjà lié à un compte." :
+                $_SESSION['error'] = $exceptionMessage;
+                header('Location: /userConnection');
+                break;
+
+            case ("Les champs suivants sont obligatoires" == substr($exceptionMessage->{'message'}, 0, 37)) :
+                $_SESSION['error'] = $exceptionMessage->{'message'};
+                header('Location: /' . $exceptionMessage->{'origin'});
+                break;
+
+
+            case 'L\'adresse email n\'est pas valide' :
+                $_SESSION['error'] = $exceptionMessage;
+                header('Location: /userConnection');
+                break;
+
+            case 'Le mot de passe doit avoir au moins 8 caractères, dont une majuscule, une minuscule, un nombre.' :
+                $_SESSION['error'] = $exceptionMessage;
+                header('Location: /userConnection');
+                break;
+
 
             default:
                 http_response_code(404);
-                require __DIR__ . '/Views/error/404.phtml';
+                require __DIR__ . "/Views/error/404.phtml";
         }
 
     }

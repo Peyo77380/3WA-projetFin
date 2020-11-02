@@ -10,7 +10,12 @@ class UserSubscriptionNextController extends Controller
         $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
 
         $this->recievePostForm();
+        $this->checkEmptyField([
+            'prénom' => $this->postResult['firstname'],
+            'nom' => $this->postResult['lastname'],
+            'pays' => $this->postResult['country']
 
+        ], 'userSubscription');
         $this->setBirthday();
         $this->updateDatabase();
         $this->saveToSession();

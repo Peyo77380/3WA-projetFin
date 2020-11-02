@@ -11,6 +11,16 @@ class UserSubscriptionController extends Controller
         $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
 
         $this->recievePostForm();
+
+        $this->searchExistingUser();
+        $this->checkEmptyField([
+            'login' => $this->postResult['username'],
+            'email' => $this->postResult['email'],
+            'mot de passe' => $this->postResult['password']
+        ], 'userConnection');
+        $this->checkEmail($this->postResult['email']);
+        $this->checkPassword($this->postResult['password']);
+
         $this->hashPassword();
         $this->saveToDatabase();
         $this->saveToSession();
@@ -63,50 +73,33 @@ class UserSubscriptionController extends Controller
         $this->postResult['password'] = crypt($this->postResult['password'], $salt);
 
     }
+
+    public function searchExistingUser()
+    {
+        require_once('./models/UsersModel.php');
+
+        $login = new UsersModel();
+        $login->setGetSingleUserQueryByUsername();
+        $login->setUsername($this->postResult['username']);
+        $checkLogin = $login->launchDBSingleRequest();
+        if ($checkLogin != FALSE) {
+            throw new Exception('Le login est déjà pris');
+
+
+        }
+
+        $email = new UsersModel();
+        $email->setGetSingleUserQueryByEmail();
+        $email->setEmail($this->postResult['email']);
+        $checkEmail = $email->launchDBSingleRequest();
+        var_dump($checkEmail);
+        if ($checkEmail != FALSE) {
+            throw new Exception('Cet email est déjà lié à un compte.');
+
+
+        }
+
+    }
+
+
 }
-
-/*
- *
- * 1ere etape
- * username
- * email
- * password
- * INSERT INTO users (`username`, `email`, `password`) VALUES ('test', 'test', 'test')
- */
-
-/*
-$database = new Database();
-$sql = 'INSERT INTO users (`username`, `email`, `password`, `role`) VALUES (?, ?, ?, "student")';
-$params = [$newUser['username'], $newUser['email'], $newUser['password']];
-
-$save = $database->saveToDb($sql, $params);
-
-$_SESSION['user'] = [
-    'userName' => $newUser['username'],
-    'userId' => $save,
-    'userMail' => $newUser['email']
-];
-
-header('Location: ../userSubscription.phtml');
-                                                         */
-
-/*
- *
- * 2e etape
- * firstname
- * lastname
- * country
- * birthdate
- * UPDATE `users` SET `firstname` = 'test', `lastname` = 'test', `country` = 'test', `birthdate` = xx/Xx/xxxx  WHERE `users`.`id` = xx
- *
- */
-
-
-/*
- *
- * 3e etape
- * langue maternelle
- * langues connues et niveau
- * UPDATE `users` SET `motherlanguage` = 'test', `knowlanguages` = 'test' WHERE `users`.`id` = xx
- *
- */

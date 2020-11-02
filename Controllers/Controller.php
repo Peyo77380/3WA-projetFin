@@ -77,5 +77,41 @@ abstract class Controller
         }
     }
 
+    public function checkEmptyField(array $requiredField, $origin)
+    {
+        $emptyFields = [];
+        foreach ($requiredField as $name => $value) {
+            if ($value == "") {
+                $emptyFields[] = $name;
+            }
 
+        }
+
+        if ($emptyFields !== []) {
+            $message = 'Les champs suivants sont obligatoires : ';
+            $message .= implode(',', $emptyFields);
+            $message .= ".";
+            throw new Exception (json_encode([
+                'message' => $message,
+                'origin' => $origin]));
+        }
+    }
+
+    public function checkEmail(string $email)
+    {
+
+        if (!preg_match("/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}/", $email)) {
+            throw new Exception ('L\'adresse email n\'est pas valide');
+        }
+    }
+
+    public function checkPassword(string $password)
+    {
+
+
+        if (!preg_match("/^(?=(?:.*[A-Z]))(?=(?:.*[a-z]))(?=(?:.*\d))(?=(?:.*[!@#$%^&*()\-_=+{};:,<.>]))(.{8,})$/", $password)) {
+            throw new Exception ('Le mot de passe doit avoir au moins 8 caractères, dont une majuscule, une minuscule, un nombre.');
+
+        }
+    }
 }
