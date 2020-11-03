@@ -17,16 +17,20 @@ abstract class Controller
 
         $this->getDedicatedView($target, $data, $this->meta);
 
-
+        $_SESSION['error'] = [];
 
     }
 
     protected function getDedicatedView($target, array $data = [], array $meta = [])
     {
+        try {
 
+            $view = new Views($target);
+            $this->display = $view->createTemplate($target, $data, $meta);
+        } catch (Exception $e) {
+            throw new Exception('nein');
 
-        $view = new Views($target);
-        $this->display = $view->createTemplate($target, $data, $meta);
+        }
 
     }
 

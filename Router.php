@@ -88,9 +88,18 @@ class Router
 
     public function routeErrors($e)
     {
-        $exceptionMessage = json_decode($e->getMessage());
+        $existingExceptionCase = TRUE;
 
-        switch ($exceptionMessage->{'message'}) {
+        $exception = json_decode($e->getMessage());
+        $exceptionMessage = "";
+
+        if ($exception !== NULL) {
+            $exceptionMessage = $exception->{'message'};
+
+        }
+
+
+        switch ($exceptionMessage) {
             //
             case "notAllowedAdminRights":
                 $_SESSION['error'] = 'Vous n\'avez pas les droits nécessaires pour visualiser cette page.';
@@ -135,11 +144,15 @@ class Router
 
             default:
                 http_response_code(404);
-                require __DIR__ . '/Views/layout.phtml';
-                require __DIR__ . "/Views/error/404.phtml";
+                $existingExceptionCase = FALSE;
+                include __DIR__ . "/Views/error/404.phtml";
+                break;
+        }
+        if ($existingExceptionCase == TRUE) {
+
+            header('Location: /' . $exception->{'origin'});
+            return;
         }
 
-        header('Location: /' . $exceptionMessage->{'origin'});
-        return;
     }
 }
