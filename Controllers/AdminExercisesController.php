@@ -8,7 +8,7 @@ abstract class AdminExercisesController extends Controller
 
     public function __construct($target, $data)
     {
-        $this->setAdminFilter();
+        $this->setAdminFilter('userConnection');
 
         parent::__construct($target, $data);
     }

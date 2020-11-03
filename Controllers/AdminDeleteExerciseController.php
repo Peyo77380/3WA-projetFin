@@ -6,7 +6,7 @@ class adminDeleteExerciseController extends AdminExercisesController
 {
     public function __construct($target)
     {
-        $this->setAdminFilter();
+        $this->setAdminFilter('userConnection');
         $this->recievePostForm();
 
         $exerciseId = $this->postResult['exerciseId'];

@@ -6,7 +6,7 @@ class UserProfileUpdateController extends Controller
     {
         $this->setConnectedUserFilter();
         $this->recievePostForm();
-        var_dump($this->postResult);
+
         $this->updateUserInDb();
 
         header('Location: /' . $this->postResult['origin']);

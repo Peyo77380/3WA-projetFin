@@ -11,7 +11,7 @@ class UnorderedSentencesResultController extends Controller
 
     public function __construct($target)
     {
-        $this->setConnectedUserFilter();
+        $this->setConnectedUserFilter('userConnection');
         $this->setTitle('Correction - Phrases destructurées');
         $this->setDescription('Correction des exercices de phrases destructurées en italien');
         $post = $_POST;

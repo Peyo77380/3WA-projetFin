@@ -9,7 +9,7 @@ class AdminAddExerciseController extends AdminExercisesController
 
     public function __construct($target)
     {
-        $this->setAdminFilter();
+        $this->setAdminFilter('userConnection');
         $this->recievePostForm();
         $this->validateData();
 

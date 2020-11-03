@@ -15,7 +15,7 @@ class madLibsResultController extends Controller
 
     public function __construct($target)
     {
-        $this->setConnectedUserFilter();
+        $this->setConnectedUserFilter('userConnection');
         $this->setTitle('Correction - Texte à trous');
         $this->setDescription('Correction des exercices de textes à trous en italien');
         require('./tools/database.php');

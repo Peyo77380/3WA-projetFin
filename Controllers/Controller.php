@@ -64,24 +64,24 @@ abstract class Controller
 
         if (!isset($_SESSION['connectedUser']['role']) || ($_SESSION['connectedUser']['role'] !== 'teacher' && $_SESSION['connectedUser']['role'] !== 'admin')) {
             $_SESSION['error'] = "";
-            throw new Exception(
+            throw new Exception(json_encode(
                 [
                     'message' => 'notAllowedAdminRights',
                     'origin' => $origin,
-                ]);
+                ]));
         }
     }
 
-    public function setConnectedUserFilter()
+    public function setConnectedUserFilter($origin)
     {
 
         if (!isset($_SESSION['connectedUser'])) {
-            throw new Exception(
+            throw new Exception(json_encode(
                 [
                     'message' => 'notAllowed',
                     'origin' => $origin,
                 ]
-            );
+            ));
         }
     }
 
