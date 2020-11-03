@@ -1,8 +1,4 @@
 changer nom du serveur sur Router (L48)
 
 
-inscription : pas bloqué si utilisateur déja existant
-
-unorderedSentences : bug sur correction avec accents
-
 nav : titre menu avant sousmenu

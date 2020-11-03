@@ -1,10 +1,16 @@
 'use strict';
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('script général');
+    eventListenerS;
+    etter();
+    setControls();
+    refreshFromLocalStorage();
+});
 
 
 function setControls() {
-    console.log('set  controls');
+    //crée les controles visibles seulement en JS
     const table = document.querySelector('table');
     const div = document.createElement('div');
     div.classList.add('controls');
@@ -82,9 +88,9 @@ function saveEveryChanges() {
 
 
 function eventListenerSetter() {
-    let updaterForms = document.querySelectorAll('form[action = "adminUpdateExercise"]');
-
     console.log('coucou');
+
+    let updaterForms = document.querySelectorAll('form[action = "adminUpdateExercise"]');
     //rajouter bouton pr sauvegarder les changements
 
 
@@ -309,10 +315,3 @@ function cancelLastAction() {
 
 }
 
-
-function init() {
-    console.log('script général');
-    eventListenerSetter();
-    setControls();
-    refreshFromLocalStorage();
-}

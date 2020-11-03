@@ -39,12 +39,8 @@ function exercisesCleaner($exercises)
 
 function decode($string)
 {
-    foreach ($string as $wordNumber => $word) {
-        $decodedWordNumber = html_entity_decode(htmlspecialchars_decode($wordNumber));
-        $decodedWord = html_entity_decode(htmlspecialchars_decode($word));
+        return htmlspecialchars_decode(html_entity_decode($string));
 
-        $decodedAnswer[$decodedWordNumber] = $decodedWord;
-    }
 }
 
 function decodeArray($stringsArray)

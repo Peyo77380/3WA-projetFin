@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 function eventListenerSetter() {
 
     let form = document.querySelector('form[action="adminAddExercise"]');
@@ -141,7 +139,7 @@ function formatForSaving () {
 
     console.log(JSON.parse(localStorage.getItem('fillingWords')));
 
-    if (JSON.parse(localStorage.getItem('fillingWords')) == null || JSON.parse(localStorage.getItem('fillingWords')) == undefined) {
+    if (JSON.parse(localStorage.getItem('fillingWords')) === null || JSON.parse(localStorage.getItem('fillingWords')) === undefined) {
         alert('NEIN');
         return;
     }

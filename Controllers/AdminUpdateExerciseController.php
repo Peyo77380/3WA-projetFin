@@ -8,7 +8,6 @@ class AdminUpdateExerciseController extends AdminExercisesController
     {
         $this->setAdminFilter('userConnection');
         $this->recievePostForm();
-        var_dump($this->postResult);
 
         $this->setTitle('Modification d\'exercice');
         $this->setDescription('Page de modification d\'un exercise existant.');
@@ -17,11 +16,10 @@ class AdminUpdateExerciseController extends AdminExercisesController
         $exercise = [
             'exerciseName' => $this->postResult['exerciseName'],
             'exerciseId' => $this->postResult['exerciseId'],
-            'exerciseContent' => $this->postResult['exerciseContent']
+            'exerciseContent' => decode($this->postResult['exerciseContent'])
         ];
 
-
-        parent::__construct($target, $exercise, $this->meta);
+        parent::__construct($target, $exercise);
     }
 
 
