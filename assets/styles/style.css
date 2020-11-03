@@ -400,7 +400,7 @@ footer img {
 
 
 /* style des exercises */
-.rule {
+.rule, .note {
     background-color: var(--light);
     border: 1px solid var(--bg-higlight);
     border-radius: 1rem;
