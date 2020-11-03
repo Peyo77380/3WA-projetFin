@@ -12,7 +12,7 @@
 
 class UserSubscriptionThirdSaveController extends Controller
 {
-    public $knowLanguages;
+    public $knownLanguages;
 
     public function __construct($target, $data = [])
     {

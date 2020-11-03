@@ -89,21 +89,31 @@ class Router
     public function routeErrors($e)
     {
         $exceptionMessage = json_decode($e->getMessage());
-        var_dump($exceptionMessage->{'message'});
-        var_dump($exceptionMessage->{'origin'});
+
         switch ($exceptionMessage->{'message'}) {
+            //
+            case "notAllowedAdminRights":
+                $_SESSION['error'] = 'Vous n\'avez pas les droits nécessaires pour visualiser cette page.';
+                break;
+
             case "notAllowed":
-                header('Location: userConnection');
+                $_SESSION['error'] = 'Vous devez vous connecter pour visualiser cette page.';
                 break;
 
-            case "Le login est déjà pris":
-                $_SESSION['error'] = $exceptionMessage;
-                header('Location: userConnection');
+            case "noKnownUser" :
+                $_SESSION['error'] = "Aucun utilisateur n'est enregistré sous ce nom, réessayez.";
                 break;
 
-            case "Cet email est déjà lié à un compte." :
-                $_SESSION['error'] = $exceptionMessage;
-                header('Location: userConnection');
+            case "notMatchingUserCredentials" :
+                $_SESSION['error'] = "Le nom d'utilisateur et le mot de passe fournis ne correspondent pas. Réessayez.";
+                break;
+
+            case "existingUsername":
+                $_SESSION['error'] = 'Ce nom d\'utilisateur existe déjà.';
+                break;
+
+            case "existingEmail" :
+                $_SESSION['error'] = 'Cet email est déjà lié à un compte.';
                 break;
 
             case 'emptyFields' :
@@ -125,10 +135,10 @@ class Router
 
             default:
                 http_response_code(404);
+                require __DIR__ . '/Views/layout.phtml';
                 require __DIR__ . "/Views/error/404.phtml";
         }
 
-        var_dump($_SESSION);
         header('Location: /' . $exceptionMessage->{'origin'});
         return;
     }

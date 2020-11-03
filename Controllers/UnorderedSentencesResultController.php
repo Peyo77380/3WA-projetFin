@@ -50,13 +50,13 @@ class UnorderedSentencesResultController extends Controller
 
             $userAnswer = [];
             foreach ($values as $exercise) {
-                $userAnswer[] = htmlspecialchars_decode($exercise);
+                $userAnswer[] = html_entity_decode(htmlspecialchars_decode($exercise));
             }
+            $answer = implode(" ", $this->correctAnswers[$key]['sentence']);
+            $givenAnswer = implode(" ", $userAnswer);
 
 
-            var_dump($userAnswer);
-            var_dump($this->correctAnswers[$key]['sentence']);
-            if ($userAnswer == $this->correctAnswers[$key]['sentence']) {
+            if ($givenAnswer == $answer) {
                 $this->note++;
                 $rating = 'Correct';
             } else {
@@ -64,8 +64,8 @@ class UnorderedSentencesResultController extends Controller
             }
 
             $individualCheck =
-                ['correctAnswer' => implode(" ", $this->correctAnswers[$key]['sentence']),
-                    'userAnswer' => implode(" ", $userAnswer),
+                ['correctAnswer' => $answer,
+                    'userAnswer' => $givenAnswer,
                     'rating' => $rating,
                 ];
 

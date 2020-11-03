@@ -59,12 +59,16 @@ abstract class Controller
         $this->meta['description'] = $description;
     }
 
-    public function setAdminFilter()
+    public function setAdminFilter($origin)
     {
 
         if (!isset($_SESSION['connectedUser']['role']) || ($_SESSION['connectedUser']['role'] !== 'teacher' && $_SESSION['connectedUser']['role'] !== 'admin')) {
-            $_SESSION['error'] = "Vous n'avez pas les droits nécessaires pour visualiser cette page.";
-            throw new Exception('notAllowed');
+            $_SESSION['error'] = "";
+            throw new Exception(
+                [
+                    'message' => 'notAllowedAdminRights',
+                    'origin' => $origin,
+                ]);
         }
     }
 
@@ -72,8 +76,12 @@ abstract class Controller
     {
 
         if (!isset($_SESSION['connectedUser'])) {
-            $_SESSION['error'] = "Vous devez vous connecter pour visualiser cette page.";
-            throw new Exception('notAllowed');
+            throw new Exception(
+                [
+                    'message' => 'notAllowed',
+                    'origin' => $origin,
+                ]
+            );
         }
     }
 

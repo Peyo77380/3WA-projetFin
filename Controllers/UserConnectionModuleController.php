@@ -9,13 +9,13 @@ class UserConnectionModuleController extends Controller
         $this->setTitle('Confirmation de connection');
         $this->setDescription('Confirmation de connection d\un utilisateur connu');
         $this->recievePostForm();
-        $this->searchExistingUser();
+        $this->searchExistingUser('userConnection');
 
         parent::__construct($target, $this->userData);
 
     }
 
-    public function searchExistingUser()
+    public function searchExistingUser($origin)
     {
         require_once('./models/UsersModel.php');
 
@@ -25,16 +25,21 @@ class UserConnectionModuleController extends Controller
         $user = $data->launchDBSingleRequest();
 
         if ($user == FALSE) {
-            $_SESSION['error'] = "Aucun utilisateur n'est enregistré sous ce nom, réessayez.";
-            header('Location: userConnection');
-            return;
+            throw new Exception(json_encode(
+                [
+                    'message' => 'noKnownUser',
+                    'origin' => $origin,
+                ]));
+
         }
 
         if (password_verify($this->postResult['password'], $user['password']) !== true) {
-            $_SESSION['error'] = "Le nom d'utilisateur et le mot de passe fournis ne correspondent pas. Réessayez.";
-            header('Location: userConnection');
+            throw new Exception(json_encode(
+                [
+                    'message' => 'notMatchingUserCredentials',
+                    'origin' => $origin,
+                ]));
 
-            return;
         }
 
         $this->userData = $user;

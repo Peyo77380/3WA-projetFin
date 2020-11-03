@@ -13,8 +13,6 @@ class UserSubscriptionSaveController extends Controller
 
         $_SESSION['error'] = [];
         $this->recievePostForm();
-        var_dump($this->postResult);
-
 
         $this->checkEmptyField([
             'login' => $this->postResult['username'],
@@ -25,7 +23,7 @@ class UserSubscriptionSaveController extends Controller
 
 
         $this->checkEmail($this->postResult['email'], 'userConnection');
-        $this->searchExistingUser();
+        $this->searchExistingUser('userConnection');
 
         $this->hashPassword();
         $this->saveToDatabase();
@@ -79,7 +77,7 @@ class UserSubscriptionSaveController extends Controller
 
     }
 
-    public function searchExistingUser()
+    public function searchExistingUser($origin)
     {
         require_once('./models/UsersModel.php');
 
@@ -88,7 +86,13 @@ class UserSubscriptionSaveController extends Controller
         $login->setUsername($this->postResult['username']);
         $checkLogin = $login->launchDBSingleRequest();
         if ($checkLogin != FALSE) {
-            throw new Exception('Le login est déjà pris');
+            throw new Exception(
+                json_encode(
+                    [
+                        'message' => 'existingUsername',
+                        'origin' => $origin,
+                    ])
+            );
 
 
         }
@@ -99,7 +103,12 @@ class UserSubscriptionSaveController extends Controller
         $checkEmail = $email->launchDBSingleRequest();
 
         if ($checkEmail != FALSE) {
-            throw new Exception('Cet email est déjà lié à un compte.');
+            throw new Exception(
+                json_encode([
+                        'message' => 'existingEmail',
+                        'origin' => $origin,
+                    ]
+                ));
 
 
         }
