@@ -26,7 +26,8 @@ class madLibsResultController extends Controller
 
         $data = [
             'correctionList' => $this->correctionList,
-            'madLibsExercise' => $this->madLibsExercise
+            'madLibsExercise' => $this->madLibsExercise,
+            'note' => $this->note,
         ];
 
         parent::__construct($target, $data);

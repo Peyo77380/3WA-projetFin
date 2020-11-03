@@ -506,6 +506,11 @@ table tr:nth-of-type(odd) {
     background-color: var(--bg-higlight);
 }
 
+/* style spécial pr exo madLibs */
+.madLibs .wording input[type=text] {
+    width: auto;
+}
+
 /* style spécial pr correction madLibs */
 .madLibsCorrection .correctAnswer {
     color: darkgreen;
@@ -774,19 +779,20 @@ form[action=AdminUpdateExerciseSave] input[name=exerciseContent] {
     }
 
 
-}
+    /* profil utilisateur*/
+    .profile .row {
+        justify-content: center;
+    }
 
-
-/* profil utilisateur*/
-.profile .row {
-    justify-content: center;
-}
-
-.profile .row .box {
-    width: 40%;
-    padding: 2rem;
-}
+    .profile .row .box {
+        width: 40%;
+        padding: 2rem;
+    }
 
 
 }
+
+
+
+
 
