@@ -10,7 +10,7 @@
  *
  */
 
-class UserSubscriptionLastController extends Controller
+class UserSubscriptionThirdSaveController extends Controller
 {
     public $knowLanguages;
 

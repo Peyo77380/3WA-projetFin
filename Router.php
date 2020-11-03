@@ -35,7 +35,6 @@ class Router
     }
 
 
-
     public function defineRequest()
     {
         // variable nécessaire car nous ne sommes pas à la racine du serveur.
@@ -92,35 +91,35 @@ class Router
         $exceptionMessage = json_decode($e->getMessage());
         var_dump($exceptionMessage->{'message'});
         var_dump($exceptionMessage->{'origin'});
-        switch ($exceptionMessage) {
+        switch ($exceptionMessage->{'message'}) {
             case "notAllowed":
-                header('Location: /userConnection');
+                header('Location: userConnection');
                 break;
 
             case "Le login est déjà pris":
                 $_SESSION['error'] = $exceptionMessage;
-                header('Location: /userConnection');
+                header('Location: userConnection');
                 break;
 
             case "Cet email est déjà lié à un compte." :
                 $_SESSION['error'] = $exceptionMessage;
-                header('Location: /userConnection');
+                header('Location: userConnection');
                 break;
 
-            case ("Les champs suivants sont obligatoires" == substr($exceptionMessage->{'message'}, 0, 37)) :
-                $_SESSION['error'] = $exceptionMessage->{'message'};
-                header('Location: /' . $exceptionMessage->{'origin'});
+            case 'emptyFields' :
+                $message = 'Les champs suivants sont obligatoires : ';
+                $message .= implode(',', $exceptionMessage->{'emptyFields'});
+                $message .= ".";
+                $_SESSION['error'] = $message;
                 break;
 
 
-            case 'L\'adresse email n\'est pas valide' :
-                $_SESSION['error'] = $exceptionMessage;
-                header('Location: /userConnection');
+            case 'email' :
+                $_SESSION['error'] = 'L\'adresse email n\'est pas valide';
                 break;
 
-            case 'Le mot de passe doit avoir au moins 8 caractères, dont une majuscule, une minuscule, un nombre.' :
-                $_SESSION['error'] = $exceptionMessage;
-                header('Location: /userConnection');
+            case 'password' :
+                $_SESSION['error'] = 'Le mot de passe doit avoir au moins 8 caractères, dont une majuscule, une minuscule, un nombre.';
                 break;
 
 
@@ -129,5 +128,8 @@ class Router
                 require __DIR__ . "/Views/error/404.phtml";
         }
 
+        var_dump($_SESSION);
+        header('Location: /' . $exceptionMessage->{'origin'});
+        return;
     }
 }

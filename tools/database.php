@@ -66,17 +66,23 @@ class Database
     public function update ($sql, $params)
     {
 
-        $query = $this->pdo->prepare($sql);
+        try {
 
-        if ($params) {
-            foreach ($params as $param) {
-                $query->bindParam($param['variableName'], $param['variableValue'], $param['PDOparam']);
 
+            $query = $this->pdo->prepare($sql);
+
+            if ($params) {
+                foreach ($params as $param) {
+                    $query->bindParam($param['variableName'], $param['variableValue'], $param['PDOparam']);
+
+                }
             }
+
+
+            $query->execute();
+        } catch (PDOException $e) {
+            throw new Exception ($e);
         }
-
-
-        $query->execute();
 
 
     }

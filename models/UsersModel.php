@@ -15,9 +15,8 @@ class UsersModel
 
         $this->data = new Database();
 
-        $this->result = $this->data->sendQuery($this->query, $this->params);
+        return $this->result = $this->data->sendQuery($this->query, $this->params);
 
-        return $this->result;
     }
 
 
@@ -27,27 +26,25 @@ class UsersModel
 
         $this->data = new Database();
 
-        $this->result = $this->data->getSingleData($this->query, $this->params);
+        return $this->result = $this->data->getSingleData($this->query, $this->params);
 
-        return $this->result;
     }
 
     public function saveToDB()
     {
         $this->data = new Database();
 
-        $this->result = $this->data->saveToDb($this->query, $this->params);
+        return $this->result = $this->data->saveToDb($this->query, $this->params);
 
-        return $this->result;
 
     }
 
     public function updateDB()
     {
         $this->data = new Database();
-
         $this->result = $this->data->update($this->query, $this->params);
 
+        return $this->result;
     }
 
     public function setGetterQuery()
@@ -78,7 +75,7 @@ class UsersModel
 
     public function saveNewUserQuerySecondStep()
     {
-        $this->query = "UPDATE `users` SET `users`.`firstname` = :firstname, `users`.`lastname` = :lastname, `users`.`birthdate` = :birthdate, `users`.`country` = :country WHERE `users`.`id` = :userid";
+        $this->query = "UPDATE `users` SET `users`.`firstname` = :firstname, `users`.`lastname` = :lastname, `users`.`country` = :country, `users`.`birthdate` = :birthdate WHERE `users`.`id` = :userid";
     }
 
     public function saveNewUserQueryThirdStep()

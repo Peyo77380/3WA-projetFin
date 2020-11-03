@@ -1,6 +1,6 @@
 <?php
 
-class UserSubscriptionNextController extends Controller
+class UserSubscriptionSecondSaveController extends Controller
 {
     public $birthday;
 
@@ -10,19 +10,22 @@ class UserSubscriptionNextController extends Controller
         $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
 
         $this->recievePostForm();
+
         $this->checkEmptyField([
             'prénom' => $this->postResult['firstname'],
             'nom' => $this->postResult['lastname'],
-            'pays' => $this->postResult['country']
+            'pays' => $this->postResult['country'],
+            'année de naissance' => $this->postResult['year'],
+            'mois de naissance' => $this->postResult['month'],
+            'jour de naissance' => $this->postResult['day'],
+        ], 'userSubscriptionSecond');
 
-        ], 'userSubscription');
         $this->setBirthday();
+
         $this->updateDatabase();
         $this->saveToSession();
-
-
-        $data['languages'] = $this->getLanguages();
-
+        header('Location: /userSubscriptionThird');
+        $data = [];
 
         parent::__construct($target, $data);
 
@@ -31,10 +34,11 @@ class UserSubscriptionNextController extends Controller
 
     public function setBirthday()
     {
-        $this->birthday =
-            $this->postResult['year'] . "-" .
-            substr("0" . $this->postResult['month'], -2) . "-" .
-            substr("0" . $this->postResult['day'], -2);
+        $this->birthday = $this->postResult['year'];
+        $this->birthday .= "-";
+        $this->birthday .= substr("0" . $this->postResult['month'], -2);
+        $this->birthday .= "-";
+        $this->birthday .= substr("0" . $this->postResult['day'], -2);
 
     }
 
@@ -43,10 +47,16 @@ class UserSubscriptionNextController extends Controller
 
         $this->postResult['userId'] = (int)$this->postResult['userId'];
 
+
         require_once('./models/UsersModel.php');
         $data = new UsersModel();
+        $data->saveNewUserParameterSecondStep(
+            $this->postResult['firstname'],
+            $this->postResult['lastname'],
+            $this->postResult['country'],
+            $this->birthday,
+            $this->postResult['userId']);
         $data->saveNewUserQuerySecondStep();
-        $data->saveNewUserParameterSecondStep($this->postResult['firstname'], $this->postResult['lastname'], $this->postResult['country'], $this->birthday, (int)$this->postResult['userId']);
         $data->updateDB();
 
 
@@ -59,19 +69,6 @@ class UserSubscriptionNextController extends Controller
 
     }
 
-    public function getLanguages()
-    {
-
-        require('./models/userSubscriptionModel.php');
-
-        $subs = new userSubscriptionModel();
-
-        $languages = $subs->getLanguages();
-
-        return $languages;
-
-
-    }
 }
 
 

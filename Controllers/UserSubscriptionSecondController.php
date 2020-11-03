@@ -1,7 +1,7 @@
 <?php
 
 
-class UserSubscriptionController extends Controller
+class UserSubscriptionSecondController extends Controller
 {
     private $userId;
 
@@ -10,28 +10,20 @@ class UserSubscriptionController extends Controller
         $this->setTitle('Inscription');
         $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
 
-        $this->recievePostForm();
-
-        $this->searchExistingUser();
-        $this->checkEmptyField([
-            'login' => $this->postResult['username'],
-            'email' => $this->postResult['email'],
-            'mot de passe' => $this->postResult['password']
-        ], 'userConnection');
-        $this->checkEmail($this->postResult['email']);
-        $this->checkPassword($this->postResult['password']);
-
-        $this->hashPassword();
-        $this->saveToDatabase();
-        $this->saveToSession();
-
         $countries = $this->getCountries();
-
 
         $data['countries'] = $countries;
 
 
         parent::__construct($target, $data);
+    }
+
+    public function getCountries()
+    {
+        require('./models/userSubscriptionModel.php');
+        $subs = new userSubscriptionModel();
+        return $subs->getCountries();
+
     }
 
     public function saveToDatabase()
@@ -52,15 +44,6 @@ class UserSubscriptionController extends Controller
             'userId' => $this->userId,
             'userMail' => $this->postResult['email']
         ];
-    }
-
-    public function getCountries()
-    {
-        require('./models/userSubscriptionModel.php');
-        $subs = new userSubscriptionModel();
-        $countries = $subs->getCountries();
-
-        return $countries;
     }
 
     public function hashPassword()
@@ -92,7 +75,7 @@ class UserSubscriptionController extends Controller
         $email->setGetSingleUserQueryByEmail();
         $email->setEmail($this->postResult['email']);
         $checkEmail = $email->launchDBSingleRequest();
-        var_dump($checkEmail);
+
         if ($checkEmail != FALSE) {
             throw new Exception('Cet email est déjà lié à un compte.');
 
