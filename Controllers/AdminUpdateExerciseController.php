@@ -1,5 +1,6 @@
 <?php
 
+// gère le formulaire de modication des exercices existants
 require_once(__DIR__ . '/AdminExercisesController.php');
 
 class AdminUpdateExerciseController extends AdminExercisesController
@@ -12,7 +13,7 @@ class AdminUpdateExerciseController extends AdminExercisesController
         $this->setTitle('Modification d\'exercice');
         $this->setDescription('Page de modification d\'un exercise existant.');
 
-
+        // prépare les infos pour le formulaire à afficher
         $exercise = [
             'exerciseName' => $this->postResult['exerciseName'],
             'exerciseId' => $this->postResult['exerciseId'],
@@ -24,44 +25,3 @@ class AdminUpdateExerciseController extends AdminExercisesController
 
 
 }
-/*
-$exerciseName = $post['exerciseName'];
-$values = $post['id'];
-
-$conn  = new Database();
-$sentence = $conn->getOne('SELECT * FROM '.$exerciseName.' WHERE id = ?', $values);
-
-
-
-
-
-
-
-$post = $_POST;
-$update = postCleaner($post);
-
-$exerciseTranslation = '';
-$exerciseContent = $post['exerciseContent'];
-$exerciseId = $post['exerciseId'];
-
-if (!isset($post['exerciseName'])) {
-    throw new Exception('Pas de nom d\'exercice');
-}
-if ($post['exerciseName'] == 'unorderedSentences')
-{
-    $exerciseTranslation = 'Phrases déstructurées';
-}
-if($post['exerciseName'] == 'madLibs')
-{
-    $exerciseTranslation = 'Texte à trous';
-}
-
-
-return $display = [
-    'dbTableName' => $post['exerciseName'],
-    'name' => $exerciseTranslation,
-    'content' => $exerciseContent,
-    'id' => $exerciseId
-];
-*/
-

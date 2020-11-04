@@ -1,5 +1,7 @@
 <?php
 
+
+// gère l'administration des listes du'ilisateurs.
 class AdminUsersController extends Controller
 {
     public $usersArray;
@@ -11,6 +13,17 @@ class AdminUsersController extends Controller
         $this->setTitle('Gestion des utilisateurs');
         $this->setDescription('Page de gestion des utilisateurs enregistrés.');
 
+        $this->getUsers();
+
+        $this->result['students'] = $this->getLanguagesInfo($this->usersArray['student']);
+        $this->result['teachers'] = $this->getLanguagesInfo($this->usersArray['teacher']);
+
+        parent::__construct($target, $this->result);
+    }
+
+    public function getUsers()
+    {
+        // va cherche les listes d'utilisateurs en fonction de leur role dans la base de données.
         require_once('./models/UsersModel.php');
         $userDb = new UsersModel();
         $userDb->setGetterQuery();
@@ -19,11 +32,6 @@ class AdminUsersController extends Controller
 
         $userDb->setUserCategory('teacher');
         $this->usersArray['teacher'] = $userDb->launchDBRequest();
-
-        $this->result['students'] = $this->getLanguagesInfo($this->usersArray['student']);
-        $this->result['teachers'] = $this->getLanguagesInfo($this->usersArray['teacher']);
-
-        parent::__construct($target, $this->result);
     }
 
     public function getLanguagesInfo($array)

@@ -1,5 +1,6 @@
 <?php
 
+// gère l'affichage de la page d'admin des textes à trous
 require_once(__DIR__ . '/AdminExercisesController.php');
 
 class AdminExercisesMadLibsController extends AdminExercisesController
@@ -14,15 +15,10 @@ class AdminExercisesMadLibsController extends AdminExercisesController
 
         $this->exerciseName = 'MadLibs';
 
-
-        require_once('./models/ExercisesModel.php');
-        $connection = new ExercisesModel();
-        $connection->setTableName($this->exerciseName);
-        $connection->setGetterQuery();
-        $pdoResult = $connection->launchDBRequest();
-
-        $this->sentences = decodeArray($pdoResult);
+        $this->getSentences();
 
         parent::__construct($target, $this->sentences);
     }
+
+
 }

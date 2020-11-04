@@ -1,5 +1,6 @@
 <?php
 
+// gère la suppresion des exercices.
 require_once(__DIR__ . '/AdminExercisesController.php');
 
 class AdminUpdateExerciseSaveController extends AdminExercisesController
@@ -22,16 +23,6 @@ class AdminUpdateExerciseSaveController extends AdminExercisesController
         parent::__construct($target, $data, $this->meta);
     }
 
-    public function updateExercise()
-    {
-        require_once('./models/ExercisesModel.php');
 
-        $db = new ExercisesModel();
-        $db->setId($this->postResult['exerciseId']);
-        $db->setNewExercise($this->postResult['sentence']);
-        $db->setTableName($this->postResult['exerciseName']);
-        $db->setUpdateExerciseQuery();
-        $db->launchDBRequest();
-    }
 }
 

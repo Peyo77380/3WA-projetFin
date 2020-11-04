@@ -88,6 +88,7 @@ class Router
 
     public function routeErrors($e)
     {
+        // renvoie des erreurs et redirige vers les pages spécifiées en fonction du message des exceptions reçues.
         $existingExceptionCase = TRUE;
 
         $exception = json_decode($e->getMessage());

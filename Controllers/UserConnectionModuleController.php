@@ -1,5 +1,6 @@
 <?php
 
+// gère les réponses du formulaire de correction.
 class UserConnectionModuleController extends Controller
 {
     public $userData;
@@ -17,6 +18,9 @@ class UserConnectionModuleController extends Controller
 
     public function searchExistingUser($origin)
     {
+        //cherche si l'utilisateur existe déjà en DB par son login ou par son mail
+        // s'il existe : ses infos sont stockées en session
+        // sinon une exception est renvoyée pour une redirection avec message d'erreur
         require_once('./models/UsersModel.php');
 
         $data = new UsersModel();

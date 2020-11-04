@@ -1,5 +1,6 @@
 <?php
 
+//gère la page d'admin des exercices de phrases déstructurées
 require_once(__DIR__ . '/AdminExercisesController.php');
 
 
@@ -14,13 +15,7 @@ class AdminExercisesUnorderedSentencesController extends AdminExercisesControlle
 
         $this->exerciseName = 'UnorderedSentences';
 
-        require_once('./models/ExercisesModel.php');
-        $connection = new ExercisesModel();
-        $connection->setTableName($this->exerciseName);
-        $connection->setGetterQuery();
-        $pdoResult = $connection->launchDBRequest();
-
-        $this->sentences = decodeArray($pdoResult);
+        $this->getSentences();
 
         parent::__construct($target, $this->sentences);
     }

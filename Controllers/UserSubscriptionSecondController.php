@@ -14,12 +14,12 @@ class UserSubscriptionSecondController extends Controller
 
         $data['countries'] = $countries;
 
-
         parent::__construct($target, $data);
     }
 
     public function getCountries()
     {
+        // sauvegarde les données du premier formulaire en DB.
         require('./models/userSubscriptionModel.php');
         $subs = new userSubscriptionModel();
         return $subs->getCountries();

@@ -1,5 +1,6 @@
 <?php
 
+// gère le 3e formulaire d'inscription.
 class UserSubscriptionThirdController extends Controller
 {
 
@@ -19,7 +20,7 @@ class UserSubscriptionThirdController extends Controller
 
     public function getLanguages()
     {
-
+        // récupère les langues
         require('./models/userSubscriptionModel.php');
 
         $subs = new userSubscriptionModel();

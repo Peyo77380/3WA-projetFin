@@ -34,7 +34,7 @@ class Database
 
     public function sendQuery($sql, array $params = [])
     {
-
+        // envoie une requete avec un fetch all, et en tenant compte des différents paramètres mis en place
         $query = $this->pdo->prepare($sql);
         if ($params) {
             foreach ($params as $param) {
@@ -51,6 +51,7 @@ class Database
 
     public function getSingleData ($sql, $params)
     {
+        // envoie une requete avec un fetch , et en tenant compte des différents paramètres mis en place
         $query = $this->pdo->prepare($sql);
         if ($params) {
             foreach ($params as $param) {
@@ -65,7 +66,7 @@ class Database
 
     public function update ($sql, $params)
     {
-
+        // envoie une requete d'update, et en tenant compte des différents paramètres mis en place
         try {
 
 
@@ -89,6 +90,8 @@ class Database
 
     public function saveToDb ($sql, $params)
     {
+        // envoie une requete d'insertion, et en tenant compte des
+        // différents paramètres mis en place et retourne l'index de celle ci
         $query = $this->pdo->prepare($sql);
         if ($params) {
             foreach ($params as $param) {

@@ -1,10 +1,12 @@
 <?php
 
+// gère les connections avec les fichiers comportant des infos nécessaires à la "fiche profil"
 
 class userSubscriptionModel
 {
     public function getCountry($iso)
     {
+        // récupère le nom d'un pays en fonction d'un code iso.
         $filehandle = fopen("./resources/sql-pays.csv", 'r');
         $country = [];
 
@@ -23,6 +25,7 @@ class userSubscriptionModel
 
     public function getCountries()
     {
+        // récupère la liste des pays (nom et code iso)
         $filehandle = fopen("./resources/sql-pays.csv", 'r');
 
         while (($row = fgetcsv($filehandle, 0, ",")) !== FALSE) {
@@ -37,6 +40,7 @@ class userSubscriptionModel
 
 
     public function getLanguages () {
+        // récupère la liste des langues. (nom et code iso)
         $filehandle = fopen("./resources/sql-Lang-iso_639-2.csv", 'r');
 
         while( ($row = fgetcsv($filehandle, 0, ";")) !== FALSE)
@@ -51,7 +55,7 @@ class userSubscriptionModel
     }
 
     public function getLanguage ($iso) {
-
+        // récupère le nom d'une langue en fonction du code iso'
         $filehandle = fopen("./resources/sql-Lang-iso_639-2.csv", 'r');
         $language = [];
 

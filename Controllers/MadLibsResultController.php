@@ -1,6 +1,6 @@
 <?php
 
-
+// gère la correction des exercices de textes à trous.
 class madLibsResultController extends Controller
 {
     // texte complet, y compris les mots des trous, indiqués entre **
@@ -37,14 +37,14 @@ class madLibsResultController extends Controller
     public function getAnswers()
     {
 
+        //récupère les réponses depuis le post et les infos stockées par le controlleur précédant dans la $_SESSION
         $post = postCleaner($_POST);
-
-
         $this->madLibsText = $_SESSION['exercises']['text'];
         $this->madLibsWords = $_SESSION['exercises']['words'];
         $this->madLibsExercise = $_SESSION['exercises']['exercise'];
 
         $words = [];
+        // mets en forme la réponse de l'élève pour la correction.
         foreach ($post as $index => $word) {
             if ($word === '') {
                 $word = '//empty//';
@@ -62,6 +62,7 @@ class madLibsResultController extends Controller
 
     public function setNote ()
     {
+        // calcule la note sur la comparaison de la réponse et des éléments récupérés de la session.
         $this->note = 0;
         $totalCount = 0;
         foreach ($this->madLibsWords as $exerciseId => $words) {
@@ -83,6 +84,7 @@ class madLibsResultController extends Controller
 
     public function setCorrection ()
     {
+        // prépare les infos sous forme de listes pour renvoyer vers la vue et afficher ensuite sous forme de tableau.
         $correction = [];
 
         foreach ($this->madLibsWords as $exerciseId => $words) {

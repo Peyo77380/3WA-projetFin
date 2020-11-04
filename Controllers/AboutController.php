@@ -1,6 +1,6 @@
 <?php
 
-
+// gère la page About
 class AboutController extends Controller
 {
     public function __construct($target, $data = [])

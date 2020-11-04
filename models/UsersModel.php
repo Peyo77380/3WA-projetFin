@@ -1,5 +1,6 @@
 <?php
 
+// gère les connections à la BD oncernant les utilisateurs.
 require('./tools/database.php');
 
 class UsersModel
@@ -9,25 +10,20 @@ class UsersModel
     public $query;
     public $params = [];
 
+
+    // lance la requete fixée par les fonctions ci-dessous
     public function launchDBRequest()
     {
-
-
         $this->data = new Database();
 
         return $this->result = $this->data->sendQuery($this->query, $this->params);
-
     }
-
 
     public function launchDBSingleRequest()
     {
-
-
         $this->data = new Database();
 
         return $this->result = $this->data->getSingleData($this->query, $this->params);
-
     }
 
     public function saveToDB()
@@ -35,8 +31,6 @@ class UsersModel
         $this->data = new Database();
 
         return $this->result = $this->data->saveToDb($this->query, $this->params);
-
-
     }
 
     public function updateDB()
@@ -46,6 +40,14 @@ class UsersModel
 
         return $this->result;
     }
+
+
+
+    /**********************************/
+    /**********************************/
+    /* différentes requetes possibles */
+    /**********************************/
+    /**********************************/
 
     public function setGetterQuery()
     {
@@ -83,6 +85,20 @@ class UsersModel
         $this->query = "UPDATE `users` SET `users`.`motherlanguage` = :motherlanguage, `users`.`knownlanguages` = :knownlanguages WHERE `users`.`id` = :userid";
     }
 
+
+    public function setUpdateQuery(string $updatedField)
+    {
+        $this->query = "UPDATE `users` SET `users`.`" . $updatedField . "` = :newValue WHERE `users`.`id` = :userId";
+    }
+
+
+    /**********************************/
+    /**********************************/
+    /* différentes parametres possibles */
+    /**********************************/
+
+    /**********************************/
+
     public function saveNewUserParameter($username, $email, $password)
     {
         $this->params[] = ['variableName' => ':username', 'variableValue' => $username, 'PDOparam' => PDO::PARAM_STR];
@@ -111,11 +127,6 @@ class UsersModel
         $this->params[] = ['variableName' => ':userCategory', 'variableValue' => $userCategory, 'PDOparam' => PDO::PARAM_STR];
 
 
-    }
-
-    public function setUpdateQuery(string $updatedField)
-    {
-        $this->query = "UPDATE `users` SET `users`.`" . $updatedField . "` = :newValue WHERE `users`.`id` = :userId";
     }
 
     public function setUserId(int $userId)

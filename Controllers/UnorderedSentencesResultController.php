@@ -1,6 +1,6 @@
 <?php
 
-
+// affiche les corrections des exercices de phrases destructurées.
 class UnorderedSentencesResultController extends Controller
 {
 
@@ -14,7 +14,6 @@ class UnorderedSentencesResultController extends Controller
         $this->setConnectedUserFilter('userConnection');
         $this->setTitle('Correction - Phrases destructurées');
         $this->setDescription('Correction des exercices de phrases destructurées en italien');
-        $post = $_POST;
 
         $this->recievePostForm();
         $this->prepareAnswerForChecking();
@@ -30,7 +29,7 @@ class UnorderedSentencesResultController extends Controller
 
     public function prepareAnswerForChecking()
     {
-
+        // découpe les strings renvoyées par les inputs de l'exercice.
         foreach ($this->postResult as $answer) {
             $answer = explode(" ", $answer);
             $this->userAnswers[] = $answer;
@@ -40,11 +39,13 @@ class UnorderedSentencesResultController extends Controller
 
     public function getCorrectAnswer()
     {
+        // récupère les infos stockées par le controlleur précédent en $_SESSION
         $this->correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
     }
 
     public function setCorrection()
     {
+        // compare les éléments du post et les éléments stokés en session
 
         foreach ($this->userAnswers as $key => $values) {
 
@@ -55,7 +56,8 @@ class UnorderedSentencesResultController extends Controller
             $answer = implode(" ", $this->correctAnswers[$key]['sentence']);
             $givenAnswer = implode(" ", $userAnswer);
 
-
+            // augmente la note si bonne réponse
+            // indique si la réponse est correcte ou non.
             if ($givenAnswer == $answer) {
                 $this->note++;
                 $rating = 'Correct';
@@ -63,6 +65,7 @@ class UnorderedSentencesResultController extends Controller
                 $rating = 'Faux';
             }
 
+            // retourne une liste pour chaque réponse contenant les infos à afficher sur la vue.
             $individualCheck =
                 ['correctAnswer' => $answer,
                     'userAnswer' => $givenAnswer,

@@ -20,6 +20,7 @@ class UserProfileUpdateController extends Controller
 
     public function updateUserInDb()
     {
+        // modifie les infos de l'utilisateur en db
         require_once('./models/UsersModel.php');
 
         $data = new UsersModel();

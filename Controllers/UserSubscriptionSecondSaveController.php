@@ -1,5 +1,6 @@
 <?php
 
+// gère réception du formulaire d'inscription 2/3
 class UserSubscriptionSecondSaveController extends Controller
 {
     public $birthday;
@@ -34,6 +35,7 @@ class UserSubscriptionSecondSaveController extends Controller
 
     public function setBirthday()
     {
+        // transforme les différents champs du formulaire en une seule string correcpondant à la date de naissance.
         $this->birthday = $this->postResult['year'];
         $this->birthday .= "-";
         $this->birthday .= substr("0" . $this->postResult['month'], -2);
@@ -44,7 +46,7 @@ class UserSubscriptionSecondSaveController extends Controller
 
     public function updateDatabase()
     {
-
+        // mets à jour la base de donnée.
         $this->postResult['userId'] = (int)$this->postResult['userId'];
 
 
@@ -70,19 +72,3 @@ class UserSubscriptionSecondSaveController extends Controller
     }
 
 }
-
-
-
-
-
-
-/*
- *
- * 2e etape
- * firstname
- * lastname
- * country
- * birthdate
- * UPDATE `users` SET `firstname` = 'test', `lastname` = 'test', `country` = 'test', `birthdate` = xx/Xx/xxxx  WHERE `users`.`id` = xx
- *
- */

@@ -1,6 +1,6 @@
 <?php
 
-
+// gere la page de profil de l'utilisateur
 class UserProfileController extends Controller
 {
     public $result;
@@ -29,7 +29,7 @@ class UserProfileController extends Controller
     public function getUserInfo()
     {
 
-
+        // va chercher les infos sur l'utilisateur en DB en fonction de son id stocké en session au moment de la connection.
         $data = new UsersModel();
         $data->setGetSingleUserQueryById();
         $data->setUserId($_SESSION['connectedUser']['id']);
@@ -39,6 +39,7 @@ class UserProfileController extends Controller
 
     public function formatCountry()
     {
+        // met en forme les pays en fonction du code iso renvoyé
         $helper = new userSubscriptionModel();
         $this->result[0]['country'] = $helper->getCountry($this->result[0]['country']);
 
@@ -46,7 +47,7 @@ class UserProfileController extends Controller
 
     public function formatLanguages()
     {
-
+        // met en forme les langues en fonction du code iso renvoyé
         $helper = new userSubscriptionModel();
 
         $this->result[0]['motherlanguage'] = $helper->getLanguage($this->result[0]['motherlanguage']);
@@ -55,7 +56,7 @@ class UserProfileController extends Controller
 
     public function getCountriesList()
     {
-
+        // renvoie les listes de pays pour les <select> en cas de modification
         $subs = new userSubscriptionModel();
         $countries = $subs->getCountries();
 
@@ -64,6 +65,7 @@ class UserProfileController extends Controller
 
     public function getLanguagesList()
     {
+        // renvoie les listes de langues pour les <select> en cas de modification
         $subs = new userSubscriptionModel();
         $languages = $subs->getLanguages();
 

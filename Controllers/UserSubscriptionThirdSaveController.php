@@ -1,15 +1,6 @@
 <?php
 
-
-/*
- *
- * 3e etape
- * langue maternelle
- * langues connues et niveau
- * UPDATE `users` SET `motherlanguage` = 'test', `knowlanguages` = 'test' WHERE `users`.`id` = xx
- *
- */
-
+// gère la réception du formulaire d'inscrption 3/3
 class UserSubscriptionThirdSaveController extends Controller
 {
     public $knownLanguages;
@@ -27,7 +18,8 @@ class UserSubscriptionThirdSaveController extends Controller
 
     public function setKnownLanguages()
     {
-
+        // formatte la réponse du formulaire concernant les langues connues et le niveau de chacune des langues
+        // renvoie une string contenant chacune des valeurs
         $this->knownLanguages = '';
 
         if ($this->postResult['furtherLanguage1']) {

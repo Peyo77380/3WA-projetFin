@@ -1,4 +1,6 @@
 <?php
+
+//gère les actions en DB concernant les exercices.
 require_once('./tools/database.php');
 
 class ExercisesModel
@@ -9,6 +11,8 @@ class ExercisesModel
     private $params = [];
     private $tableName;
 
+
+    //lance la requete prévue par les différentes fonctions
     public function launchDBRequest()
     {
 
@@ -16,10 +20,17 @@ class ExercisesModel
 
         $this->result = $this->data->sendQuery($this->query, $this->params);
 
-
         return $this->result;
 
     }
+
+
+    /**********************************/
+    /**********************************/
+    /* différentes requetes possibles */
+    /**********************************/
+    /**********************************/
+
 
     public function setGetterQuery()
     {
@@ -27,7 +38,6 @@ class ExercisesModel
 
         if ($this->params == []) {
             return;
-
         }
 
         foreach ($this->params as $definedParameter) {
@@ -57,6 +67,14 @@ class ExercisesModel
     {
         $this->query = "UPDATE " . $this->tableName . " SET `sentence` = :newExercise WHERE " . $this->tableName . ".`exerciseId` = :exerciseId ";
     }
+
+
+
+    /**********************************/
+    /**********************************/
+    /* différentes parametres possibles */
+    /**********************************/
+    /**********************************/
 
     public function setTableName(string $table)
     {
