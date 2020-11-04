@@ -1,75 +1,96 @@
+:root {
+    --light: white;
+    --bg-light: #fdf6f2;
+    --bg-higlight: #ffe2d3;
+    --main-dark: #381a00;
+    --main-darker: #1f0f00;
+    --contrast: #DA1616;
+    --game-yellow: #ec9d02;
+    --game-green: #26ba00;
+    --softshadow-grey: rgba(0, 0, 0, 0.1);
+}
+
 * {
     box-sizing: border-box;
 }
 
 html {
-    font-family: 'Montserrat', sans-serif;
-    background: #fff3e6;
-
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-light);
+    line-height: 1.75;
+    overflow-x: hidden;
 }
 
+
+/* style du header et de la nav (commun à toutes les pages) */
 header {
-    height: 3rem;
+    background-image: url('../images/pexels-pixabay-417344.jpg');
+    background-position: top;
+    background-repeat: no-repeat;
+
+    background-color: var(--main-dark);
+    color: var(--light);
     z-index: 100;
+}
 
+header a {
+    color: var(--light);
+    text-decoration: none;
+}
 
+header .logo {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: 'Sansita Swashed';
+}
+
+header .logo h1 {
+    margin: 0;
+    padding: 1rem;
 }
 
 nav {
-    background: rgba(41, 41, 41, 1);
+    background-color: rgba(0, 0, 0, 0.2);
     width: 100%;
 
-    align-content: right;
-
-}
-
-nav * {
-    text-decoration: none;
-
-    color: whitesmoke;
 }
 
 nav ul {
-    width: 100%;
-    display: flex;
-    list-style: none;
-    padding: 0;
     margin: 0;
-
-
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    list-style: none;
 }
 
-nav > ul > li {
-    padding: 1rem 2rem;
+nav li {
+    padding: 0.5rem 0;
+    transition: 0.5s ease-out;
 }
 
-nav > ul > li:hover {
-    background: darkred;
+nav li:hover {
+    transform: scale(1.1);
 }
 
 .nav-menu {
     position: relative;
+    z-index: 100;
+
 }
 
 .nav-subMenu {
-    background: rgba(41, 41, 41, 1);
+    text-align: center;
     position: absolute;
     display: none;
-    width: 100%;
-    top: 3rem;
-    left: 0;
-}
-
-.nav-menu:hover .nav-subMenu {
-    display: block;
-}
-
-.nav-subMenu li {
+    top: 100%;
     padding: 1rem;
-}
+    width: 100%;
+    margin: auto;
+    margin-top: -0.1rem;
+    background-color: var(--main-darker);
+    z-index: 101;
 
-.nav-subMenu li:hover {
-    background: darkred;
 }
 
 .nav-menuCategory {
@@ -77,91 +98,134 @@ nav > ul > li:hover {
 }
 
 .nav-lastMenu {
-    background: rgba(41, 41, 41, 1);
+    text-align: center;
     position: absolute;
     display: none;
-    width: 100%;
-    top: 0;
+    top: -0.7rem;
     left: 100%;
+    padding: 1rem;
+    width: 100%;
+    margin: auto;
+    background-color: var(--main-darker);
+    z-index: 102;
+
+}
+
+.nav-menu:hover .nav-subMenu {
+    display: block;
+    z-index: 100;
 }
 
 .nav-menuCategory:hover .nav-lastMenu {
     display: block;
+    z-index: 100;
+}
+
+/* style général */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Sansita Swashed", cursive;
+    color: var(--main-dark);
+}
+
+h1, h2 {
+    color: var(--light);
 }
 
 
-.wrapper {
-    width: 80%;
-    margin: auto;
+button, input[type=submit] {
+    background-color: var(--contrast);
     color: white;
-    font-weight: bold;
+    border: none;
+    border-radius: 2rem;
+    padding: 1rem;
+    transition: 0.5s ease-in;
 }
 
-h2 {
-    position: absolute;
-    top: 10vh;
-    left: 0;
-    padding: 2rem;
-    border-radius: 0 1rem 1rem 0;
-    background: rgba(0, 0, 0, 0.2);
-    z-index: 50;
-
+button:hover, input[type=submit]:hover {
+    transform: scale(1.1);
 }
 
-.rule {
-    height: 5vh;
-}
-
-
-/**********************************/
-/********** about style **********/
-/**********************************/
+/* style de l'index */
 
 .banner {
-
-    min-height: 50rem;
-    background-image: url('../images/pexels-pixabay-417344.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    color: var(--light);
+    background-color: var(--main-darker);
+    z-index: 100;
 }
 
-@media only screen and (max-device-width: 1366px) {
-    .banner {
-        background-attachment: scroll;
-    }
+.banner h1 {
+    display: none;
 }
-.splitscreen {
-    margin: 2rem auto;
-    width: 100%;
 
+.banner h2 {
+    margin: 0;
+    padding: 2rem;
+}
+
+.displayError {
+    color: var(--main-dark);
+    font-weight: bold;
+    background-color: var(--light);
+    transition: 1s;
+    animation: ease 1s disappearUp;
+    z-index: 1;
+}
+
+
+/* style des splitscreens */
+
+.splitscreen .textContainer {
+    padding: 0.5rem;
     overflow: hidden;
-}
-
-.imgContainer {
-    min-height: 100%;
-    align-content: center;
+    text-align: center;
 
 }
 
-figure {
+.splitscreen .connectionModule, .splitscreen .subscriptionModule {
+    height: 70vh;
+}
+
+.splitscreen .connectionModule form, .splitscreen .subscriptionModule form {
+    height: 50vh;
+
+}
+
+.splitscreen .connectionModule form > input, .splitscreen .subscriptionModule form > input {
     margin: auto;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-bottom: 1rem;
 
+}
+
+.splitscreen h4 {
     position: relative;
-
+    padding: 0;
 }
 
-figure img {
+.splitscreen h4:after {
+    position: absolute;
+    content: "";
+    height: 1px;
+    background-color: var(--main-darker);
     width: 100%;
-    height: auto;
+    margin-left: 5px;
+    bottom: 20%;
 }
 
-figure figcaption {
+.splitscreen article {
+    text-align: justify;
+}
+
+.splitscreen .imgContainer {
+    width: 100%;
+}
+
+.splitscreen .imgContainer figure, .splitscreen .imgContainer img {
+    margin: 0;
+    width: 100%;
+    position: relative;
+}
+
+.splitscreen .imgContainer figure figcaption {
     position: absolute;
     bottom: 1rem;
     padding: 0.5rem 0.5rem;
@@ -171,91 +235,213 @@ figure figcaption {
     font-size: 0.7rem;
 }
 
-figure figcaption a {
+.splitscreen .imgContainer figure figcaption a {
     color: white;
     text-decoration: none;
 
 }
 
-section {
-    margin: 1rem;
-    text-align: justify;
+
+/* form dans le splitscreen (connection et inscription)*/
+.fullscreen form, .splitscreen form {
+    background-color: var(--light);
+    border: 1px solid var(--bg-higlight);
+    border-radius: 1rem;
+    padding: 0.8rem;
 }
 
-@media screen and (min-width: 400px) {
-    /* split screen */
-    .splitscreen {
-        display: flex;
-        width: 100%;
-
-    }
-
-    .splitscreenLeft, .splitscreenRight {
-        width: 50%;
-        justify-content: center;
-        vertical-align: bottom;
-        padding: 3rem;
-        opacity: 0;
-        transition: 1s ease-out;
-    }
-
-
-    .splitscreenLeft {
-
-        transform: translateX(-200px);
-
-    }
-
-    .splitscreenRight {
-        transform: translateX(200px);
-    }
-
-    .splitscreen.visible .splitscreenLeft, .splitscreen.visible .splitscreenRight {
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    .splitscreen:nth-child(odd) .imgContainer {
-        background: -moz-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ff3.6+ */
-        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(222, 184, 135, 0)), color-stop(50%, rgba(222, 184, 135, 0)), color-stop(50%, rgba(222, 184, 135, 1)), color-stop(100%, rgba(222, 184, 135, 1))); /* safari4+,chrome */
-        background: -webkit-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* safari5.1+,chrome10+ */
-        background: -o-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* opera 11.10+ */
-        background: -ms-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ie10+ */
-        background: linear-gradient(90deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* w3c */
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DEB887', endColorstr='#DEB887', GradientType=1); /* ie6-9 */
-    }
-
-    .splitscreen:nth-child(even) .imgContainer {
-        background: -moz-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ff3.6+ */
-        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(222, 184, 135, 1)), color-stop(50%, rgba(222, 184, 135, 1)), color-stop(50%, rgba(222, 184, 135, 0)), color-stop(100%, rgba(222, 184, 135, 0))); /* safari4+,chrome */
-        background: -webkit-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* safari5.1+,chrome10+ */
-        background: -o-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* opera 11.10+ */
-        background: -ms-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ie10+ */
-        background: linear-gradient(270deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* w3c */
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DEB887', endColorstr='#DEB887', GradientType=1); /* ie6-9 */
-    }
-}
-
-
-/**********************************/
-/**** unorderedSentences style ****/
-/**********************************/
-
-fieldset {
+.fullscreen fieldset, .splitscreen fieldset {
     border: none;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem auto;
 }
 
-form.exercise .exercise_question {
+
+.fullscreen fieldset.mainFieldset {
+    display: inline-block;
+}
+
+
+.fullscreen input[type=text], .splitscreen input[type=text], .fullscreen input[type=password], .splitscreen input[type=password], .fullscreen textarea, .splitscreen textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--main-darker);
+    width: 50%;
+    outline: 0;
+    line-height: 1.5em;
+    padding: 0.5em 1em 0.5em 1em;
+}
+
+
+.fullscreen fieldset select, .splitscreen fieldset select {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--main-darker);
+    width: 50%;
+    appearance: none;
+    outline: 0;
+    line-height: 1.5em;
+    padding: 0.5em 3.5em 0.5em 1em;
+
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    radial-gradient(#ddd 70%, transparent 72%);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - .5em) .5em;
+    background-size: 5px 5px,
+    5px 5px,
+    1.5em 1.5em;
+    background-repeat: no-repeat;
+
+
+}
+
+
+.fullscreen fieldset select:focus, .splitscreen fieldset select:focus {
+    background-image: linear-gradient(45deg, white 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, white 50%),
+    radial-gradient(var(--contrast) 70%, transparent 72%);
+    background-position: calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - .5em) .5em;
+    background-size: 5px 5px,
+    5px 5px,
+    1.5em 1.5em;
+    background-repeat: no-repeat;
+
+
+}
+
+.fullscreen fieldset select:focus, .splitscreen fieldset select:focus, .fullscreen fieldset input:focus, .splitscreen fieldset input:focus {
+    border-color: var(--contrast);
+}
+
+.fullscreen .mainFieldset .mainFieldset fieldset select {
+    width: 100%;
+}
+
+
+/* pricesBox */
+.priceBox {
+    display: flex;
+    font-size: 1.5rem;
+}
+
+.priceBox {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3);
+    background-color: var(--bg-higlight);
+    margin: 1rem auto;
+    transition: 0.5s ease-out;
+}
+
+.priceBox:hover {
+    transform: scale(1.1);
+}
+
+.priceBox:first-of-type {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.priceBox h5, .priceBox h6 {
+    margin: 0;
+}
+
+.priceBox .hourNumber {
+    grid-column: 1/4;
+}
+
+.hourlyRate, .discount, .totalCost {
+    display: flex;
+    justify-content: center;
+    grid-row: 3;
+    font-size: 0.9rem;
+
+}
+
+.originalCost {
+    font-size: 0.7rem;
+    text-decoration: line-through;
+}
+
+main {
+    padding-bottom: 10rem;
+}
+
+/*style fullpage */
+.fullscreen .textContainer {
+    padding: 0.5rem;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* style footer */
+
+footer {
+    background-color: var(--main-darker);
+    color: white;
+    text-align: center;
+    font-size: small;
+    position: fixed;
+    bottom: 0;
+    max-height: 10rem;
+    width: 100%;
+}
+
+footer img {
+    width: 10%;
+}
+
+
+/* style des exercises */
+.rule, .note {
+    background-color: var(--light);
+    border: 1px solid var(--bg-higlight);
+    border-radius: 1rem;
+    padding: 0.8rem;
+    margin: 1rem;
+}
+
+.exercise {
+    text-align: right;
+}
+
+fieldset.exercise_question {
+    display: inline-block;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 1rem;
-    margin: 2rem;
     text-align: center;
     animation: bounceAppear 0.8s;
 }
 
 .exercise_question-hidden {
     display: none;
-    animation: bounceDisappear 0.3s;
+}
+
+
+.exercise_answerElements {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.exercise_answerElements .word {
+    margin: 0.3rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    background-color: var(--game-yellow);
+
+}
+
+.exercise_answerElements .word.selected {
+    background-color: var(--game-green);
 }
 
 @keyframes bounceAppear {
@@ -281,112 +467,333 @@ form.exercise .exercise_question {
     }
 }
 
+/*style des tableaux */
 
-@keyframes bounceDisappear {
-    0% {
-        transform: translateX(0%);
-    }
-
-    100% {
-        transform: translateX(100%);
-
-    }
+table {
+    margin: 1rem auto;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-form.exercise .exercise_answerElements {
-    margin: 1rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-form.exercise .word {
-    min-width: 20%;
-    margin: 1rem;
-    padding: 1rem 0.5rem;
-    background-color: #FFB206;
-    border-radius: 1rem;
-}
-
-.selected {
-    background-color: green!important;
-}
-
-input[type="text"] {
-    background: none;
-    border: none;
-    border-bottom: solid 1px rgba(0,0,0,0.2);
-}
-
-input[type="text"]:active{
-    border-bottom: solid 1px rgba(0,0,0,0.4);
-    outline: none;
-}
-
-input[value="Valider"]{
-    min-width: 20%;
-    margin: 1rem;
-    padding: 2rem 1rem;
-    background-color: #FFB206;
-    border-radius: 1rem;
-    border: none;
-    color: white;
+thead {
+    color: var(--main-darker);
     font-weight: bold;
 }
 
-/**********************************/
-/**** exxercises style ****/
-/**********************************/
-
-.gameControl {
-    min-width: 20%;
-    margin: 1rem;
-    padding: 1rem 0.5rem;
-    background-color: #FFB206;
-    border-radius: 1rem;
-    border: none;
-    color: white;
-    font-weight: bold;
+table td {
+    padding: 0.5rem 0;
 }
 
-.progressBar {
-    width: 80vw;
-    height: 2rem;
-    border-radius: 1rem;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    flex-wrap: nowrap;
+table tr td:last-of-type {
+    width: 10%;
+    text-align: right;
+    display: none;
 }
 
-.progressBar_sub {
-    background-color: green;
-    height: 100%;
-    flex-grow: 1;
-
+table tr td:not(:first-of-type) {
+    border-left: thin solid var(--softshadow-grey);
 }
 
-.progressBar_sub:first-of-type {
-    border-radius: 1rem 0 0 1rem;
+tbody tr td:first-of-type {
+    color: var(--game-green);
 }
 
-.progressBar_sub:last-of-type {
-    border-radius: 0 1rem 1rem 0;
+tbody tr.failure td:first-of-type {
+    color: var(--contrast);
 }
 
+table tr:nth-of-type(odd) {
+    background-color: var(--bg-higlight);
+}
 
-.correctAnswer {
+/* style spécial pr exo madLibs */
+.madLibs .wording input[type=text] {
+    width: auto;
+}
+
+/* style spécial pr correction madLibs */
+.madLibsCorrection .correctAnswer {
     color: darkgreen;
     font-weight: bold;
 }
 
-.wrongAnswer {
+.madLibsCorrection .wrongAnswer {
     color: darkred;
     font-weight: bold;
     text-decoration: line-through;
 }
 
-.missingAnswer {
+.madLibsCorrection .missingAnswer {
     color: darkred;
     font-weight: bold;
 }
+
+.madLibsCorrection .exerciseCorrection {
+    margin: 2rem;
+}
+
+.madLibsCorrection .exerciseCorrection:not(:last-of-type) {
+    padding-bottom: 1rem;
+    border-bottom: thin solid var(--softshadow-grey);
+}
+
+/* style profile*/
+
+.profile .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile .row .box {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.profile .row .box h4 {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.profile form {
+    max-width: 70%;
+    margin: auto;
+}
+
+.profile form select {
+    max-width: 70%;
+
+}
+
+.profile button {
+    background-color: var(--contrast);
+    color: white;
+    border: none;
+    max-height: 1.5rem;
+    border-radius: 50%;
+    padding: 0.5rem;
+    font-size: 0.6rem;
+    margin-left: 0.5rem
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* style admins */
+
+
+.admin > ul {
+    list-style: none;
+    background-color: var(--main-darker);
+    margin: 0 auto;
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-evenly;
+
+}
+
+.admin > ul a {
+    text-decoration: none;
+    color: var(--light);
+}
+
+.admin .controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2rem 0;
+}
+
+
+.admin table tr td:last-of-type button {
+    background-color: var(--contrast);
+    color: white;
+    border: none;
+    max-height: 1.5rem;
+    border-radius: 50%;
+    padding: 0.5rem;
+    font-size: 0.6rem;
+    margin-left: 0.5rem
+}
+
+.admin table tr td:last-of-type {
+    display: flex;
+}
+
+
+form[action=adminDeleteExercise], form[action=adminUpdateExercise], form[action=UserProfileUpdate] {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+form[action=adminAddExercise] {
+    width: 80%;
+    margin: auto;
+    padding: 3rem;
+    text-align: center;
+}
+
+form[action=adminAddExercise] input[type=text] {
+    width: 100%;
+    margin: 2rem auto;
+}
+
+form[action=adminUpdateExerciseSave] input[name=exerciseContent], form[action=adminUpdateExerciseSave] textarea {
+    width: 80%;
+}
+
+
+@media all and (min-width: 480px) {
+    .textContainer {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /*tableaux */
+    table {
+
+        width: 90%;
+    }
+}
+
+@media all and (min-width: 750px) {
+    nav > ul > li {
+        display: inline-block;
+        margin: auto 2rem;
+    }
+
+    .nav-subMenu {
+
+        width: 150%;
+
+    }
+
+    footer {
+        display: flex;
+        justify-content: space-between;
+        max-height: 10rem;
+        padding: 1rem;
+    }
+
+    footer img {
+        max-width: 5%;
+    }
+}
+
+@media all and (min-width: 960px) {
+
+
+    /*split screen */
+    .splitscreen {
+        display: flex;
+        width: 100%;
+        padding: 2rem;
+    }
+
+    .splitscreen:nth-of-type(odd) {
+        flex-direction: row-reverse;
+    }
+
+    .splitscreenLeft, .splitscreenRight {
+        width: 50%;
+        justify-content: center;
+        vertical-align: bottom;
+        padding: 0.5rem;
+        margin: auto 2rem;
+    }
+
+
+    .splitscreen:nth-child(even) {
+        background: -moz-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ff3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(222, 184, 135, 0)), color-stop(50%, rgba(222, 184, 135, 0)), color-stop(50%, rgba(222, 184, 135, 1)), color-stop(100%, rgba(222, 184, 135, 1))); /* safari4+,chrome */
+        background: -webkit-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* safari5.1+,chrome10+ */
+        background: -o-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* opera 11.10+ */
+        background: -ms-linear-gradient(360deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ie10+ */
+        background: linear-gradient(90deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* w3c */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DEB887', endColorstr='#DEB887', GradientType=1); /* ie6-9 */
+    }
+
+    .splitscreen:nth-child(odd) {
+        background: -moz-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ff3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(222, 184, 135, 1)), color-stop(50%, rgba(222, 184, 135, 1)), color-stop(50%, rgba(222, 184, 135, 0)), color-stop(100%, rgba(222, 184, 135, 0))); /* safari4+,chrome */
+        background: -webkit-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* safari5.1+,chrome10+ */
+        background: -o-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* opera 11.10+ */
+        background: -ms-linear-gradient(180deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* ie10+ */
+        background: linear-gradient(270deg, rgba(222, 184, 135, 0) 0%, rgba(222, 184, 135, 0) 50%, rgba(222, 184, 135, 1) 50%, rgba(222, 184, 135, 1) 100%); /* w3c */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DEB887', endColorstr='#DEB887', GradientType=1); /* ie6-9 */
+    }
+
+    .imgContainer {
+        flex-grow: 1;
+    }
+
+    .textContainer {
+        flex-grow: 2;
+        width: 80%;
+    }
+
+    /* tableaux */
+    table tr td:last-of-type {
+
+        display: table-cell;
+    }
+
+
+}
+
+@media all and (min-width: 1280px) {
+
+
+    header .logo {
+        font-size: 80%;
+
+    }
+
+
+    /* le sliptscreen permet d'afficher des animations en fonction des intersectionsHandlers */
+    .splitscreenLeft, .splitscreenRight {
+
+        opacity: 0;
+        transition: 1s ease-out;
+    }
+
+
+    .splitscreenLeft {
+
+        transform: translateX(-200px);
+
+    }
+
+    .splitscreenRight {
+        transform: translateX(200px);
+    }
+
+    .splitscreen.visible .splitscreenLeft, .splitscreen.visible .splitscreenRight {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+
+    /* profil utilisateur*/
+    .profile .row {
+        justify-content: center;
+    }
+
+    .profile .row .box {
+        width: 40%;
+        padding: 2rem;
+    }
+
+
+}
+
+
+
+
+

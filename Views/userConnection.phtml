@@ -1,48 +1,46 @@
-<?php
-
-
-?>
-
-<?php if(isset($_SESSION['error'])) : ?>
-<div class="displayError">
-    <?= $_SESSION['error'] ?>
-</div>
+<?php if (isset($_SESSION['error']) && $_SESSION['error'] !== []) : ?>
+    <div class="displayError">
+        <?= $_SESSION['error'] ?>
+    </div>
 <?php endif; ?>
 
+<div class="splitscreen">
+    <div class="textContainer connectionModule">
+        <h3>Connection</h3>
+        <form action="UserConnectionModule" method="post">
+            <fieldset>
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" name="username" placeholder="Votre nom d'utilisateur" id="username">
+            </fieldset>
+            <fieldset>
+                <label for="password">Mot de passe</label>
+                <input type="password" name="password" placeholder="Votre mot de passe">
+            </fieldset>
 
-<div class="connectionModule">
-
-    <form action="UserConnectionModule" method="post">
-
-        <label for="username">Nom d'utilisateur</label>
-        <input type="text" name="username" placeholder="Votre nom d'utilisateur" id="username">
-
-        <label for="password">Mot de passe</label>
-        <input type="password" name="password" placeholder="Votre mot de passe">
-
-        <input type="submit" value="Log-in">
+            <input type="submit" value="Log-in">
 
 
-    </form>
+        </form>
 
-</div>
+    </div>
 
-<div class="subscriptionModule">
-    <form action="userSubscription" method="post">
-        <label for="username">Nom d'utilisateur</label>
-        <input type="text" name="username" placeholder="Votre nom d'utilisateur" id="username">
-
-        <label for="email">Email</label>
-        <input type="text" name="email" placeholder="Votre adresse email" id="email">
-
-        <label for="password">Mot de passe</label>
-        <input type="password" name="password" placeholder="Votre mot de passe">
-
-        <input type="submit" value="Inscription">
-    </form>
-</div>
-
-<div class="forgottenPassword">
-    <a href="./forgottenPassword.phtml">Mot de passe oublié?</a>
+    <div class="textContainer  subscriptionModule">
+        <h3>Inscription</h3>
+        <form action="userSubscriptionSave" method="post">
+            <fieldset>
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" name="username" placeholder="Votre nom d'utilisateur" id="username">
+            </fieldset>
+            <fieldset>
+                <label for="email">Email</label>
+                <input type="text" name="email" placeholder="Votre adresse email" id="email">
+            </fieldset>
+            <fieldset>
+                <label for="password">Mot de passe</label>
+                <input type="password" name="password" placeholder="Votre mot de passe">
+            </fieldset>
+            <input type="submit" value="Inscription">
+        </form>
+    </div>
 
 </div>

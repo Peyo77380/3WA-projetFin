@@ -1,0 +1,97 @@
+<div class="block">
+    Bienvenue <?= $_SESSION['user']['userName'] ?>,
+</div>
+<?php if (isset($_SESSION['error']) && $_SESSION['error'] !== []) : ?>
+    <div class="displayError">
+        <?= $_SESSION['error'] ?>
+    </div>
+<?php endif; ?>
+
+<div class="fullscreen">
+    <div class="textContainer">
+
+
+        <!--firstname
+        * lastname
+        * country
+        * birthdate -->
+        <form action="userSubscriptionSecondSave" method="post">
+
+            <fieldset>
+                <label for="firstname">Prénom</label>
+                <input type="text" name="firstname" placeholder="Votre prénom" id="firstname">
+            </fieldset>
+            <fieldset>
+                <label for="lastname">Nom</label>
+                <input type="text" name="lastname" placeholder="Votre nom" id="lastname">
+            </fieldset>
+            <fieldset>
+                <label for="country">Pays</label>
+                <select name="country" id="country">
+                    <option value='-'>-</option>
+                    <?php
+
+                    for ($i = 1; $i <= count($data['countries']); $i++) {
+                        echo "<option value=" . $data['countries'][$i]['countryCode'] . ">" . $data['countries'][$i]['countryName'] . "</option>";
+                    }
+
+                    ?>
+                </select>
+
+            </fieldset>
+
+            <fieldset class="mainFieldset">
+                <legend>Votre date de naissance</legend>
+                <fieldset>
+                    <label for="day">Jour</label>
+                    <select name="day" id="day">
+                        <option value='-'>-</option>
+                        <?php
+
+                        for ($i = 1; $i <= 31; $i++) {
+
+                            echo "<option value='$i'>$i</option>";
+                        }
+
+                        ?>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label for="month">Mois</label>
+                    <select name="month" id="month">
+                        <option value='-'>-</option>
+                        <option value='1'>Janvier</option>
+                        <option value='2'>Février</option>
+                        <option value='3'>Mars</option>
+                        <option value='4'>Avril</option>
+                        <option value='5'>Mai</option>
+                        <option value='6'>Juin</option>
+                        <option value='7'>Juillet</option>
+                        <option value='8'>Août</option>
+                        <option value='9'>Septembre</option>
+                        <option value='10'>Octobre</option>
+                        <option value='11'>Novembre</option>
+                        <option value='12'>Décembre</option>
+
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label for="year">Année</label>
+                    <select name="year" id="year">
+                        <option value='-'>-</option>
+                        <?php
+
+                        for ($i = 1900; $i <= date("Y"); $i++) {
+                            echo "<option value='$i'>$i</option>";
+                        }
+
+                        ?>
+                    </select>
+                </fieldset>
+            </fieldset>
+            <input type="hidden" name="userId" value="<?= $_SESSION['user']['userId'] ?>">
+
+            <input type="submit" value="Enregistrer">
+        </form>
+    </div>
+</div>

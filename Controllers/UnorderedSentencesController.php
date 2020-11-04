@@ -1,5 +1,6 @@
 <?php
 
+// gère la partie élève des exercices de phrases déstructurées
 class unorderedSentencesController extends Controller
 {
     public $sentences;
@@ -8,6 +9,13 @@ class unorderedSentencesController extends Controller
 
     public function __construct($target)
     {
+        $this->setConnectedUserFilter('userConnection');
+        $this->setTitle('Phrases déstructurées');
+        $this->setDescription('Exercices de phrases destructurées en italien');
+        $this->setScript('exerciseDisplay');
+        $this->setScript('unorderedSentences');
+        $this->setScript('formValidation');
+
         require('./models/ExercisesModel.php');
 
         $_SESSION['exercises'] = [];
@@ -25,13 +33,14 @@ class unorderedSentencesController extends Controller
 
     public function getExercise()
     {
+        // va chercher les exercices en base de donnée
         $sentences = new ExercisesModel();
         $sentences->setTableName('UnorderedSentences');
         $sentences->setNumberOfSentences(3);
-        $sentences->setQuery();
-        $pdoResult = $sentences->getSentences();
+        $sentences->setGetterQuery();
+        $pdoResult = $sentences->launchDBRequest();
 
-        $cleanExercises = exercisesCleaner($pdoResult);
+        $cleanExercises = decodeArray($pdoResult);
 
         $this->sentences = $cleanExercises;
 
@@ -40,6 +49,7 @@ class unorderedSentencesController extends Controller
 
     public function sentenceCutter()
     {
+        // coupe les phrases en mots et retourne une liste de mots.
         foreach ($this->sentences as $ex) {
             $sentence = explode(" ", $ex['sentence']);
 
@@ -53,7 +63,7 @@ class unorderedSentencesController extends Controller
     }
 
     public function sentenceRandomizer () {
-
+        // modifie l'ordre des mots affichés.
         foreach($this->cutSentences as $ex){
             shuffle($ex['sentence']);
 

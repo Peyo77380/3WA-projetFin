@@ -1,22 +1,130 @@
-<?php
-
-
-?>
-
-<?php if (isset($_SESSION['error'])) : ?>
+<?php if (isset($_SESSION['error']) && $_SESSION['error'] !== []) : ?>
     <div class="displayError">
         <?= $_SESSION['error'] ?>
     </div>
 <?php endif; ?>
+<div class="banner">
+    <h2>Votre profil</h2>
+</div>
+
+<div class="fullscreen profile textContainer">
+    <div class="row">
+
+        <div class="box">
+            <h4>Login</h4>
+            <div class="field"><?= $data[0]['username'] ?></div>
+            <form data-index="username" action="UserProfileUpdate" class="hidden" method="post">
+
+                <input type="text" name="newValue">
+                <input type="hidden" name="selectedField" value="username">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+                <input type="hidden" name="origin" value="userProfile">
+                <button><i class="fa fa-check"></i></button>
+            </form>
+            <button data-index="username"><i class="fa fa-pencil"></i></button>
+        </div>
+        <div class="box">
+            <h4>Email</h4>
+            <div class="field"><?= $data[0]['email'] ?></div>
+            <form data-index="email" action="UserProfileUpdate" class="hidden" method="post">
+                <input type="text" name="newValue">
+                <button><i class="fa fa-check"></i></button>
+                <input type="hidden" name="selectedField" value="email">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+                <input type="hidden" name="origin" value="userProfile">
+            </form>
+            <button data-index="email"><i class="fa fa-pencil"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="box">
+            <h4>Nom</h4>
+            <div class="field"><?= $data[0]['lastname'] ?></div>
+            <form action="UserProfileUpdate" class="hidden" method="post">
+                <input type="text" name="newValue">
+                <button><i class="fa fa-check"></i></button>
+                <input type="hidden" name="selectedField" value="lastname">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+                <input type="hidden" name="origin" value="userProfile">
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
+        </div>
+        <div class="box">
+            <h4>Prénom</h4>
+            <div class="field"><?= $data[0]['firstname'] ?></div>
+            <form action="UserProfileUpdate" class="hidden" method="post">
+                <input type="text" name="newValue">
+                <button><i class="fa fa-check"></i></button>
+                <input type="hidden" name="selectedField" value="firstname">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+                <input type="hidden" name="origin" value="userProfile">
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="box">
 
 
-<h2><?= $_SESSION['username'] ?></h2>
+            <h4>Pays</h4>
 
-Nom
-Prénom
+            <div class="field">
+                <?php if (isset($data[0]['country']['countryName'])): ?>
+                    <?= $data[0]['country']['countryName'] ?>
+                <?php else : ?>
+                    -
+                <?php endif; ?>
+            </div>
+
+            <form action="UserProfileUpdate" class="hidden" method="post">
+                <select name="newValue" id="country">
+                    <option value='-'>-</option>
+                    <?php foreach ($data['countries'] as $country) : ?>
+
+                        <option value="<?= $country['countryCode'] ?>"><?= $country['countryName'] ?></option>
+
+                    <?php endforeach; ?>
+
+                </select>
+
+                <button><i class="fa fa-check"></i></button>
+
+                <input type="hidden" name="selectedField" value="country">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+                <input type="hidden" name="origin" value="userProfile">
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
+        </div>
+        <div class="box">
+            <h4>Langue maternelle</h4>
+            <div class="field">
+                <?php if (isset($data[0]['motherlanguage']['languageName'])): ?>
+                    <?= $data[0]['motherlanguage']['languageName'] ?>
+                <?php else : ?>
+                    -
+                <?php endif; ?>
+            </div>
+            <form action="UserProfileUpdate" class="hidden" method="post">
+                <select name="newValue" id="motherlanguage">
+                    <option value='-'>-</option>
+                    <?php foreach ($data['languages'] as $languages) : ?>
+
+                        <option value="<?= $languages['languageCode'] ?>"><?= $languages['languageName'] ?></option>
+
+                    <?php endforeach; ?>
+                </select>
+                <button><i class="fa fa-check"></i></button>
+
+                <input type="hidden" name="selectedField" value="motherlanguage">
+                <input type="hidden" name="userId" value="<?= $_SESSION['connectedUser']['id'] ?>">
+                <input type="hidden" name="origin" value="userProfile">
+            </form>
+            <button><i class="fa fa-pencil"></i></button>
+
+        </div>
+    </div>
 
 
-Pays de résidence :
-Langue maternelle :
+</div>
 
-email
+</div>

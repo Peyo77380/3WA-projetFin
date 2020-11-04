@@ -27,26 +27,25 @@ class Router
 
         } catch (Exception $e) {
             // renvoie vers la vue de l'erreur 404 quand le controlleur et la vue demandés n'existent pas.
-            http_response_code(404);
-            require __DIR__ . '/Views/error/404.phtml';
+            $this->routeErrors($e);
+
 
         }
 
     }
 
 
-
     public function defineRequest()
     {
         // variable nécessaire car nous ne sommes pas à la racine du serveur.
         // elle est amenée à changer selon le serveur où les fichiers sont utilisés.
-        $serverName = '3WA-projetFin/';
+        //$serverName = '3WA-projetFin/';
 
-        $address = $_SERVER['REQUEST_URI'];
-        $needle = '';
+        //$address = $_SERVER['REQUEST_URI'];
+        //$needle = '';
         // retourne le chemin vers le dossier Root du serveur
-        $this->request = str_replace($serverName, $needle, $address);
-
+        //$this->request = str_replace($serverName, $needle, $address);
+        $this->request = $_SERVER['REQUEST_URI'];
 
     }
 
@@ -82,9 +81,79 @@ class Router
             }
 
         } catch (Exception $e) {
-            http_response_code(404);
-            require __DIR__ . '/Views/error/404.phtml';
+            $this->routeErrors($e);
 
         }
+    }
+
+    public function routeErrors($e)
+    {
+        // renvoie des erreurs et redirige vers les pages spécifiées en fonction du message des exceptions reçues.
+        $existingExceptionCase = TRUE;
+
+        $exception = json_decode($e->getMessage());
+        $exceptionMessage = "";
+
+        if ($exception !== NULL) {
+            $exceptionMessage = $exception->{'message'};
+
+        }
+
+
+        switch ($exceptionMessage) {
+            //
+            case "notAllowedAdminRights":
+                $_SESSION['error'] = 'Vous n\'avez pas les droits nécessaires pour visualiser cette page.';
+                break;
+
+            case "notAllowed":
+                $_SESSION['error'] = 'Vous devez vous connecter pour visualiser cette page.';
+                break;
+
+            case "noKnownUser" :
+                $_SESSION['error'] = "Aucun utilisateur n'est enregistré sous ce nom, réessayez.";
+                break;
+
+            case "notMatchingUserCredentials" :
+                $_SESSION['error'] = "Le nom d'utilisateur et le mot de passe fournis ne correspondent pas. Réessayez.";
+                break;
+
+            case "existingUsername":
+                $_SESSION['error'] = 'Ce nom d\'utilisateur existe déjà.';
+                break;
+
+            case "existingEmail" :
+                $_SESSION['error'] = 'Cet email est déjà lié à un compte.';
+                break;
+
+            case 'emptyFields' :
+                $message = 'Les champs suivants sont obligatoires : ';
+                $message .= implode(',', $exceptionMessage->{'emptyFields'});
+                $message .= ".";
+                $_SESSION['error'] = $message;
+                break;
+
+
+            case 'email' :
+                $_SESSION['error'] = 'L\'adresse email n\'est pas valide';
+                break;
+
+            case 'password' :
+                $_SESSION['error'] = 'Le mot de passe doit avoir au moins 8 caractères, dont une majuscule, une minuscule, un nombre.';
+                break;
+
+
+            default:
+                http_response_code(404);
+                $existingExceptionCase = FALSE;
+                include __DIR__ . "/Views/error/404.phtml";
+                break;
+        }
+        if ($existingExceptionCase == TRUE) {
+
+            header('Location: /' . $exception->{'origin'});
+            return;
+        }
+
     }
 }

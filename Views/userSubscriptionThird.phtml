@@ -1,0 +1,106 @@
+
+<div class="fullscreen">
+    <div class="textContainer">
+
+        <form action="userSubscriptionThirdSave" method="post">
+            <fieldset>
+                <legend>Quelle est votre langue maternelle?</legend>
+                <label for="motherLanguage">Langue maternelle</label>
+                <select id="motherLanguage" name="motherLanguage">
+                    <option value="-">-</option>
+                    <?php
+                    foreach ($data['languages'] as $language) {
+                        echo "<option value=" . $language['languageCode'] . ">" . $language['languageName'] . "</option>";
+                    }
+                    ?>
+                </select>
+            </fieldset>
+            <fieldset class="mainFieldset">
+                <legend>Quelle(s) autre(s) langue(s) parlez-vous?</legend>
+                <fieldset class="mainFieldset">
+                    <legend>Langue supplémentaire</legend>
+                    <fieldset>
+                        <label for="furtherLanguage1"></label>
+                        <select id="furtherLanguage1" name="furtherLanguage1">
+                            <option value="-">-</option>
+                            <?php
+                            foreach ($data['languages'] as $language) {
+                                echo "<option value=" . $language['languageCode'] . ">" . $language['languageName'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <input type="radio" name="furtherLanguage1Lvl" value="Beginner"
+                               id="furtherLanguage1LvlBeginner">
+                        <label for="furtherLanguage1LvlBeginner">Débutant</label>
+
+                        <input type="radio" name="furtherLanguage1Lvl" value="Average" id="furtherLanguage1LvlAverage">
+                        <label for="furtherLanguage1LvlAverage">Moyen</label>
+
+                        <input type="radio" name="furtherLanguage1Lvl" value="Fluent" id="furtherLanguage1LvlFluent">
+                        <label for="furtherLanguage1LvlFluent">Courant</label>
+                    </fieldset>
+                </fieldset>
+
+                <fieldset class="mainFieldset">
+                    <legend>Une autre?</legend>
+                    <fieldset>
+                        <label for="furtherLanguage2"></label>
+                        <select id="furtherLanguage2" name="furtherLanguage2">
+                            <option value="-">-</option>
+                            <?php
+                            foreach ($data['languages'] as $language) {
+                                echo "<option value=" . $language['languageCode'] . ">" . $language['languageName'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <input type="radio" name="furtherLanguage2Lvl" value="Beginner"
+                               id="furtherLanguage2LvlBeginner">
+                        <label for="furtherLanguage2LvlBeginner">Débutant</label>
+
+                        <input type="radio" name="furtherLanguage2Lvl" value="Average"
+                               id="furtherLanguage2LvlAverage">
+                        <label for="furtherLanguage2LvlAverage">Moyen</label>
+
+                        <input type="radio" name="furtherLanguage2Lvl" value="Fluent"
+                               id="furtherLanguage2LvlFluent">
+                        <label for="furtherLanguage2LvlFluent">Courant</label>
+
+                    </fieldset>
+                </fieldset>
+                <fieldset class="mainFieldset">
+                    <legend>Encore?</legend>
+                    <fieldset>
+                        <label for="furtherLanguage3"></label>
+                        <select id="furtherLanguage3" name="furtherLanguage3">
+                            <option value="-">-</option>
+                            <?php foreach ($data['languages'] as $language) {
+                                echo "<option value=" . $language['languageCode'] . ">" . $language['languageName'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <input type="radio" name="furtherLanguage3Lvl" value="Beginner"
+                               id="furtherLanguage3LvlBeginner">
+                        <label for="furtherLanguage3LvlBeginner">Débutant</label>
+
+                        <input type="radio" name="furtherLanguage3Lvl" value="Average"
+                               id="furtherLanguage3LvlAverage">
+                        <label for="furtherLanguage3LvlAverage">Moyen</label>
+
+                        <input type="radio" name="furtherLanguage3Lvl" value="Fluent"
+                               id="furtherLanguage3LvlFluent">
+                        <label for="furtherLanguage3LvlFluent">Courant</label>
+                    </fieldset>
+                </fieldset>
+            </fieldset>
+            <input type="hidden" name="userId" value="<?= $_SESSION['user']['userId'] ?>">
+
+            <input type="submit" value="Enregistrer">
+        </form>
+    </div>
+</div>

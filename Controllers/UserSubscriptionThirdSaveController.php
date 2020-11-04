@@ -1,21 +1,15 @@
 <?php
 
-
-/*
- *
- * 3e etape
- * langue maternelle
- * langues connues et niveau
- * UPDATE `users` SET `motherlanguage` = 'test', `knowlanguages` = 'test' WHERE `users`.`id` = xx
- *
- */
-
-class UserSubscriptionLastController extends Controller
+// gère la réception du formulaire d'inscrption 3/3
+class UserSubscriptionThirdSaveController extends Controller
 {
-    public $knowLanguages;
+    public $knownLanguages;
 
     public function __construct($target, $data = [])
     {
+        $this->setTitle('Inscription');
+        $this->setDescription('Page d\'inscription pour un nouvel utilisateur');
+
         $this->recievePostForm();
         $this->setKnownLanguages();
         $this->updateDatabase();
@@ -24,7 +18,8 @@ class UserSubscriptionLastController extends Controller
 
     public function setKnownLanguages()
     {
-
+        // formatte la réponse du formulaire concernant les langues connues et le niveau de chacune des langues
+        // renvoie une string contenant chacune des valeurs
         $this->knownLanguages = '';
 
         if ($this->postResult['furtherLanguage1']) {
@@ -52,22 +47,19 @@ class UserSubscriptionLastController extends Controller
     }
 
 
+
     public function updateDatabase()
     {
 
-        require_once('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
+        $this->postResult['userId'] = (int)$this->postResult['userId'];
 
-        $data = new Database();
-        $sql = "UPDATE `users` SET `motherlanguage` = ?, `knownlanguages` = ? WHERE `users`.`id` = ?";
+        require_once('./models/UsersModel.php');
+        $data = new UsersModel();
+        $data->saveNewUserQueryThirdStep();
+        $data->saveNewUserParameterThirdStep($this->postResult['motherLanguage'], $this->knownLanguages, (int)$this->postResult['userId']);
+        $data->updateDB();
 
 
-        $params = [
-            $this->postResult['motherLanguage'],
-            $this->knownLanguages,
-            $this->postResult['userId']
-        ];
-
-        $save = $data->update($sql, $params);
     }
 }
 

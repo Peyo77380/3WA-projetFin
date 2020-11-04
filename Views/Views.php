@@ -4,19 +4,19 @@ class Views
 {
     public $template;
 
+
     public function __constructor($request)
     {
 
 
     }
 
-    public function createTemplate($request, $data)
+    public function createTemplate($request, $data, $meta)
     {
-        //crée la vue en associant les éléments nécessaires.
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/3WA-projetFin/Views/layout.phtml');
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/3WA-projetFin/Views' . $request . '.phtml');
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/3WA-projetFin/Views/footer.php');
 
+        //crée la vue en associant les éléments nécessaires.
+        $RequestedView = $_SERVER['DOCUMENT_ROOT'] . '/Views' . $request . '.phtml';
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/Views/layout.phtml');
 
     }
 }

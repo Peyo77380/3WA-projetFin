@@ -32,9 +32,9 @@ class Database
         }
     }
 
-    public function sendQuery($sql, array $params)
+    public function sendQuery($sql, array $params = [])
     {
-
+        // envoie une requete avec un fetch all, et en tenant compte des différents paramètres mis en place
         $query = $this->pdo->prepare($sql);
         if ($params) {
             foreach ($params as $param) {
@@ -51,30 +51,56 @@ class Database
 
     public function getSingleData ($sql, $params)
     {
+        // envoie une requete avec un fetch , et en tenant compte des différents paramètres mis en place
         $query = $this->pdo->prepare($sql);
+        if ($params) {
+            foreach ($params as $param) {
+                $query->bindParam($param['variableName'], $param['variableValue'], $param['PDOparam']);
 
-        $query->execute($params);
+            }
+        }
+        $query->execute();
 
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
     public function update ($sql, $params)
     {
+        // envoie une requete d'update, et en tenant compte des différents paramètres mis en place
+        try {
 
-        $query = $this->pdo->prepare($sql);
+
+            $query = $this->pdo->prepare($sql);
+
+            if ($params) {
+                foreach ($params as $param) {
+                    $query->bindParam($param['variableName'], $param['variableValue'], $param['PDOparam']);
+
+                }
+            }
 
 
-
-        $query->execute($params);
+            $query->execute();
+        } catch (PDOException $e) {
+            throw new Exception ($e);
+        }
 
 
     }
 
     public function saveToDb ($sql, $params)
     {
+        // envoie une requete d'insertion, et en tenant compte des
+        // différents paramètres mis en place et retourne l'index de celle ci
         $query = $this->pdo->prepare($sql);
+        if ($params) {
+            foreach ($params as $param) {
+                $query->bindParam($param['variableName'], $param['variableValue'], $param['PDOparam']);
 
-        $query->execute($params);
+            }
+        }
+
+        $query->execute();
 
         $id = $this->pdo->lastInsertId();
 

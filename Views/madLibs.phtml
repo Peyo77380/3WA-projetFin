@@ -1,18 +1,21 @@
-<?php
-
-?>
-
-
-<div class="wrapper">
+<div class="banner">
+    <h2>Textes à trous</h2>
+</div>
+<div class="fullscreen madLibs">
+    <section class="rule">
+        <p>Complétez les phrases avec les mots proposés.</p>
+    </section>
 
     <form class="exercise" action="madLibsResult" method="post">
 
         <?php foreach ($data as $exercise) : ?>
             <fieldset class="exercise_question">
-                <div class="words gameButton">
+                <div class="exercise_answerElements">
+
                     <?php foreach ($exercise['fillingWords'] as $word) : ?>
                         <div class="word gameButton"><?= $word ?></div>
                     <?php endforeach; ?>
+
                 </div>
                 <div class="wording">
                     <?php foreach ($exercise['wording'] as $wording) : ?>
@@ -28,9 +31,5 @@
         <input type="submit" value="Valider">
     </form>
 </div>
-
-<script type="text/javascript" src="./assets/js/madLibs.js"></script>
-<script type="text/javascript" src="./assets/js/exerciseDisplay.js"></script>
-<script type="text/javascript" src="./assets/js/formValidation.js"></script>
 
 

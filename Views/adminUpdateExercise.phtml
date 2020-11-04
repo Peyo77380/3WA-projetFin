@@ -1,0 +1,10 @@
+<div class="fullscreen admin">
+    <form action="adminUpdateExerciseSave" method="post">
+        <label for="sentence">Nouvel énoncé</label>
+        <textarea name="sentence" id="sentence"><?= $data['exerciseContent'] ?></textarea>
+        <input type="hidden" name="exerciseName" value="<?= $data['exerciseName'] ?>">
+        <input type="hidden" name="exerciseId" value="<?= $data['exerciseId'] ?>">
+
+        <input type="submit" id="submitButton" value="Sauvegarder">
+    </form>
+</div>

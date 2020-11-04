@@ -1,6 +1,6 @@
 <?php
 
-
+// gère la partie élève des textes à trous
 class MadLibsController extends Controller
 {
     // texte complet, y compris les mots des trous, indiqués entre **
@@ -16,7 +16,16 @@ class MadLibsController extends Controller
 
     public function __construct($target)
 
+
     {
+        $this->setConnectedUserFilter('userConnection');
+        $this->setTitle('Texte à trous');
+        $this->setDescription('Exercices de textes à trous en italien');
+        $this->setScript('madLibs');
+        $this->setScript('exerciseDisplay');
+        $this->setScript('formValidation');
+
+
         require('./models/ExercisesModel.php');
         $_SESSION['exercises'] = [];
 
@@ -31,13 +40,14 @@ class MadLibsController extends Controller
 
     public function getExercise()
     {
+        // va chercher les exercices en base de donnée
         $sentences = new ExercisesModel();
         $sentences->setTableName('MadLibs');
         $sentences->setNumberOfSentences(3);
-        $sentences->setQuery();
-        $pdoResult = $sentences->getSentences();
+        $sentences->setGetterQuery();
+        $pdoResult = $sentences->launchDBRequest();
 
-        $cleanExercises = exercisesCleaner($pdoResult);
+        $cleanExercises = decodeArray($pdoResult);
 
         $this->madLibsText = $cleanExercises;
 
@@ -46,17 +56,18 @@ class MadLibsController extends Controller
 
     public function setGapsAndWords()
     {
-
+        // chaque exercice est mis en forme au moment de son enregistrement :
+        // les mots destinés à être des trous dans l'affichage de l'exercie pour l'élève sont entourées de **
         foreach ($this->madLibsText as $exercise) {
+            // les mots sont séparés au niveau des **
             $text = explode('**', $exercise['sentence']);
 
-
+            // listes qui seront l'énoncé et les différents mots proposés.
             $content = [];
             $words = [];
 
+            // les mots sont triés selon leur nature.
             for ($i = 0; $i < count($text); $i++) {
-
-
                 if ($i % 2 == 0) {
                     $content[] = $text[$i];
                 } else {
@@ -64,6 +75,9 @@ class MadLibsController extends Controller
                 }
             }
 
+            // les mots et l'énoncé sont stockés pour servir plus tard
+            // dans la vue ($this->madLibsExercise[$exercise['exerciseId']])
+            // et dans la correction. ($_SESSION)
             $this->madLibsExercise[$exercise['exerciseId']] = $content;
             $_SESSION['exercises']['exercise'][$exercise['exerciseId']] = $content;
             $_SESSION['exercises']['words'][$exercise['exerciseId']] = $words;
@@ -74,8 +88,8 @@ class MadLibsController extends Controller
 
     public function prepareForms()
     {
+        // prépare les inputs nécessaires pour l'affichage de l'exercice.
         foreach ($this->madLibsText as $exercise) {
-
             $id = $exercise['exerciseId'];
             $answerField = [];
 
@@ -91,12 +105,11 @@ class MadLibsController extends Controller
                 }
             }
 
+            // mélange les mots disponibles
             $fillingWords = $this->madLibsWords[$id];
             shuffle($fillingWords);
 
             $this->display[$id]['fillingWords'] = ($fillingWords);
-
-
         }
 
 

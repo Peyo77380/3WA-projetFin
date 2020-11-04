@@ -1,5 +1,7 @@
 <?php
-require('./tools/database.php');
+
+//gère les actions en DB concernant les exercices.
+require_once('./tools/database.php');
 
 class ExercisesModel
 {
@@ -9,7 +11,9 @@ class ExercisesModel
     private $params = [];
     private $tableName;
 
-    public function getSentences()
+
+    //lance la requete prévue par les différentes fonctions
+    public function launchDBRequest()
     {
 
         $this->data = new Database();
@@ -20,13 +24,20 @@ class ExercisesModel
 
     }
 
-    public function setQuery()
+
+    /**********************************/
+    /**********************************/
+    /* différentes requetes possibles */
+    /**********************************/
+    /**********************************/
+
+
+    public function setGetterQuery()
     {
         $this->query = "SELECT * FROM " . $this->tableName;
 
         if ($this->params == []) {
             return;
-
         }
 
         foreach ($this->params as $definedParameter) {
@@ -42,24 +53,52 @@ class ExercisesModel
 
     }
 
+    public function setSaveQuery()
+    {
+        $this->query = "INSERT INTO $this->tableName (`exerciseId`, `sentence`) VALUES (NULL, :newExercise)";
+    }
+
+    public function setDeleteQuery()
+    {
+        $this->query = "DELETE FROM $this->tableName WHERE $this->tableName.`exerciseId` = :exerciseId";
+    }
+
+    public function setUpdateExerciseQuery()
+    {
+        $this->query = "UPDATE " . $this->tableName . " SET `sentence` = :newExercise WHERE " . $this->tableName . ".`exerciseId` = :exerciseId ";
+    }
+
+
+
+    /**********************************/
+    /**********************************/
+    /* différentes parametres possibles */
+    /**********************************/
+    /**********************************/
+
+    public function setTableName(string $table)
+    {
+        $this->tableName = $table;
+
+    }
+
     public function setId(int $exerciseId)
     {
         $this->params[] = ['variableName' => ':exerciseId', 'variableValue' => $exerciseId, 'PDOparam' => PDO::PARAM_INT];
 
-        return $this->params;
     }
 
     public function setNumberOfSentences(int $nbOfSentences)
     {
         $this->params[] = ['variableName' => ':nbOfSentences', 'variableValue' => $nbOfSentences, 'PDOparam' => PDO::PARAM_INT];
 
-        return $this->params;
     }
 
-    public function setTableName($table)
+    public function setNewExercise(string $newExercise)
     {
-        $this->tableName = $table;
+        $this->params[] = ['variableName' => ':newExercise', 'variableValue' => $newExercise, 'PDOparam' => PDO::PARAM_STR];
 
     }
+
 
 }

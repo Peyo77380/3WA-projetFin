@@ -1,50 +1,56 @@
 <?php
 
-//require('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
-//require('/Applications/MAMP/htdocs/3WA-projetFin/tools/utilities.php');
-
-
+// gère les réponses du formulaire de correction.
 class UserConnectionModuleController extends Controller
 {
     public $userData;
 
     public function __construct($target)
     {
-        parent::recievePostForm();
-        $this->searchExistingUser();
+        $this->setTitle('Confirmation de connection');
+        $this->setDescription('Confirmation de connection d\un utilisateur connu');
+        $this->recievePostForm();
+        $this->searchExistingUser('userConnection');
 
         parent::__construct($target, $this->userData);
 
     }
 
-    public function searchExistingUser()
+    public function searchExistingUser($origin)
     {
-        require('/Applications/MAMP/htdocs/3WA-projetFin/tools/database.php');
-        $data = new Database();
+        //cherche si l'utilisateur existe déjà en DB par son login ou par son mail
+        // s'il existe : ses infos sont stockées en session
+        // sinon une exception est renvoyée pour une redirection avec message d'erreur
+        require_once('./models/UsersModel.php');
 
-        $sql = "SELECT * FROM `users` WHERE `users`.`username` = ?";
-        $params = [$this->postResult['username']];
-
-        $user = $data->getSingleData($sql, $params);
+        $data = new UsersModel();
+        $data->setGetSingleUserQueryByUsername();
+        $data->setUsername($this->postResult['username']);
+        $user = $data->launchDBSingleRequest();
 
         if ($user == FALSE) {
-            $_SESSION['error'] = "Aucun utilisateur n'est enregistré sous ce nom, réessayez.";
-            header('Location: ../userConnection.phtml');
-            return;
-        }
-        if ($this->postResult['password'] !== $user['password']) {
-            $_SESSION['error'] = "Le nom d'utilisateur et le mot de passe fournis ne correspondent pas. Réessayez.";
-            header('Location: ../userConnection.phtml');
-            return;
+            throw new Exception(json_encode(
+                [
+                    'message' => 'noKnownUser',
+                    'origin' => $origin,
+                ]));
+
         }
 
-        if ($this->postResult['password'] == $user['password']) {
-            $this->userData = $user;
-            $_SESSION['connectedUser'] = $user;
-            $_SESSION['error'] = NULL;
+        if (password_verify($this->postResult['password'], $user['password']) !== true) {
+            throw new Exception(json_encode(
+                [
+                    'message' => 'notMatchingUserCredentials',
+                    'origin' => $origin,
+                ]));
+
         }
 
-        // header('Location: /index');
+        $this->userData = $user;
+        $_SESSION['connectedUser'] = $user;
+        $_SESSION['error'] = NULL;
+
+
     }
 
 
