@@ -4,14 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let display = new ExerciseDisplay();
 });
 
-
+// permet l'affichage de chaque question d'un exercice, au lieu de toutes les questions d'un coup,
+// sans avoir besoin de soumettre un formulaire entre chaque question.
 class ExerciseDisplay {
 
 
     constructor() {
+        //récupère les différentes questions dans le html
         this._exerciseQuestions = document.querySelectorAll('fieldset.exercise_question');
-        this._navigationControl = document.createElement('div');
-        document.querySelector('.wrapper').appendChild(this._navigationControl);
+        this.wrapper = document.querySelector('.fullscreen');
 
         this.setNavigationButtons();
         this.hideSubmit();
@@ -22,7 +23,9 @@ class ExerciseDisplay {
     }
 
     setNavigationButtons() {
-        //ajouter boutons navigation
+        //ajouter boutons navigation dans une zone dédiée.
+        this._navigationControl = document.createElement('div');
+
         let previousButton = document.createElement('button');
         previousButton.value = 'previous';
         previousButton.innerHTML = 'Précédent';
@@ -37,6 +40,8 @@ class ExerciseDisplay {
 
         this._navigationControl.appendChild(previousButton);
         this._navigationControl.appendChild(nextButton);
+
+        this.wrapper.appendChild(this._navigationControl);
     }
 
     hideSubmit() {
@@ -54,13 +59,13 @@ class ExerciseDisplay {
     }
 
     displayQuestion(index) {
-        this._exerciseQuestions[index].classList.remove('exercise_question-hidden');
+        this._exerciseQuestions[index].classList.remove('hidden');
     }
 
     hideQuestions() {
         //rendre les questions invisibles sauf la premiere
         for (let question of this._exerciseQuestions) {
-            question.classList.add('exercise_question-hidden');
+            question.classList.add('hidden');
         }
     }
 

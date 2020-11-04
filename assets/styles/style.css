@@ -579,7 +579,7 @@ table tr:nth-of-type(odd) {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 

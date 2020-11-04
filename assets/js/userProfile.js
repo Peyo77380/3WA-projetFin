@@ -2,10 +2,10 @@
 
 document.addEventListener('DOMContentLoaded', init);
 
-
+// permet l'affichage du profil utilisateur et sa modification en directement dans l'affichage "principale"
+// au lieu de passer sur les controlleurs spécifiques et leurs vues.
 class userProfileDisplay {
     constructor() {
-        //<button><i class="fa fa-pencil"></i></button>
 
         this.modifyButtons = [];
         document.querySelectorAll('.fa-pencil').forEach(button => {
@@ -21,7 +21,8 @@ class userProfileDisplay {
     }
 
     toggleForms() {
-        console.log(this);
+        // au clic sur le crayon pour la modification, un formulaire apparait,
+        // contenant les infos déjà en place et laissant un champ pour la modification.
         let button = this;
         let icon = button.querySelector('i');
         let form = this.previousElementSibling;

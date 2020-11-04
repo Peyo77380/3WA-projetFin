@@ -66,10 +66,7 @@ function saveEveryChanges() {
 
             ajaxRequest.open('POST', 'AdminUpdateExerciseSave');
             ajaxRequest.send(formData);
-
-
         }
-
         localStorage.removeItem('UnorderedSentencesExerciseChanges');
     }
 
@@ -166,7 +163,6 @@ function updateSelectedField(e) {
         'originalSentence': originalSentence
     };
 
-
     // stocke l'objet en JSON dans le local storage dans une liste dédiée aux changement (différent des suppressions)
     // si cette liste n'existe pas déjà dans le local storage, elle est créée, sinon, l'objet est rajouté dans la version existante.
     if (!localStorage.getItem('UnorderedSentencesExerciseChanges')) {
@@ -246,7 +242,6 @@ function refreshFromLocalStorage() {
                 }
             }
         }
-
     }
 }
 
