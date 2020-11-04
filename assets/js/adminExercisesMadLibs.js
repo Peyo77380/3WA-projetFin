@@ -1,15 +1,17 @@
 'use strict';
 
+
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('script général');
-    eventListenerS;
-    etter();
+    localStorage.removeItem('exerciseChanges');
+    localStorage.removeItem('exerciseDelete');
+    localStorage.removeItem('actionHistory');
+    setEventListeners();
     setControls();
-    refreshFromLocalStorage();
+    refreshMadLIbsFromLocalStorage();
 });
 
-
 function setControls() {
+    console.log('setControls');
     //crée les controles visibles seulement en JS
     const table = document.querySelector('table');
     const div = document.createElement('div');
@@ -44,7 +46,7 @@ function saveEveryChanges() {
 
             let ajaxRequest = new XMLHttpRequest();
 
-            ajaxRequest.open('POST', '../Controllers/AdminDeleteExerciseController.php');
+            ajaxRequest.open('POST', 'AdminDeleteExercise');
 
             ajaxRequest.send(formData);
 
@@ -68,7 +70,7 @@ function saveEveryChanges() {
             let formData = new FormData();
 
             formData.append('exerciseName', el.exerciseName);
-            formData.append('exerciseContent', el.sentence);
+            formData.append('sentence', el.sentence);
             formData.append('exerciseId', el.exerciseId);
 
             let ajaxRequest = new XMLHttpRequest();
@@ -84,28 +86,6 @@ function saveEveryChanges() {
     }
 
 
-}
-
-
-function eventListenerSetter() {
-    console.log('coucou');
-
-    let updaterForms = document.querySelectorAll('form[action = "adminUpdateExercise"]');
-    //rajouter bouton pr sauvegarder les changements
-
-
-    updaterForms.forEach(form => {
-        form.addEventListener('submit', setUpdateFormSelectedField);
-    });
-
-    let deleterForms = document.querySelectorAll('form[action = "adminDeleteExercise"]');
-
-    //rajouter bouton pr sauvegarder les changements
-
-
-    deleterForms.forEach(form => {
-        form.addEventListener('submit', deleteSelectedField);
-    });
 }
 
 function setUpdateFormSelectedField(e) {
@@ -126,7 +106,9 @@ function setUpdateFormSelectedField(e) {
     temporaryForm.action = 'adminUpdateExerciseSave';
     temporaryForm.method = 'post';
 
-    let temporaryInput = document.createElement('input');
+    let temporaryInput = document.createElement('textarea');
+    temporaryInput.cols = "100";
+    temporaryInput.rows = "5";
     temporaryInput.value = sentenceText;
     temporaryInput.name = 'exerciseContent';
 
@@ -145,8 +127,10 @@ function setUpdateFormSelectedField(e) {
     temporaryName.value = exerciseName;
     temporaryName.name = 'exerciseName';
 
-    let submitButton = document.createElement('button');
-    submitButton.innerHTML = "Valider";
+    let submitButton = document.createElement('input');
+    submitButton.type = 'submit';
+    submitButton.value = "Valider";
+
 
     sentenceCell.innerHTML = "";
     sentenceCell.appendChild(temporaryForm);
@@ -161,11 +145,14 @@ function setUpdateFormSelectedField(e) {
 
 function updateSelectedField(e) {
     e.preventDefault();
-
-    let newValue = this.querySelector('input[name="exerciseContent"]').value;
+    console.log('update');
+    let targetForm = this;
+    let newValue = targetForm.querySelector('textarea[name="exerciseContent"]').value;
     let id = this.querySelector('input[name="exerciseId"]').value;
     let name = this.querySelector('input[name="exerciseName"]').value;
     let originalSentence = this.querySelector('input[name="originalSentence"]').value;
+
+    this.parentElement.innerHTML = newValue;
 
     let changes = {
         'exerciseName': name,
@@ -174,22 +161,21 @@ function updateSelectedField(e) {
         'originalSentence': originalSentence,
     };
 
+    // stocke l'objet en JSON dans le local storage dans une liste dédiée aux changement (différent des suppressions)
+    // si cette liste n'existe pas déjà dans le local storage, elle est créée, sinon, l'objet est rajouté dans la version existante.
     if (!localStorage.getItem('exerciseChanges')) {
-        localStorage.setItem('exerciseChanges', JSON.stringify(changes));
-
+        localStorage.setItem('exerciseChanges', JSON.stringify([changes]));
     } else {
         let existingChanges = JSON.parse(localStorage.getItem('exerciseChanges'));
-
         existingChanges.push(changes);
-
         localStorage.setItem('exerciseChanges', JSON.stringify(existingChanges));
 
     }
 
-
+    // permet de stocker le type de la dernière action pour l'historique des actions (annulation)
     updateActionHistory('changes');
-
-    refreshFromLocalStorage();
+    //affichage des changements en fonction du local storage
+    refreshMadLIbsFromLocalStorage();
 }
 
 
@@ -205,27 +191,29 @@ function deleteSelectedField(e) {
     };
 
     if (!localStorage.getItem('exerciseDelete')) {
-        localStorage.setItem('exerciseDelete', JSON.stringify(toDelete));
+        localStorage.setItem('exerciseDelete', JSON.stringify([toDelete]));
 
     } else {
         let existingDelete = JSON.parse(localStorage.getItem('exerciseDelete'));
-
+        console.log(existingDelete);
         existingDelete.push(toDelete);
-
+        console.log(existingDelete);
         localStorage.setItem('exerciseDelete', JSON.stringify(existingDelete));
 
     }
 
     updateActionHistory('delete');
 
-    refreshFromLocalStorage();
+    refreshMadLIbsFromLocalStorage();
 }
 
 
-function refreshFromLocalStorage() {
+function refreshMadLIbsFromLocalStorage() {
     let deletionList = JSON.parse(localStorage.getItem('exerciseDelete'));
     let changeList = JSON.parse(localStorage.getItem('exerciseChanges'));
-
+    console.log('refresh');
+    console.log('deletion');
+    console.log(deletionList);
     let idCells = document.querySelectorAll('.exerciseId');
 
     for (let cell of idCells) {
@@ -234,6 +222,7 @@ function refreshFromLocalStorage() {
             for (let el of deletionList) {
                 if (cell.innerHTML == el.exerciseId) {
                     cell.parentElement.style.display = "none";
+                    console.log(cell.parentElement);
                 }
             }
         }
@@ -307,11 +296,26 @@ function cancelLastAction() {
         deleteList.pop();
         history.pop();
         localStorage.setItem('exerciseDelete', JSON.stringify(deleteList));
-        refreshFromLocalStorage();
+        refreshMadLIbsFromLocalStorage();
 
     }
     localStorage.setItem('actionHistory', JSON.stringify(history));
 
 
 }
+
+function setEventListeners() {
+    //rajouter bouton pr sauvegarder les changements
+    let updaterForms = document.querySelectorAll('form[action = "adminUpdateExercise"]');
+    updaterForms.forEach(form => {
+        form.addEventListener('submit', setUpdateFormSelectedField);
+    });
+    //rajouter bouton pr sauvegarder les changements
+    let deleterForms = document.querySelectorAll('form[action = "adminDeleteExercise"]');
+    deleterForms.forEach(form => {
+        form.addEventListener('submit', deleteSelectedField);
+    });
+}
+
+
 

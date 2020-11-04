@@ -5,8 +5,6 @@ function eventListenerSetter() {
     let form = document.querySelector('form[action="adminAddExercise"]');
     let newTextArea = form.querySelector('textarea');
 
-    let submitButton = document.getElementById('submitButton');
-
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       formatForSaving();
@@ -139,54 +137,55 @@ function formatForSaving () {
 
     console.log(JSON.parse(localStorage.getItem('fillingWords')));
 
+
     if (JSON.parse(localStorage.getItem('fillingWords')) === null || JSON.parse(localStorage.getItem('fillingWords')) === undefined) {
-        alert('NEIN');
-        return;
-    }
+        formatedText = remainingText;
+    } else {
 
 
-    let fillingWords = JSON.parse(localStorage.getItem('fillingWords'));
+        let fillingWords = JSON.parse(localStorage.getItem('fillingWords'));
 
 
-    if(fillingWords.length > 1){
+        if (fillingWords.length > 1) {
 
-        fillingWords.sort((a,b) => a.indexBeginning-b.indexBeginning);
-    }
-    for (let word of fillingWords){
-
-
-        word.word = "**" + word.word + "**";
-
-    }
-    remainingText = remainingText.split("*");
-
-    for (let i =0; i<remainingText.length; i++){
-        if(remainingText[i] === "" && remainingText[i] === remainingText[i-1]){
+            fillingWords.sort((a, b) => a.indexBeginning - b.indexBeginning);
+        }
+        for (let word of fillingWords) {
 
 
-        } else {
-            piecesOfText.push(remainingText[i]);
+            word.word = "**" + word.word + "**";
+
+        }
+        remainingText = remainingText.split("*");
+
+        for (let i = 0; i < remainingText.length; i++) {
+            if (remainingText[i] === "" && remainingText[i] === remainingText[i - 1]) {
+
+
+            } else {
+                piecesOfText.push(remainingText[i]);
+            }
+
         }
 
-    }
+        let fillingWordsCounter = 0;
+        for (let i = 0; i < piecesOfText.length; i++) {
+            if (piecesOfText[i] === "") {
+                formatedText.push(fillingWords[fillingWordsCounter].word);
+                fillingWordsCounter++;
 
-    let fillingWordsCounter = 0;
-    for (let i =0; i<piecesOfText.length; i++){
-        if(piecesOfText[i] === ""){
-            formatedText.push(fillingWords[fillingWordsCounter].word);
-            fillingWordsCounter ++;
+            } else {
+                formatedText.push(piecesOfText[i]);
+            }
 
-        } else {
-            formatedText.push(piecesOfText[i]);
         }
 
+        formatedText = formatedText.join('');
     }
-
-    console.log(formatedText);
 
     let exercise = {
         exerciseName: 'madLibs',
-        exerciseContent: formatedText.join(''),
+        exerciseContent: formatedText,
     };
 
     localStorage.setItem('formatedExercise', JSON.stringify(exercise));
@@ -211,7 +210,7 @@ function sendToDB () {
     let ajaxRequest = new XMLHttpRequest();
 
 
-    ajaxRequest.open('POST', '../3WA-projetFin/Controllers/AdminAddExerciseController.php');
+    ajaxRequest.open('POST', 'AdminAddExercise');
     let id = ajaxRequest.send(formData);
 
     console.log(id);

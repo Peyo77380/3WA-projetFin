@@ -3,7 +3,9 @@
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
-
+    localStorage.removeItem('exerciseChanges');
+    localStorage.removeItem('exerciseDelete');
+    localStorage.removeItem('actionHistory');
     eventListenerSetter();
     setControls();
     refreshFromLocalStorage();

@@ -643,7 +643,7 @@ form[action=adminAddExercise] input[type=text] {
     margin: 2rem auto;
 }
 
-form[action=AdminUpdateExerciseSave] input[name=exerciseContent] {
+form[action=adminUpdateExerciseSave] input[name=exerciseContent], form[action=adminUpdateExerciseSave] textarea {
     width: 80%;
 }
 
