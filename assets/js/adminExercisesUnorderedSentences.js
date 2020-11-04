@@ -3,9 +3,7 @@
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
-    localStorage.removeItem('exerciseChanges');
-    localStorage.removeItem('exerciseDelete');
-    localStorage.removeItem('actionHistory');
+
     eventListenerSetter();
     setControls();
     refreshFromLocalStorage();
@@ -33,8 +31,8 @@ function setControls() {
 // sauvegarde toutes les actions stockées dans le localStorage
 function saveEveryChanges() {
 
-    let deletionList = JSON.parse(localStorage.getItem('exerciseDelete'));
-    let changeList = JSON.parse(localStorage.getItem('exerciseChanges'));
+    let deletionList = JSON.parse(localStorage.getItem('UnorderedSentencesExerciseDelete'));
+    let changeList = JSON.parse(localStorage.getItem('UnorderedSentencesExerciseChanges'));
 
     //gère les suppressions dans le localStorage
     if (deletionList) {
@@ -49,7 +47,7 @@ function saveEveryChanges() {
             ajaxRequest.open('POST', 'AdminDeleteExercise');
             ajaxRequest.send(formData);
 
-            localStorage.removeItem('exerciseDelete');
+            localStorage.removeItem('UnorderedSentencesExerciseDelete');
 
         }
 
@@ -72,11 +70,11 @@ function saveEveryChanges() {
 
         }
 
-        localStorage.removeItem('exerciseChanges');
+        localStorage.removeItem('UnorderedSentencesExerciseChanges');
     }
 
 
-    localStorage.removeItem('actionHistory');
+    localStorage.removeItem('UnorderedSentencesActionHistory');
 }
 
 
@@ -171,12 +169,12 @@ function updateSelectedField(e) {
 
     // stocke l'objet en JSON dans le local storage dans une liste dédiée aux changement (différent des suppressions)
     // si cette liste n'existe pas déjà dans le local storage, elle est créée, sinon, l'objet est rajouté dans la version existante.
-    if (!localStorage.getItem('exerciseChanges')) {
-        localStorage.setItem('exerciseChanges', JSON.stringify([changes]));
+    if (!localStorage.getItem('UnorderedSentencesExerciseChanges')) {
+        localStorage.setItem('UnorderedSentencesExerciseChanges', JSON.stringify([changes]));
     } else {
-        let existingChanges = JSON.parse(localStorage.getItem('exerciseChanges'));
+        let existingChanges = JSON.parse(localStorage.getItem('UnorderedSentencesExerciseChanges'));
         existingChanges.push(changes);
-        localStorage.setItem('exerciseChanges', JSON.stringify(existingChanges));
+        localStorage.setItem('UnorderedSentencesExerciseChanges', JSON.stringify(existingChanges));
 
     }
 
@@ -202,12 +200,12 @@ function deleteSelectedField(e) {
 
     // stocke l'objet en JSON dans le local storage dans une liste dédiée aux suppressions (différent des updates)
     // si cette liste n'existe pas déjà dans le local storage, elle est créée, sinon, l'objet est rajouté dans la version existante.
-    if (!localStorage.getItem('exerciseDelete')) {
-        localStorage.setItem('exerciseDelete', JSON.stringify([toDelete]));
+    if (!localStorage.getItem('UnorderedSentencesExerciseDelete')) {
+        localStorage.setItem('UnorderedSentencesExerciseDelete', JSON.stringify([toDelete]));
     } else {
-        let existingDelete = JSON.parse(localStorage.getItem('exerciseDelete'));
+        let existingDelete = JSON.parse(localStorage.getItem('UnorderedSentencesExerciseDelete'));
         existingDelete.push(toDelete);
-        localStorage.setItem('exerciseDelete', JSON.stringify(existingDelete));
+        localStorage.setItem('UnorderedSentencesExerciseDelete', JSON.stringify(existingDelete));
     }
 
     // permet de stocker le type de la dernière action pour l'historique des actions (annulation)
@@ -220,8 +218,8 @@ function deleteSelectedField(e) {
 function refreshFromLocalStorage() {
     // récupère les infos concernant les exercices à supprimer ou à modifier dans le local storage
     // (objets préparés par deleteSelectedField et updateSelectedField)
-    let deletionList = JSON.parse(localStorage.getItem('exerciseDelete'));
-    let changeList = JSON.parse(localStorage.getItem('exerciseChanges'));
+    let deletionList = JSON.parse(localStorage.getItem('UnorderedSentencesExerciseDelete'));
+    let changeList = JSON.parse(localStorage.getItem('UnorderedSentencesExerciseChanges'));
 
     // crée la liste des id affichés dans le HTML AVANT modification
     let idCells = document.querySelectorAll('.exerciseId');
@@ -259,14 +257,14 @@ function updateActionHistory(actionType) {
 
     // si le localStorage ne contient pas l'item actionHistory, il est créé,
     // sinon la nouvelle valeur est rajoutée à la fin de l'item existant, en JSON
-    if (!localStorage.getItem('actionHistory')) {
-        localStorage.setItem('actionHistory', JSON.stringify([actionType]));
+    if (!localStorage.getItem('UnorderedSentencesActionHistory')) {
+        localStorage.setItem('UnorderedSentencesActionHistory', JSON.stringify([actionType]));
     } else {
-        let existingHistory = JSON.parse(localStorage.getItem('actionHistory'));
+        let existingHistory = JSON.parse(localStorage.getItem('UnorderedSentencesActionHistory'));
 
         existingHistory.push(actionType);
 
-        localStorage.setItem('actionHistory', JSON.stringify(existingHistory));
+        localStorage.setItem('UnorderedSentencesActionHistory', JSON.stringify(existingHistory));
 
     }
 }
@@ -276,15 +274,15 @@ function cancelLastAction() {
     // (jusqu'à la dernière sauvegarde ou suppression manuelle du localstorage)
 
     // récupère dans le localStorage la liste des actions effectuées
-    let history = JSON.parse(localStorage.getItem('actionHistory'));
+    let history = JSON.parse(localStorage.getItem('UnorderedSentencesActionHistory'));
 
     if (!history) {
         return;
     }
 
     // récupère les listes dédiées à chaque type d'action dans le localStorage
-    let deleteList = JSON.parse(localStorage.getItem('exerciseDelete'));
-    let updateList = JSON.parse(localStorage.getItem('exerciseChanges'));
+    let deleteList = JSON.parse(localStorage.getItem('UnorderedSentencesExerciseDelete'));
+    let updateList = JSON.parse(localStorage.getItem('UnorderedSentencesExerciseChanges'));
 
     // récupère le type de la dernière action
     let lastAction = history[history.length - 1];
@@ -295,7 +293,7 @@ function cancelLastAction() {
     if (lastAction == 'changes' && updateList) {
         let lastCancel = updateList.pop();
         history.pop();
-        localStorage.setItem('exerciseChanges', JSON.stringify(updateList));
+        localStorage.setItem('UnorderedSentencesExerciseChanges', JSON.stringify(updateList));
 
         let restoreId = lastCancel.exerciseId;
         let restoreSentence = lastCancel.originalSentence;
@@ -321,12 +319,12 @@ function cancelLastAction() {
     if (lastAction == 'delete' && deleteList) {
         deleteList.pop();
         history.pop();
-        localStorage.setItem('exerciseDelete', JSON.stringify(deleteList));
+        localStorage.setItem('UnorderedSentencesExerciseDelete', JSON.stringify(deleteList));
         refreshFromLocalStorage();
 
     }
 
     // stockes la nouvelle liste d'actions dans le localStorage
-    localStorage.setItem('actionHistory', JSON.stringify(history));
+    localStorage.setItem('UnorderedSentencesActionHistory', JSON.stringify(history));
 
 }

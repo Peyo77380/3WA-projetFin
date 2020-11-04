@@ -2,9 +2,7 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    localStorage.removeItem('exerciseChanges');
-    localStorage.removeItem('exerciseDelete');
-    localStorage.removeItem('actionHistory');
+
     setEventListeners();
     setControls();
     refreshMadLIbsFromLocalStorage();
@@ -29,8 +27,8 @@ function setControls() {
 
 function saveEveryChanges() {
 
-    let deletionList = JSON.parse(localStorage.getItem('exerciseDelete'));
-    let changeList = JSON.parse(localStorage.getItem('exerciseChanges'));
+    let deletionList = JSON.parse(localStorage.getItem('MadLibsExerciseDelete'));
+    let changeList = JSON.parse(localStorage.getItem('MadLibsExerciseChanges'));
 
 
     if (deletionList) {
@@ -50,7 +48,7 @@ function saveEveryChanges() {
 
             ajaxRequest.send(formData);
 
-            localStorage.removeItem('exerciseDelete');
+            localStorage.removeItem('MadLibsExerciseDelete');
 
 
         }
@@ -82,7 +80,7 @@ function saveEveryChanges() {
 
         }
 
-        localStorage.removeItem('exerciseChanges');
+        localStorage.removeItem('MadLibsExerciseChanges');
     }
 
 
@@ -163,12 +161,12 @@ function updateSelectedField(e) {
 
     // stocke l'objet en JSON dans le local storage dans une liste dédiée aux changement (différent des suppressions)
     // si cette liste n'existe pas déjà dans le local storage, elle est créée, sinon, l'objet est rajouté dans la version existante.
-    if (!localStorage.getItem('exerciseChanges')) {
-        localStorage.setItem('exerciseChanges', JSON.stringify([changes]));
+    if (!localStorage.getItem('MadLibsExerciseChanges')) {
+        localStorage.setItem('MadLibsExerciseChanges', JSON.stringify([changes]));
     } else {
-        let existingChanges = JSON.parse(localStorage.getItem('exerciseChanges'));
+        let existingChanges = JSON.parse(localStorage.getItem('MadLibsExerciseChanges'));
         existingChanges.push(changes);
-        localStorage.setItem('exerciseChanges', JSON.stringify(existingChanges));
+        localStorage.setItem('MadLibsExerciseChanges', JSON.stringify(existingChanges));
 
     }
 
@@ -190,15 +188,15 @@ function deleteSelectedField(e) {
         'exerciseId': id,
     };
 
-    if (!localStorage.getItem('exerciseDelete')) {
-        localStorage.setItem('exerciseDelete', JSON.stringify([toDelete]));
+    if (!localStorage.getItem('MadLibsExerciseDelete')) {
+        localStorage.setItem('MadLibsExerciseDelete', JSON.stringify([toDelete]));
 
     } else {
-        let existingDelete = JSON.parse(localStorage.getItem('exerciseDelete'));
+        let existingDelete = JSON.parse(localStorage.getItem('MadLibsExerciseDelete'));
         console.log(existingDelete);
         existingDelete.push(toDelete);
         console.log(existingDelete);
-        localStorage.setItem('exerciseDelete', JSON.stringify(existingDelete));
+        localStorage.setItem('MadLibsExerciseDelete', JSON.stringify(existingDelete));
 
     }
 
@@ -209,8 +207,8 @@ function deleteSelectedField(e) {
 
 
 function refreshMadLIbsFromLocalStorage() {
-    let deletionList = JSON.parse(localStorage.getItem('exerciseDelete'));
-    let changeList = JSON.parse(localStorage.getItem('exerciseChanges'));
+    let deletionList = JSON.parse(localStorage.getItem('MadLibsExerciseDelete'));
+    let changeList = JSON.parse(localStorage.getItem('MadLibsExerciseChanges'));
     console.log('refresh');
     console.log('deletion');
     console.log(deletionList);
@@ -243,36 +241,36 @@ function refreshMadLIbsFromLocalStorage() {
 
 
 function updateActionHistory(actionType) {
-    if (!localStorage.getItem('actionHistory')) {
-        localStorage.setItem('actionHistory', JSON.stringify([actionType]));
+    if (!localStorage.getItem('MadLibsActionHistory')) {
+        localStorage.setItem('MadLibsActionHistory', JSON.stringify([actionType]));
 
 
     } else {
-        let existingHistory = JSON.parse(localStorage.getItem('actionHistory'));
+        let existingHistory = JSON.parse(localStorage.getItem('MadLibsActionHistory'));
 
         existingHistory.push(actionType);
 
-        localStorage.setItem('actionHistory', JSON.stringify(existingHistory));
+        localStorage.setItem('MadLibsActionHistory', JSON.stringify(existingHistory));
 
     }
 }
 
 function cancelLastAction() {
 
-    let history = JSON.parse(localStorage.getItem('actionHistory'));
+    let history = JSON.parse(localStorage.getItem('MadLibsActionHistory'));
 
     if (!history) {
         return;
     }
 
-    let deleteList = JSON.parse(localStorage.getItem('exerciseDelete'));
-    let updateList = JSON.parse(localStorage.getItem('exerciseChanges'));
+    let deleteList = JSON.parse(localStorage.getItem('MadLibsExerciseDelete'));
+    let updateList = JSON.parse(localStorage.getItem('MadLibsExerciseChanges'));
     let lastAction = history[history.length - 1];
 
     if (lastAction == 'changes' && updateList) {
         let lastCancel = updateList.pop();
         history.pop();
-        localStorage.setItem('exerciseChanges', JSON.stringify(updateList));
+        localStorage.setItem('MadLibsExerciseChanges', JSON.stringify(updateList));
 
         let restoreId = lastCancel.exerciseId;
         let restoreSentence = lastCancel.originalSentence;
@@ -295,11 +293,11 @@ function cancelLastAction() {
     if (lastAction == 'delete' && deleteList) {
         deleteList.pop();
         history.pop();
-        localStorage.setItem('exerciseDelete', JSON.stringify(deleteList));
+        localStorage.setItem('MadLibsExerciseDelete', JSON.stringify(deleteList));
         refreshMadLIbsFromLocalStorage();
 
     }
-    localStorage.setItem('actionHistory', JSON.stringify(history));
+    localStorage.setItem('MadLibsActionHistory', JSON.stringify(history));
 
 
 }
