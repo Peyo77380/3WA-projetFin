@@ -756,6 +756,7 @@ form[action=adminUpdateExerciseSave] input[name=exerciseContent], form[action=ad
     }
 
 
+    /* le sliptscreen permet d'afficher des animations en fonction des intersectionsHandlers */
     .splitscreenLeft, .splitscreenRight {
 
         opacity: 0;

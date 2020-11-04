@@ -9,6 +9,7 @@ document.addEventListeners('DOMContentLoaded', () => {
 
     // pour chaque frame correspondant à la classe sliptscreen, un eventListener est
     // appliqué, déclenchant la fonction handleInstersection
+    // (seulement dispo en version desktop)
     frames.forEach(frame => observer.observe(frame));
 
 });
