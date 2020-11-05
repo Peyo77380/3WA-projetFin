@@ -11,12 +11,10 @@ class Router
 
     public function __construct()
     {
-        var_dump(__DIR__);
-        var_dump($_SERVER);
         // récupère le nom du controlleur demandé.
         $this->defineRequest();
 
-        if ($this->request === '' || $this->request === '/') {
+        if ($this->request === '' || $this->request === '/' || $this->request === '/index.php') {
             // si la demande ne contient pas de sous partie, ou que le site est lancé : l'index est appelé par défaut
             $this->request = '/index';
         }
@@ -48,10 +46,6 @@ class Router
         // retourne le chemin vers le dossier Root du serveur
         $this->request = str_replace($serverName, $needle, $address);
         
-        
-        //$this->request = $_SERVER['REQUEST_URI'];
-        var_dump($this->request);
-
     }
 
     public function defineControllerName()
@@ -158,7 +152,7 @@ class Router
         }
         if ($existingExceptionCase == TRUE) {
 
-            header('Location: /' . $exception->{'origin'});
+            header('Location: /3WA-projetFin/' . $exception->{'origin'});
             return;
         }
 

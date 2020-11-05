@@ -2,7 +2,7 @@ RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.+) /index.php [QSA,L]
+RewriteRule ^(.+) /3WA-projetFin/index.php [QSA,L]
 DirectoryIndex index.php
 
 # CUSTOM ERROR PAGES

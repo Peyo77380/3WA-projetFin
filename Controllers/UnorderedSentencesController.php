@@ -5,7 +5,7 @@ class unorderedSentencesController extends Controller
 {
     public $sentences;
     public $cutSentences;
-    public $unorderedSentences;
+    public $unorderedSentences = [];
 
     public function __construct($target)
     {
@@ -35,7 +35,7 @@ class unorderedSentencesController extends Controller
     {
         // va chercher les exercices en base de donnée
         $sentences = new ExercisesModel();
-        $sentences->setTableName('UnorderedSentences');
+        $sentences->setTableName('unorderedSentences');
         $sentences->setNumberOfSentences(3);
         $sentences->setGetterQuery();
         $pdoResult = $sentences->launchDBRequest();

@@ -4,10 +4,13 @@
 // gère l'ajout de nouveaux exercices dans la base de donnée
 require_once(__DIR__ . '/AdminExercisesController.php');
 
+
+
+
 class AdminAddExerciseController extends AdminExercisesController
 {
 
-    private $values;
+    public $values;
 
     public function __construct($target)
     {
@@ -20,7 +23,7 @@ class AdminAddExerciseController extends AdminExercisesController
 
         $this->saveNewExercise();
 
-        header('Location: /AdminExercises' . ucfirst($this->exerciseName));
+        header('Location: /3WA-projetFin/AdminExercises' . ucfirst($this->exerciseName));
         parent::__construct($target);
     }
 

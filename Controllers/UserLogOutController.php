@@ -7,7 +7,7 @@ class UserLogOutController extends Controller
     {
         session_destroy();
 
-        header('Location: /');
+        header('Location: /3WA-projetFin/');
         
         
         die();

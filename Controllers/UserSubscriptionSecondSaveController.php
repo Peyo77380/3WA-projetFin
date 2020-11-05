@@ -25,7 +25,7 @@ class UserSubscriptionSecondSaveController extends Controller
 
         $this->updateDatabase();
         $this->saveToSession();
-        header('Location: /userSubscriptionThird');
+        header('Location: /3WA-projetFin/userSubscriptionThird');
         $data = [];
 
         parent::__construct($target, $data);

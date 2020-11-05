@@ -6,7 +6,8 @@ abstract class AdminExercisesController extends Controller
 
     public $exerciseName;
     public $values;
-
+    public $sentences;
+    
     public function __construct($target, $data)
     {
 
@@ -35,7 +36,7 @@ abstract class AdminExercisesController extends Controller
         $connection->setTableName($this->exerciseName);
         $connection->setGetterQuery();
         $pdoResult = $connection->launchDBRequest();
-
+        
         $this->sentences = decodeArray($pdoResult);
     }
 

@@ -13,10 +13,10 @@ class AdminExercisesMadLibsController extends AdminExercisesController
         $this->setScript('adminExercisesMadLibsNewExercise');
         $this->setDescription('Page de gestion de l\'exercise de textes à trous, réservée à certains utilisateurs disposant des droits.');
 
-        $this->exerciseName = 'MadLibs';
+        $this->exerciseName = 'madLibs';
 
         $this->getSentences();
-
+        
         parent::__construct($target, $this->sentences);
     }
 

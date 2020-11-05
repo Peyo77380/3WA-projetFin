@@ -29,7 +29,7 @@ class UserSubscriptionSaveController extends Controller
         $this->saveToDatabase();
         $this->saveToSession();
 
-        header('Location: /userSubscriptionSecond');
+        header('Location: /3WA-projetFin/userSubscriptionSecond');
         return;
 
 

@@ -24,6 +24,8 @@ class Database
                 $dbSettings['password'],
                 $pdoOptions,
             );
+            
+        $this->pdo->exec('SET NAMES UTF8');
 
         } catch(PDOException $e) {
 
@@ -45,7 +47,7 @@ class Database
 
 
         $query->execute();
-
+        
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 

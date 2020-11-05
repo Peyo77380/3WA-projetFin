@@ -12,7 +12,7 @@ class MadLibsController extends Controller
     // liste des mots correspondant aux trous, dans l'ordre d'apparition dans le texte
     public $madLibsWords;
     public $madLibsAnswerFields;
-    public $display;
+    public $display = [];
 
     public function __construct($target)
 
@@ -33,7 +33,7 @@ class MadLibsController extends Controller
         $this->setGapsAndWords();
         $this->prepareForms();
 
-        parent::__construct($target, $this->display);
+        parent::__construct($target, $this->display, $this->meta);
 
 
     }
@@ -42,7 +42,7 @@ class MadLibsController extends Controller
     {
         // va chercher les exercices en base de donnée
         $sentences = new ExercisesModel();
-        $sentences->setTableName('MadLibs');
+        $sentences->setTableName('madLibs');
         $sentences->setNumberOfSentences(3);
         $sentences->setGetterQuery();
         $pdoResult = $sentences->launchDBRequest();

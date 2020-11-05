@@ -1,6 +1,6 @@
 'use strict';
 
-document.addEventListeners('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     let frames = document.querySelectorAll('.splitscreen');
     let options = {
         threshold: 0.3,

@@ -12,7 +12,7 @@ class AdminDeleteExerciseController extends AdminExercisesController
         $this->validateData();
         $this->deleteInDb();
 
-        header('Location: /AdminExercises' . ucfirst($databaseTable));
+        header('Location: /3WA-projetFin/AdminExercises' . ucfirst($databaseTable));
 
         parent::__construct($target);
     }

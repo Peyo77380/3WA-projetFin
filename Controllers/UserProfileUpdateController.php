@@ -4,12 +4,12 @@ class UserProfileUpdateController extends Controller
 {
     public function __construct()
     {
-        $this->setConnectedUserFilter();
+        $this->setConnectedUserFilter('userConnection');
         $this->recievePostForm();
 
         $this->updateUserInDb();
 
-        header('Location: /' . $this->postResult['origin']);
+        header('Location: /3WA-projetFin/' . $this->postResult['origin']);
 
         die();
 

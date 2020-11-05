@@ -39,7 +39,7 @@ function saveEveryChanges() {
 
             let ajaxRequest = new XMLHttpRequest();
 
-            ajaxRequest.open('POST', 'AdminDeleteExercise');
+            ajaxRequest.open('POST', '3WA-projetFin/AdminDeleteExercise');
 
             ajaxRequest.send(formData);
         }
@@ -58,7 +58,7 @@ function saveEveryChanges() {
 
             let ajaxRequest = new XMLHttpRequest();
 
-            ajaxRequest.open('POST', 'AdminUpdateExerciseSave');
+            ajaxRequest.open('POST', '3WA-projetFin/AdminUpdateExerciseSave');
             ajaxRequest.send(formData);
         }
         localStorage.removeItem('MadLibsExerciseChanges');

@@ -27,13 +27,13 @@
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sansita+Swashed&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./assets/styles/normalize.css">
-    <link rel="stylesheet" type="text/css"  href="./assets/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="https://<?= $_SERVER['HTTP_HOST'] ?>/3WA-projetFin/assets/styles/normalize.css">
+    <link rel="stylesheet" type="text/css"  href="https://<?= $_SERVER['HTTP_HOST'] ?>/3WA-projetFin/assets/styles/style.css">
 
 </head>
 <body>
 <header>
-    <a href="/" class="logo">
+    <a href="/3WA-projetFin/" class="logo">
         <h1>Lasciatemi parlare</h1>
     </a>
     <nav>
@@ -106,7 +106,7 @@
 <?php
 if (isset($meta['scriptName'])) {
     foreach ($meta['scriptName'] as $script) {
-        echo '<script type="text/javascript" src="http://' . $_SERVER["HTTP_HOST"] . '/assets/js/' . $script . '.js"></script>';
+        echo '<script type="text/javascript" src="https://' . $_SERVER["HTTP_HOST"] . '/3WA-projetFin/assets/js/' . $script . '.js"></script>';
     }
 }
 

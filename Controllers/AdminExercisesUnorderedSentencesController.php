@@ -13,7 +13,7 @@ class AdminExercisesUnorderedSentencesController extends AdminExercisesControlle
         $this->setScript('adminExercisesUnorderedSentences');
         $this->setDescription('Page de gestion de l\'exercise de phrases destrucutérées, réservée à certains utilisateurs disposant des droits.');
 
-        $this->exerciseName = 'UnorderedSentences';
+        $this->exerciseName = 'unorderedSentences';
 
         $this->getSentences();
 

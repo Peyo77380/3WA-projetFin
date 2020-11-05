@@ -219,7 +219,7 @@ function sendToDB () {
 
     // on envoie au cntrolleur
     let ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', 'AdminAddExercise');
+    ajaxRequest.open('POST', '/3WA-projetFin/AdminAddExercise');
     let id = ajaxRequest.send(formData);
 
     // on enlève les éléments maintenant inutiles du localStorage.

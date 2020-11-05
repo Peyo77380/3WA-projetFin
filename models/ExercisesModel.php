@@ -18,9 +18,7 @@ class ExercisesModel
 
         $this->data = new Database();
 
-        $this->result = $this->data->sendQuery($this->query, $this->params);
-
-        return $this->result;
+        return $this->result = $this->data->sendQuery($this->query, $this->params);
 
     }
 
