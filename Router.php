@@ -11,6 +11,8 @@ class Router
 
     public function __construct()
     {
+        var_dump(__DIR__);
+        var_dump($_SERVER);
         // récupère le nom du controlleur demandé.
         $this->defineRequest();
 
@@ -39,13 +41,16 @@ class Router
     {
         // variable nécessaire car nous ne sommes pas à la racine du serveur.
         // elle est amenée à changer selon le serveur où les fichiers sont utilisés.
-        //$serverName = '3WA-projetFin/';
+        $serverName = '3WA-projetFin/';
 
-        //$address = $_SERVER['REQUEST_URI'];
-        //$needle = '';
+        $address = $_SERVER['REQUEST_URI'];
+        $needle = '';
         // retourne le chemin vers le dossier Root du serveur
-        //$this->request = str_replace($serverName, $needle, $address);
-        $this->request = $_SERVER['REQUEST_URI'];
+        $this->request = str_replace($serverName, $needle, $address);
+        
+        
+        //$this->request = $_SERVER['REQUEST_URI'];
+        var_dump($this->request);
 
     }
 
@@ -59,6 +64,8 @@ class Router
 
     public function reroute()
     {
+        
+        
         try {
 
             // lance les controleurs nécessaires à l'affichage de la page demandée

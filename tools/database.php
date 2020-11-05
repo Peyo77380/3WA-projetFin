@@ -8,7 +8,7 @@ class Database
     public function __construct()
     {
 
-        $dbSettings = parse_ini_file('/Applications/MAMP/htdocs/3WA-projetFin/tools/config/databaseConfig.ini');
+        $dbSettings = parse_ini_file('./tools/config/databaseConfig.ini');
 
         $dsn = sprintf('mysql:dbname=%s;host=%s', $dbSettings['dbname'], $dbSettings['host']);
 

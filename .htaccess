@@ -1,9 +1,0 @@
-RewriteEngine On
-RewriteBase /
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.+) /index.php [QSA,L]
-DirectoryIndex index.php
-
-# CUSTOM ERROR PAGES
-ErrorDocument 404 /Views/error/404.phtml

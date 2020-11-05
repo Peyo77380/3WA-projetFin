@@ -26,6 +26,7 @@ abstract class Controller
     // lance la vue nécessaire, en fonction de l'url transmise par le router.
     protected function getDedicatedView($target, array $data = [], array $meta = [])
     {
+        var_dump($target);
         try {
 
             $view = new Views($target);
