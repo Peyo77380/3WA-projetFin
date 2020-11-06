@@ -1,17 +1,19 @@
+
+<div class="banner">
+    <h2>Votre profil</h2>
+</div>
+
 <?php if (isset($_SESSION['error']) && $_SESSION['error'] !== []) : ?>
     <div class="displayError">
         <?= $_SESSION['error'] ?>
     </div>
 <?php endif; ?>
-<div class="banner">
-    <h2>Votre profil</h2>
-</div>
 
 <div class="fullscreen profile textContainer">
     <div class="row">
 
         <div class="box">
-            <h4>Login</h4>
+            <h4>Nom d'utilisateur</h4>
             <div class="field"><?= $data[0]['username'] ?></div>
             <form data-index="username" action="UserProfileUpdate" class="hidden" method="post">
 

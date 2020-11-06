@@ -42,7 +42,8 @@ function exercisesCleaner($exercises)
 function decode($string)
 {
     // permet de décoder les champs passés par la fonction  clean()
-    return htmlspecialchars_decode(html_entity_decode($string));
+    return filter_var(htmlspecialchars_decode(html_entity_decode($string)), FILTER_SANITIZE_STRING);
+
 
 }
 
@@ -53,8 +54,8 @@ function decodeArray($stringsArray)
     foreach ($stringsArray as $id => $string) {
 
         foreach ($string as $wordNumber => $word) {
-            $decodedWordNumber = html_entity_decode(htmlspecialchars_decode($wordNumber));
-            $decodedWord = html_entity_decode(htmlspecialchars_decode($word));
+            $decodedWordNumber = filter_var(html_entity_decode(htmlspecialchars_decode($wordNumber)), FILTER_SANITIZE_STRING);
+            $decodedWord = filter_var(html_entity_decode(htmlspecialchars_decode($word)), FILTER_SANITIZE_STRING);
 
             $decodedAnswer[$id][$decodedWordNumber] = $decodedWord;
         }

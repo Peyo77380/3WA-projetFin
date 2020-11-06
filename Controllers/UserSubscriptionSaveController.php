@@ -20,8 +20,7 @@ class UserSubscriptionSaveController extends Controller
             'mot de passe' => $this->postResult['password']
         ], 'userConnection');
         $this->checkPassword($this->postResult['password'], 'userConnection');
-
-
+        $this->checkLogin($this->postResult['username'], 'userConnection');
         $this->checkEmail($this->postResult['email'], 'userConnection');
         $this->searchExistingUser('userConnection');
 
@@ -112,6 +111,19 @@ class UserSubscriptionSaveController extends Controller
         }
 
     }
+    
+    public function checkForSpecialChars(string $string, $origin)
+    {
+        if (!preg_match("/[-0-9a-zA-Z.+_]/", $string)) {
+            throw new Exception (
+                json_encode([
+                        'message' => 'login',
+                        'origin' => $origin
+                    ]
+                )
+            );
+        }
+    }
 
 
     public function checkEmail(string $email, $origin)
@@ -121,6 +133,20 @@ class UserSubscriptionSaveController extends Controller
             throw new Exception (
                 json_encode([
                         'message' => 'email',
+                        'origin' => $origin
+                    ]
+                )
+            );
+        }
+    }
+    
+    public function checkLogin(string $string, $origin)
+    {
+        
+        if (!preg_match('/^\pL+$/u', $string)) {
+            throw new Exception (
+                json_encode([
+                        'message' => 'login',
                         'origin' => $origin
                     ]
                 )

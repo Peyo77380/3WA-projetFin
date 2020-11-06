@@ -64,7 +64,7 @@ class madLibsResultController extends Controller
             $wordpos = strpos($index, 'word');
             $exerciseId = substr($index, 2, $wordpos - 2);
 
-            $words[$exerciseId][] = $word;
+            $words[$exerciseId][] = filter_var(html_entity_decode(htmlspecialchars_decode($word)), FILTER_SANITIZE_STRING);
         }
 
         $this->madLibsAnswers = $words;
@@ -101,7 +101,7 @@ class madLibsResultController extends Controller
         foreach ($this->madLibsWords as $exerciseId => $words) {
 
             for ($i = 0; $i < count($words); $i++) {
-                $correctWord = $words[$i];
+                $correctWord = filter_var(html_entity_decode(htmlspecialchars_decode($words[$i])), FILTER_SANITIZE_STRING);
                 $userAnswer = filter_var(html_entity_decode(htmlspecialchars_decode($this->madLibsAnswers[$exerciseId][$i])), FILTER_SANITIZE_STRING);;
                 $correct = FALSE;
                 if ($correctWord === $userAnswer) {

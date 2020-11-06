@@ -134,7 +134,10 @@ class Router
                 $_SESSION['error'] = $message;
                 break;
 
-
+            case 'login' :
+                $_SESSION['error'] = 'Le nom d\'utilisateur ne peut contenir que des lettres, majuscules ou minuscules.';
+                break;
+                
             case 'email' :
                 $_SESSION['error'] = 'L\'adresse email n\'est pas valide';
                 break;

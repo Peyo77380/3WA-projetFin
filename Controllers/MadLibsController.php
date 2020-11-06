@@ -98,8 +98,9 @@ class MadLibsController extends Controller
             }
 
 
+
             for ($i = 0; $i < count($this->madLibsExercise[$id]); $i++) {
-                $this->display[$id]['wording'][] = $this->madLibsExercise[$id][$i];
+                $this->display[$id]['wording'][] = filter_var($this->madLibsExercise[$id][$i],  FILTER_SANITIZE_STRING);;
                 if (isset($answerField[$i])) {
                     $this->display[$id]['wording'][] = $answerField[$i];
                 }
