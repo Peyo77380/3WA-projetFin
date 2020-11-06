@@ -2,7 +2,13 @@
     <h2>Phrases déstructurées</h2>
 </div>
 <div class="fullscreen">
-
+<?php if (isset($_SESSION['error']) && $_SESSION['error'] !== []) : ?>
+    
+        <div class="displayError">
+            <?= $_SESSION['error'] ?>
+        </div>
+    
+<?php endif; ?>
 
     <section class="rule">
         <p>Remettez les phrases dans l'ordre</p>

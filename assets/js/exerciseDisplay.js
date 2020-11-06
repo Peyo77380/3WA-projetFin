@@ -25,13 +25,15 @@ class ExerciseDisplay {
     setNavigationButtons() {
         //ajouter boutons navigation dans une zone dédiée.
         this._navigationControl = document.createElement('div');
+        this._navigationControl.classList.add('gameControlBar');
 
         let previousButton = document.createElement('button');
         previousButton.value = 'previous';
         previousButton.innerHTML = 'Précédent';
         previousButton.addEventListener('click', this.showPreviousQuestion.bind(this));
-
         previousButton.classList.add('gameControl');
+        previousButton.classList.add('hidden');
+        
         let nextButton = document.createElement('button');
         nextButton.value = 'next';
         nextButton.innerHTML = 'Suivant';
@@ -43,7 +45,16 @@ class ExerciseDisplay {
 
         this.wrapper.appendChild(this._navigationControl);
     }
-
+    
+    toggleButton(value) {
+        let button = document.querySelector(`button[value=${value}]`);
+        button.classList.toggle('hidden');
+    }
+    
+    showButton(value){
+        let button = document.querySelector(`button[value=${value}]`);
+        button.classList.remove('hidden');
+    }
     hideSubmit() {
         //rendre validation invisible
         let submitButton = document.querySelector('input[type="submit"]');
@@ -75,7 +86,12 @@ class ExerciseDisplay {
         }
 
         this.questionIndex--;
-
+        if (this.questionIndex === 0) {
+            this.toggleButton('previous');
+        }
+        if (this.questionIndex < this._exerciseQuestions.length) {
+            this.showButton('next');
+        }
         this.hideQuestions();
         this.displayQuestion(this.questionIndex);
         this.hideSubmit();
@@ -83,11 +99,15 @@ class ExerciseDisplay {
     }
 
     showNextQuestion() {
+        if (this.questionIndex === 0) {
+            this.toggleButton('previous');
+        }
         this.questionIndex++;
 
         if (this.questionIndex === this._exerciseQuestions.length) {
             this.hideQuestions();
             this.showSubmit();
+            this.toggleButton('next');
             return;
 
         }

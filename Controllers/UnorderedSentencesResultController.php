@@ -40,18 +40,35 @@ class UnorderedSentencesResultController extends Controller
     public function getCorrectAnswer()
     {
         // récupère les infos stockées par le controlleur précédent en $_SESSION
-        $this->correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
+        if(isset($_SESSION['exercises']['unorderedSentences']['correct'])) {
+            $this->correctAnswers = $_SESSION['exercises']['unorderedSentences']['correct'];
+        } else {
+            throw new Exception(json_encode(
+                [
+                    'message' => 'noAnswer',
+                    'origin' => 'unorderedSentences',
+                ]));
+            return;
+        }
     }
 
     public function setCorrection()
     {
+        
+        if($this->userAnswers === []) {
+            throw new Exception(json_encode(
+                [
+                    'message' => 'noAnswer',
+                    'origin' => 'unorderedSentences',
+                ]));
+                return;
+        }
         // compare les éléments du post et les éléments stokés en session
-
         foreach ($this->userAnswers as $key => $values) {
 
             $userAnswer = [];
             foreach ($values as $exercise) {
-                $userAnswer[] = html_entity_decode(htmlspecialchars_decode($exercise));
+                $userAnswer[] = filter_var(html_entity_decode(htmlspecialchars_decode($exercise)), FILTER_SANITIZE_STRING);
             }
             $answer = implode(" ", $this->correctAnswers[$key]['sentence']);
             $givenAnswer = implode(" ", $userAnswer);

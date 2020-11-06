@@ -26,7 +26,7 @@ class UserProfileUpdateController extends Controller
         $data = new UsersModel();
         $data->setUpdateQuery($this->postResult['selectedField']);
         $data->setUserId($this->postResult['userId']);
-        $data->setUpdatedValue($this->postResult['newValue']);
+        $data->setUpdatedValue(filter_var(html_entity_decode(htmlspecialchars_decode($this->postResult['newValue'])), FILTER_SANITIZE_STRING));
         $data->launchDBRequest();
 
     }

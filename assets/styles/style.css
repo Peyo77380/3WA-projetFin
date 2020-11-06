@@ -141,6 +141,11 @@ button, input[type=submit] {
     transition: 0.5s ease-in;
 }
 
+button a {
+    text-decoration: none;
+    color: white;
+}
+
 button:hover, input[type=submit]:hover {
     transform: scale(1.1);
 }
@@ -165,10 +170,14 @@ button:hover, input[type=submit]:hover {
 .displayError {
     color: var(--main-dark);
     font-weight: bold;
-    background-color: var(--light);
+    background-color: rgba(255, 0, 0, 0.2);
+    border: thin solid rgba(255,0,0,0.7);
     transition: 1s;
     animation: ease 1s disappearUp;
     z-index: 1;
+    width: 80%;
+    text-align: center;
+    margin: 1rem auto;
 }
 
 
@@ -375,10 +384,14 @@ main {
 }
 
 /*style fullpage */
+.fullscreen {
+
+    text-align: center;
+}
+
 .fullscreen .textContainer {
     padding: 0.5rem;
     overflow: hidden;
-    text-align: center;
 }
 
 /* style footer */
@@ -400,6 +413,9 @@ footer img {
 
 
 /* style des exercises */
+.gameControlBar {
+    padding: 1rem;
+}
 .rule, .note {
     background-color: var(--light);
     border: 1px solid var(--bg-higlight);
@@ -410,6 +426,10 @@ footer img {
 
 .exercise {
     text-align: right;
+}
+
+.exercise>input[type=submit]{
+    margin: auto;
 }
 
 fieldset.exercise_question {
@@ -753,6 +773,13 @@ form[action=adminUpdateExerciseSave] input[name=exerciseContent], form[action=ad
     header .logo {
         font-size: 80%;
 
+    }
+    
+    /* footer */
+    
+    footer img {
+        max-height: 2rem;
+        max-width: 2rem;
     }
 
 

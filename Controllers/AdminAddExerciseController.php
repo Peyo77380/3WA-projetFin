@@ -23,7 +23,8 @@ class AdminAddExerciseController extends AdminExercisesController
 
         $this->saveNewExercise();
 
-        header('Location: /3WA-projetFin/AdminExercises' . ucfirst($this->exerciseName));
+        header('Location: adminExercises' . ucfirst($this->exerciseName));
+        die();
         parent::__construct($target);
     }
 

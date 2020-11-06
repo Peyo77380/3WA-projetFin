@@ -13,7 +13,7 @@ class AdminUpdateExerciseSaveController extends AdminExercisesController
         $this->updateExercise();
 
 
-        header('Location: /AdminExercises' . ucfirst($this->postResult['exerciseName']));
+        header('Location: adminExercises' . ucfirst($this->postResult['exerciseName']));
 
         $this->setTitle('Modification d\'exercice');
         $this->setDescription('Page de modification d\'un exercise existant.');

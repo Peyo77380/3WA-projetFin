@@ -140,9 +140,12 @@ class Router
                 break;
 
             case 'password' :
-                $_SESSION['error'] = 'Le mot de passe doit avoir au moins 8 caractères, dont une majuscule, une minuscule, un nombre.';
+                $_SESSION['error'] = 'Le mot de passe doit avoir au moins 8 caractères, dont une majuscule, une minuscule, un nombre et un caractère spécial.';
                 break;
 
+            case 'noAnswer' : 
+                $_SESSION['error'] = 'Nous n\'avons pas reçu votre réponse, êtes vous sur d\'avoir fait l\'exercice?';
+                break;
 
             default:
                 http_response_code(404);

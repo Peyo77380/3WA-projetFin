@@ -18,7 +18,8 @@ class madLibsResultController extends Controller
         $this->setConnectedUserFilter('userConnection');
         $this->setTitle('Correction - Texte à trous');
         $this->setDescription('Correction des exercices de textes à trous en italien');
-        require('./tools/database.php');
+        
+        $this->recievePostForm();
         $this->getAnswers();
         $this->setNote();
         $this->setCorrection();
@@ -37,15 +38,25 @@ class madLibsResultController extends Controller
     public function getAnswers()
     {
 
-        //récupère les réponses depuis le post et les infos stockées par le controlleur précédant dans la $_SESSION
-        $post = postCleaner($_POST);
-        $this->madLibsText = $_SESSION['exercises']['text'];
-        $this->madLibsWords = $_SESSION['exercises']['words'];
-        $this->madLibsExercise = $_SESSION['exercises']['exercise'];
+        //récupère les réponses et les infos stockées par le controlleur précédant dans la $_SESSION
+        
+        if(isset($_SESSION['exercises']['text']) && isset($_SESSION['exercises']['words']) && isset($_SESSION['exercises']['exercise'])) {
+            $this->madLibsText = $_SESSION['exercises']['text'];
+            $this->madLibsWords = $_SESSION['exercises']['words'];
+            $this->madLibsExercise = $_SESSION['exercises']['exercise'];
+        } else {
+            throw new Exception(json_encode(
+                [
+                    'message' => 'noAnswer',
+                    'origin' => 'madLibs',
+                ]));
+            return;
+        }
+        
 
         $words = [];
         // mets en forme la réponse de l'élève pour la correction.
-        foreach ($post as $index => $word) {
+        foreach ($this->postResult as $index => $word) {
             if ($word === '') {
                 $word = '//empty//';
             }
@@ -70,7 +81,7 @@ class madLibsResultController extends Controller
 
             for ($i = 0; $i < count($words); $i++) {
 
-                if ($words[$i] === $this->madLibsAnswers[$exerciseId][$i]) {
+                if ($words[$i] === filter_var(html_entity_decode(htmlspecialchars_decode($this->madLibsAnswers[$exerciseId][$i])), FILTER_SANITIZE_STRING)) {
                     $this->note++;
 
                 } else {
@@ -91,7 +102,7 @@ class madLibsResultController extends Controller
 
             for ($i = 0; $i < count($words); $i++) {
                 $correctWord = $words[$i];
-                $userAnswer = $this->madLibsAnswers[$exerciseId][$i];
+                $userAnswer = filter_var(html_entity_decode(htmlspecialchars_decode($this->madLibsAnswers[$exerciseId][$i])), FILTER_SANITIZE_STRING);;
                 $correct = FALSE;
                 if ($correctWord === $userAnswer) {
                     $correct = TRUE;
@@ -99,7 +110,7 @@ class madLibsResultController extends Controller
 
                 $correction[$exerciseId][] = [
                     'correctWord' => $correctWord,
-                    'answer' => $userAnswer = $this->madLibsAnswers[$exerciseId][$i],
+                    'answer' => $userAnswer,
                     'correction' => $correct,
                 ];
             }

@@ -37,7 +37,21 @@ abstract class AdminExercisesController extends Controller
         $connection->setGetterQuery();
         $pdoResult = $connection->launchDBRequest();
         
-        $this->sentences = decodeArray($pdoResult);
+        $result = decodeArray($pdoResult);
+        
+        $cleanResult = [];
+        foreach($result as $key => $value){
+            
+            $cleanValue = filter_var($value['sentence'],  FILTER_SANITIZE_STRING);
+            $cleanId = filter_var($value['exerciseId'],  FILTER_SANITIZE_STRING);
+            
+            $cleanResult[$key]['exerciseId'] = $cleanId;
+            $cleanResult[$key]['sentence'] = $cleanValue;
+
+        }
+
+        $this->sentences = $cleanResult;
+        
     }
 
     public function updateExercise()
